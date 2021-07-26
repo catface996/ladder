@@ -12,5 +12,5 @@
 * [搭建elasticsearch集群](./elasticsearch.md)
 * [搭建Kafka集群](./搭建kafka集群.md)
 * [搭建K8s集群](./安装K8S.md)
-* 
+* [搭建nginx](./nginx.md)
 
