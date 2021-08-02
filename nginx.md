@@ -53,7 +53,7 @@ tar -xvzf nginx-1.14.2.tar.gz
 * 编译安装
 
 ~~~shell
-cd /usr/local/nginx
+cd /usr/local/nginx-1.14.2
 ./configure --prefix=/usr/local/nginx
 make
 make install  ##安装到/usr/local/nginx目录下
