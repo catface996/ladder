@@ -221,6 +221,19 @@ docker info
 systemctl enable docker
 ~~~
 
+安装docker-compose
+
+~~~shell
+# 下载docker compose 版本号可以根据自己的需要替换
+sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# 添加可执行权限
+sudo chmod +x /usr/local/bin/docker-compose
+# 将文件copy到 /usr/bin/目录下
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+# 查看版本
+docker-compose --version
+~~~
+
 复制虚拟机
 
 ~~~properties
