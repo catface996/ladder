@@ -734,13 +734,62 @@ status:
 
 ## 其他需要思考的点
 
+
+
 ### 日志的统一采集,便于排查问题
 
 建议将日志统一存储在一个project中,便于通过traceId进行日志检索.
 
-### 链路追踪
+### 链路追踪及环境参数在链路中传播
 
 需要融合springCloud和istio链路追踪,保持相同的traceId
+
+建议使用spring-cloud-starter-sleuth来实现路由参数在调用链路中的传递,在3.1.1版本中,只需要增加以下配置即可实现sleuth自定义参数在调用链路中的传递.
+
+~~~properties
+## spring-cloud-starter-sleuth 3.1.1
+spring.sleuth.baggage.remote-fields=env
+~~~
+
+sleuth已经支持链路追踪参数传递场景,例如feignClient,Executor,@Async,grpc等等,均可以在Trace中接收或者获取.
+
+实现的效果如下:
+
+postman --> cat --> dog
+
+* postman发出当前请求
+
+![image-20220225222952638](https://tva1.sinaimg.cn/large/e6c9d24ely1gzq4nik39zj22540q2dje.jpg)
+
+* cat接收到请求
+
+~~~shell
+2022-02-25 21:35:46.853  INFO [cat,716fd0d8d037ae48,716fd0d8d037ae48] 25032 --- [nio-9001-exec-2] c.e.istio.controller.DemoController      : env -- > xxx
+2022-02-25 21:35:46.854  INFO [cat,716fd0d8d037ae48,716fd0d8d037ae48] 25032 --- [nio-9001-exec-2] c.e.istio.controller.DemoController      : user-agent -- > PostmanRuntime/7.29.0
+2022-02-25 21:35:46.854  INFO [cat,716fd0d8d037ae48,716fd0d8d037ae48] 25032 --- [nio-9001-exec-2] c.e.istio.controller.DemoController      : accept -- > */*
+2022-02-25 21:35:46.854  INFO [cat,716fd0d8d037ae48,716fd0d8d037ae48] 25032 --- [nio-9001-exec-2] c.e.istio.controller.DemoController      : postman-token -- > ffc3adfd-b406-48cc-9b0c-53c795245555
+2022-02-25 21:35:46.854  INFO [cat,716fd0d8d037ae48,716fd0d8d037ae48] 25032 --- [nio-9001-exec-2] c.e.istio.controller.DemoController      : host -- > localhost:9001
+2022-02-25 21:35:46.854  INFO [cat,716fd0d8d037ae48,716fd0d8d037ae48] 25032 --- [nio-9001-exec-2] c.e.istio.controller.DemoController      : accept-encoding -- > gzip, deflate, br
+2022-02-25 21:35:46.854  INFO [cat,716fd0d8d037ae48,716fd0d8d037ae48] 25032 --- [nio-9001-exec-2] c.e.istio.controller.DemoController      : connection -- > keep-alive
+2022-02-25 21:35:46.854  INFO [cat,716fd0d8d037ae48,716fd0d8d037ae48] 25032 --- [nio-9001-exec-2] c.e.istio.controller.DemoController      : header env(xxx), I'm cat(prod)
+~~~
+
+* dog收到的请求
+
+~~~shell
+2022-02-25 21:35:46.945  INFO [cat,716fd0d8d037ae48,d662ac0117fb6d36] 25022 --- [nio-9002-exec-1] c.e.istio.controller.DemoController      : x-b3-traceid -- > 716fd0d8d037ae48
+2022-02-25 21:35:46.946  INFO [cat,716fd0d8d037ae48,d662ac0117fb6d36] 25022 --- [nio-9002-exec-1] c.e.istio.controller.DemoController      : x-b3-spanid -- > d662ac0117fb6d36
+2022-02-25 21:35:46.946  INFO [cat,716fd0d8d037ae48,d662ac0117fb6d36] 25022 --- [nio-9002-exec-1] c.e.istio.controller.DemoController      : x-b3-parentspanid -- > 716fd0d8d037ae48
+2022-02-25 21:35:46.946  INFO [cat,716fd0d8d037ae48,d662ac0117fb6d36] 25022 --- [nio-9002-exec-1] c.e.istio.controller.DemoController      : x-b3-sampled -- > 0
+2022-02-25 21:35:46.946  INFO [cat,716fd0d8d037ae48,d662ac0117fb6d36] 25022 --- [nio-9002-exec-1] c.e.istio.controller.DemoController      : env -- > xxx
+2022-02-25 21:35:46.946  INFO [cat,716fd0d8d037ae48,d662ac0117fb6d36] 25022 --- [nio-9002-exec-1] c.e.istio.controller.DemoController      : accept -- > */*
+2022-02-25 21:35:46.946  INFO [cat,716fd0d8d037ae48,d662ac0117fb6d36] 25022 --- [nio-9002-exec-1] c.e.istio.controller.DemoController      : user-agent -- > Java/11.0.14
+2022-02-25 21:35:46.946  INFO [cat,716fd0d8d037ae48,d662ac0117fb6d36] 25022 --- [nio-9002-exec-1] c.e.istio.controller.DemoController      : host -- > localhost:9002
+2022-02-25 21:35:46.946  INFO [cat,716fd0d8d037ae48,d662ac0117fb6d36] 25022 --- [nio-9002-exec-1] c.e.istio.controller.DemoController      : connection -- > keep-alive
+2022-02-25 21:35:46.946  INFO [cat,716fd0d8d037ae48,d662ac0117fb6d36] 25022 --- [nio-9002-exec-1] c.e.istio.controller.DemoController      : header env(xxx), I'm cat(gray)
+~~~
+
+
 
 ### 用户级的灰度,进入网关后,通过业务逻辑决定用户的灰度线路
 
