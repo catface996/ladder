@@ -813,3 +813,11 @@ postman --> cat --> dog
 
 
 
+## ISTIO 部署图
+
+
+
+![image-20220301174018582](https://tva1.sinaimg.cn/large/e6c9d24egy1gzuiso3j5gj20pn0pmwg4.jpg)
+
+
+
