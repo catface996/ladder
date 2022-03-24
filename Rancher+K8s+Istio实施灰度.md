@@ -394,6 +394,147 @@ istio-gateway用于对网格入口流量的分发,k8s集群的入口一般是k8s
 
 ## 9.网格内部流量灰度
 
+我们希望已经部署的cat-dp访问新部署的mouse-dp,形成istio网格内部的微服务调用.
+
+### 9.1 部署mouse工作负载
+
+需要部署 mouse-dp-gray和mouse-dp-prod
+
+![image-20220324150232825](https://tva1.sinaimg.cn/large/e6c9d24ely1h0kzgc5be9j21nb0u0djf.jpg)
+
+![image-20220324150322968](https://tva1.sinaimg.cn/large/e6c9d24ely1h0kzhchkrfj21n90u00vq.jpg)
+
+![image-20220324150412853](https://tva1.sinaimg.cn/large/e6c9d24ely1h0kzi20v8pj21n80u0n12.jpg)
+
+### 9.2 配置mouse服务发现
+
+需要配置自定义的服务发现,与cat-svc类似,通过标签选择的方式来配置mouse-svc,注意,通过页面操作可能会报错,提示分配集群ip异常,可以通过导入yaml文件的形式来创建.
+
+![image-20220324150805409](https://tva1.sinaimg.cn/large/e6c9d24ely1h0kzm46bofj21nd0u0781.jpg)
+
+![image-20220324151010450](https://tva1.sinaimg.cn/large/e6c9d24ely1h0kzo97q76j21n50u0wgo.jpg)
+
+
+
+### 9.3 在cat-dp容器中执行cul对mouse-svc进行验证
+
+在cat-dp详情页,进入执行命令界面,执行curl,操作步骤如下图:
+
+![image-20220324151409667](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l48gcc4rj21na0u00xg.jpg)
+
+![image-20220324151617607](https://tva1.sinaimg.cn/large/e6c9d24ely1h0kzusxr2aj21nd0u0gmu.jpg)
+
+执行curl命令,可以看到,返回结果是prod和gray交替出现,mouse-svc的默认策略是轮询.
+
+~~~shell
+curl http://mouse-svc:9001/sayHello
+~~~
+
+![image-20220324152137087](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l007lmq0j21n40u0tek.jpg)
+
+即使我们在请求mouse的sayHello接口时,携带了headers env=gray,流量灰度也不会生效,如下图:
+
+![image-20220324153520112](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l0efshj3j21n60u0qc6.jpg)
+
+### 9.4 通过postman访问cat-svc->mouse-svc(不经过istio-gateway)
+
+requst 1:
+
+![image-20220324152638862](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l05evsvuj21nf0u0mzs.jpg)
+
+request 2:
+
+![image-20220324152720612](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l06541qwj21r70u0777.jpg)
+
+request 3:
+
+![image-20220324152757445](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l06sh2z3j21vo0u0ad0.jpg)
+
+### 9.5 通过postman访问cat-svc->mouse-svc(经过istio-gateway)
+
+![image-20220324153019852](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l098zrwsj21r60u0n09.jpg)
+
+![image-20220324153104068](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l0a0kjt8j21v90u0n0f.jpg)
+
+### 9.6 部署mouse的目标规则mouse-dr
+
+![image-20220324155934963](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l13t1nvnj21n50u0416.jpg)
+
+![image-20220324160015322](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l14h3iuuj21n60u0mz0.jpg)
+
+### 9.7 部署mouse的虚拟服务mouse-vs
+
+![image-20220324160059740](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l158wm5kj21na0u076w.jpg)
+
+![image-20220324160145745](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l15ym9knj21na0u0tbf.jpg)
+
+
+
+![image-20220324160213405](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l16gd5x5j21nk0u0jur.jpg)
+
+### 9.8 在cat-dp容器中执行curl对mouse-vs进行验证
+
+分别执行以下三条命令,预期时,不携带header参数,固定返回prod,携带header参数,返回相应的环境
+
+~~~shell
+curl http://mouse-svc:9001/sayHello
+
+curl -H "env:gray" http://mouse-svc:9001/sayHello
+
+curl -H "env:prod" http://mouse-svc:9001/sayHello
+~~~
+
+不携带header参数:
+
+![image-20220324161007330](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l1etks2zj21nh0u010v.jpg)
+
+携带header参数 env=gray
+
+![image-20220324161443076](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l1jgkuqjj21nc0u0dq4.jpg)
+
+携带header参数 env=prod
+
+![image-20220324162433886](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l1tode1rj21ne0u0wnk.jpg)
+
+### 9.9 通过postman访问cat-svc-->mouse-svc(进过istio-gateway)
+
+不携带header参数:
+
+![image-20220324162830013](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l1xt1s7gj21tx0u0whl.jpg)
+
+携带header参数 env=prod
+
+![image-20220324162644209](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l1w3scurj21qq0u077c.jpg)
+
+携带header参数 env=gray
+
+![image-20220324162918049](https://tva1.sinaimg.cn/large/e6c9d24ely1h0l1ym8yjaj21ug0u0dj0.jpg)
+
+### 9.10 注意
+
+网格中的服务,在发起服务调用时,需要能在调用链路中传播灰度路由参数,本方案采用的是spring-cloud-sleuth中的参数传播机制,通过启用以下配置保证header中的env参数在调用链路中的传播.
+
+~~~properties
+spring.sleuth.baggage.remote-fields=env
+~~~
+
+选用的SpringCoud版本和SpringBoot版本
+
+```xml
+<spring-cloud.version>2021.0.1</spring-cloud.version>
+<srping-boot.version>2.6.3</spring-boot.version>
+```
+
+
+
+## 10.后续视频规划
+
+* ServiceEntry和Istio-egressgateway在网格灰度方案中使用较少,外部服务一般只提供一个线上环境,会在后续的视频中介绍.
+* 基于原生搭建的k8s,原生安装istio,实施灰度方案.
+* 基于阿里云提供的k8s集群和网格服务,实施灰度方案.
+
+
+
 
 
 
