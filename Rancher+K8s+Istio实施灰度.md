@@ -228,7 +228,7 @@ docker rm $(docker ps -a -q)
 
 可以看到,istio是尚未激活的,在此处,点击"这里",进入安装istio页面,rancher提供的istio版本是1.5.9
 
-![image-20220322151204736](/Users/catface/Library/Application%20Support/typora-user-images/image-20220322151204736.png)
+![image-20220322151204736](https://tva1.sinaimg.cn/large/e6c9d24egy1h0kxbxibibj21n60u0dj5.jpg)
 
 如果要启用istio-ingressgateway话,需要勾选启用ingress.
 
@@ -360,7 +360,7 @@ istio-gateway用于对网格入口流量的分发,k8s集群的入口一般是k8s
 
 配置负载均衡,对外暴露istio-gateway,因为istio-gateway是在System->sitio-system命名空间下,所以负载均衡也要在System中配置.
 
-![image-20220323180535496](/Users/catface/Library/Application%20Support/typora-user-images/image-20220323180535496.png)
+![image-20220323180535496](https://tva1.sinaimg.cn/large/e6c9d24egy1h0kxckz8bzj21nh0u0wha.jpg)
 
 ![image-20220323180609662](https://tva1.sinaimg.cn/large/e6c9d24ely1h0jz532ngrj21ms0u0adu.jpg)
 
