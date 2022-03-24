@@ -322,9 +322,9 @@ PS: 修改hosts的软件 SwitchHosts.
 
 通过域名访问sayHello接口,负载均衡的默认策略是轮询,所以会看到返回结果中,prod和gray交替出现.
 
-![image-20220323164206013](/Users/catface/Library/Application%20Support/typora-user-images/image-20220323164206013.png)
+![image-20220323164206013](https://tva1.sinaimg.cn/large/e6c9d24egy1h0kxedsqu2j22200u0n04.jpg)
 
-![image-20220323164236495](/Users/catface/Library/Application%20Support/typora-user-images/image-20220323164236495.png)
+![image-20220323164236495](https://tva1.sinaimg.cn/large/e6c9d24egy1h0kxehe9blj21ti0u040s.jpg)
 
 ### 8.5 配置Istio网关(Istio ingressgateway)
 
