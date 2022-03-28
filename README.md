@@ -48,4 +48,6 @@
 * [面试候选人注意事项](面试候选人注意事项.md)
 * [linux札记](linux札记.md)
 * [Rancher+K8s+Istio实施灰度](Rancher+K8s+Istio实施灰度.md)
+* [K8S+Istio灰度实施方案](K8S+Istio灰度实施方案.md)
+* 
 
