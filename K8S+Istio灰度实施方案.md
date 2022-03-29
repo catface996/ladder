@@ -49,7 +49,7 @@ Learn Kubernetes Basic
 
 * 点击右上角"Get Started",进入选择平台Docker Desktop版本页面
 
-  ![image-20220328211114474](https://tva1.sinaimg.cn/large/e6c9d24ely1h0pwl7zyrxj21ne0u0tcw.jpg)
+  ![image-20220328211114474](https://tva1.sinaimg.cn/large/e6c9d24ely1h0qm5wvqzzj21ne0u0tcw.jpg)
 
 * 点击"View Linux Engine",进入选择Linux平台页面.我的虚拟机是Centos7.x,内核版本是3.10.0-1160.31.1.el7.x86_64,所以选择Server,Linux,x86-64
 
@@ -225,7 +225,7 @@ Learn Kubernetes Basic
 
 * 查看安装方案,选择常用的安装方法.
 
-  ![image-20220328215726558](https://tva1.sinaimg.cn/large/e6c9d24ely1h0pxx9uq2fj21nh0u046i.jpg)
+  ![image-20220328215726558](https://tva1.sinaimg.cn/large/e6c9d24ely1h0qm6lp7csj21nh0u0jzd.jpg)
 
 * 设置仓库
 
@@ -256,7 +256,7 @@ Learn Kubernetes Basic
 
 * 安装指定版本的Docker
 
-  ![image-20220328220853090](https://tva1.sinaimg.cn/large/e6c9d24ely1h0py95p8ctj21nh0u0114.jpg)
+  ![image-20220328220853090](https://tva1.sinaimg.cn/large/e6c9d24ely1h0qm6ut4koj21nh0u0n5j.jpg)
 
   ~~~shell
   ## 执行 yum list docker-ce --showduplicates | sort -r 时返回结果过多,可以过滤出18.09版本,执行以下命令
