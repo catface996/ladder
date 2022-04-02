@@ -308,7 +308,7 @@ master节点安装
 
 ~~~bash
 
-[root@master01 ~]# yum -y install kubeadm-1.18.1 kubectl-1.18.1 kubelet-1.18.1
+[root@master01 ~]# yum -y --nogpgcheck install kubeadm-1.18.1 kubectl-1.18.1 kubelet-1.18.1
 [root@master01 ~]# systemctl enable kubelet
 
 systemctl enable kubelet && systemctl start kubelet
