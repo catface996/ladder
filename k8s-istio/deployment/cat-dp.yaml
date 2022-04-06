@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cat-dp
+spec:
+  selector:
+    matchLabels:
+      app: cat
+      env: prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cat
+        env: prod
+    spec:
+      containers:
+        - name: spring-cloud-istio-demo
+          image: catface996/spring-cloud-istio-demo:latest
+          ports:
+            - containerPort: 9001
+              protocol: TCP

@@ -1694,7 +1694,102 @@ To see the stack trace of this error execute with --v=5 or higher
 
 
 
+### 3.5 进一步验证部署的k8s集群
 
+#### 镜像准备
+
+~~~shell
+docker pull catface996/spring-cloud-istio-demo:latest
+~~~
+
+#### 部署工作负载
+
+Kubernetes官方参考文档:
+
+https://kubernetes.io/docs/concepts/workloads/
+
+![image-20220406144704955](/Users/catface/Library/Application%20Support/typora-user-images/image-20220406144704955.png)
+
+Kubernetes官方参考文档 之 Deployment:
+
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+
+![image-20220406144930814](https://tva1.sinaimg.cn/large/e6c9d24ely1h1004s4o4rj21n50u0468.jpg)
+
+![image-20220406145105184](https://tva1.sinaimg.cn/large/e6c9d24ely1h1006ez5w7j21n40u0q8r.jpg)
+
+
+
+以下操作步骤,需要在master节点上执行(安装有kubectl)
+
+* 在服务器上创建cat-dp.yml文件
+
+  ~~~yaml
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: cat-dp
+  spec:
+    selector:
+      matchLabels:
+        app: cat
+        env: prod
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          app: cat
+          env: prod
+      spec:
+        containers:
+          - name: spring-cloud-istio-demo
+            image: catface996/spring-cloud-istio-demo:latest
+            ports:
+              - containerPort: 9001
+                protocol: TCP
+  ~~~
+
+* 创建工作负载(Deployment)
+
+  ~~~shell
+  kubectl apply -f cat-dp.yml
+  ~~~
+
+* 查看创建的工作负载
+
+  ~~~shell
+  kubectl get deployment
+  ~~~
+
+* 查看pod的日志
+
+  pod中仅有一个container时,可以不指定container
+
+  ~~~shell
+  kubectl logs $podName
+  ~~~
+
+  
+
+#### 通过NodePort暴露工作负载
+
+参考Kubernetes官方文档:
+
+https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/
+
+![image-20220406144112429](https://tva1.sinaimg.cn/large/e6c9d24ely1h0zzw7jfddj21n60u0gr2.jpg)
+
+
+
+
+
+### 部署和访问Kubernetes仪表盘
+
+Kubernetes官方参考文档地址:
+
+https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+
+![image-20220406144249486](https://tva1.sinaimg.cn/large/e6c9d24ely1h0zzxtgnbhj21my0u0jz0.jpg)
 
 ## 挖坑记录
 
