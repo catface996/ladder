@@ -15,17 +15,8 @@ spec:
         env: prod
     spec:
       containers:
-        - name: spring-cloud-istio-demo
+        - name: cat-ct
           image: catface996/spring-cloud-istio-demo:latest
           ports:
             - containerPort: 9001
               protocol: TCP
-      dnsPolicy: "None"
-      dnsConfig:
-        nameservers:
-          - 10.10.0.10
-        searches:
-          - default.svc.cluster.local
-        options:
-          - name: single-request-reopne
-

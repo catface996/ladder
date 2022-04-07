@@ -15,10 +15,8 @@ spec:
         env: prod
     spec:
       containers:
-        - name: spring-cloud-istio-demo
-          image: catface996/spring-cloud-istio-demo:latest
+        - name: dog-ct
+          image: dogface996/spring-cloud-istio-demo:latest
           ports:
             - containerPort: 9001
               protocol: TCP
-          securityContext:
-            privileged: true
