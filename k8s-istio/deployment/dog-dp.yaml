@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cat-dp
+  name: dog-dp
 spec:
   selector:
     matchLabels:
-      app: cat
+      app: dog
       env: prod
   replicas: 1
   template:
     metadata:
       labels:
-        app: cat
+        app: dog
         env: prod
     spec:
       containers:
@@ -20,12 +20,5 @@ spec:
           ports:
             - containerPort: 9001
               protocol: TCP
-      dnsPolicy: "None"
-      dnsConfig:
-        nameservers:
-          - 10.10.0.10
-        searches:
-          - default.svc.cluster.local
-        options:
-          - name: single-request-reopne
-
+          securityContext:
+            privileged: true

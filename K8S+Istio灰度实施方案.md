@@ -1375,6 +1375,18 @@ canal:  https://github.com/projectcalico/canal/blob/master/k8s-install/canal.yam
 
 Calico: https://projectcalico.docs.tigera.io/about/about-calico
 
+~~~shell
+calico/kube-controllers                                           v3.22.1             c0c6672a66a5        4 weeks ago         132MB
+calico/cni                                                        v3.22.1             2a8ef6985a3e        4 weeks ago         236MB
+calico/pod2daemon-flexvol                                         v3.22.1             17300d20daf9        4 weeks ago         19.7MB
+calico/node                                                       v3.22.1             7a71aca7b60f        4 weeks ago         198MB
+
+docker pull  calico/kube-controllers:v3.22.1
+
+~~~
+
+
+
 ![image-20220401170344252](https://tva1.sinaimg.cn/large/e6c9d24egy1h0ubx845kej21nr0u010y.jpg)
 
 
@@ -1698,9 +1710,7 @@ To see the stack trace of this error execute with --v=5 or higher
 
 #### 镜像准备
 
-~~~shell
-docker pull catface996/spring-cloud-istio-demo:latest
-~~~
+catface996/spring-cloud-istio-demo:latest
 
 #### 部署工作负载
 
@@ -1752,13 +1762,34 @@ https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
 * 创建工作负载(Deployment)
 
   ~~~shell
+  ## 待执行的命令
   kubectl apply -f cat-dp.yml
+  
+  ## 实际执行过程
+  [root@k8s-master-51 deployment]# kubectl apply -f cat-dp.yml
+  deployment.apps/cat-dp created
+  [root@k8s-master-51 deployment]#
   ~~~
 
 * 查看创建的工作负载
 
   ~~~shell
+  ## 待执行的命令  可以通过-n 指定命名空间
   kubectl get deployment
+  kubectl get deployment -n default
+  
+  ## 实际执行过程
+  [root@k8s-master-51 deployment]# kubectl get deployment
+  NAME     READY   UP-TO-DATE   AVAILABLE   AGE
+  cat-dp   1/1     1            1           87s
+  [root@k8s-master-51 deployment]#
+  
+  ## 查看pod
+  [root@k8s-master-51 deployment]# kubectl get pod
+  NAME                      READY   STATUS    RESTARTS   AGE
+  cat-dp-548fddf68d-qsnmp   1/1     Running   0          2m3s
+  [root@k8s-master-51 deployment]#
+  
   ~~~
 
 * 查看pod的日志
@@ -1766,30 +1797,476 @@ https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
   pod中仅有一个container时,可以不指定container
 
   ~~~shell
+  ## 待执行的命令
   kubectl logs $podName
+  
+  ## 实际执行过程
+  [root@k8s-master-51 deployment]# kubectl logs cat-dp-548fddf68d-qsnmp
+  
+    .   ____          _            __ _ _
+   /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+  ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+   \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+    '  |____| .__|_| |_|_| |_\__, | / / / /
+   =========|_|==============|___/=/_/_/_/
+   :: Spring Boot ::                (v2.6.3)
+  
+  2022-04-06 18:42:43.806  INFO [cat,,] 1 --- [           main] com.example.istio.IstioApplication       : Starting IstioApplication v0.0.1-SNAPSHOT using Java 1.8.0_271 on cat-dp-548fddf68d-qsnmp with PID 1 (/root/app/example-app.jar started by root in /app)
+  2022-04-06 18:42:43.808  INFO [cat,,] 1 --- [           main] com.example.istio.IstioApplication       : The following profiles are active: local
+  2022-04-06 18:42:44.666  INFO [cat,,] 1 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=d9b67be5-41df-3276-b98a-5b7495db7968
+  2022-04-06 18:42:45.453  INFO [cat,,] 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9001 (http)
+  2022-04-06 18:42:45.463  INFO [cat,,] 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+  2022-04-06 18:42:45.463  INFO [cat,,] 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+  2022-04-06 18:42:45.514  INFO [cat,,] 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+  2022-04-06 18:42:45.514  INFO [cat,,] 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1662 ms
+  2022-04-06 18:42:46.803  INFO [cat,,] 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9001 (http) with context path ''
+  2022-04-06 18:42:46.817  INFO [cat,,] 1 --- [           main] com.example.istio.IstioApplication       : Started IstioApplication in 3.55 seconds (JVM running for 4.047)
+  [root@k8s-master-51 deployment]#
   ~~~
-
+  
   
 
 #### 通过NodePort暴露工作负载
 
-参考Kubernetes官方文档:
+快速参考的Kubernetes官方文档:
 
 https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/
 
 ![image-20220406144112429](https://tva1.sinaimg.cn/large/e6c9d24ely1h0zzw7jfddj21n60u0gr2.jpg)
 
+Kubernetes Service 详细官方文档:
+
+https://kubernetes.io/docs/concepts/services-networking/
+
+https://kubernetes.io/docs/concepts/services-networking/service/
+
+![image-20220406151013898](https://tva1.sinaimg.cn/large/e6c9d24ely1h100qcfgg2j21my0u0gtr.jpg)
+
+![image-20220406151212462](https://tva1.sinaimg.cn/large/e6c9d24ely1h100sjhb7oj21nf0u0ah5.jpg)
+
+![image-20220406152849439](https://tva1.sinaimg.cn/large/e6c9d24ely1h1019q15cyj21n90u0ajh.jpg)
+
+![image-20220406153039674](https://tva1.sinaimg.cn/large/e6c9d24ely1h101bmehwej21nk0u045t.jpg)
+
+
+
+操作步骤
+
+* 部署Service
+
+  ~~~shell
+  ## 待执行的命令
+  kubectl apply -f cat-svc-node-port.yaml
+  
+  ## 实际执行过程
+  [root@k8s-master-51 service]# kubectl apply -f cat-svc-node-port.yaml
+  service/cat-svc created
+  [root@k8s-master-51 service]#
+  ~~~
+
+* 查看Serivce
+
+  ~~~shell
+  ## 待执行的命令
+  kubectl get service
+  
+  ## 实际执行过程
+  [root@k8s-master-51 service]# kubectl get service
+  NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)           AGE
+  cat-svc      NodePort    10.10.192.135   <none>        30901:31901/TCP   81s
+  kubernetes   ClusterIP   10.10.0.1       <none>        443/TCP           47h
+  [root@k8s-master-51 service]#
+  ~~~
+
+* 通过NodePort访问sayHello接口
+
+  http://192.168.162.61:31901/sayHello
+
+  ![image-20220406185518043](https://tva1.sinaimg.cn/large/e6c9d24ely1h1078jkbt6j21ic0hi40a.jpg)
+
+#### 集群内部访问cat-svc
+
+期望在容器内部: curl http://cat-svc:80/sayHello
 
 
 
 
-### 部署和访问Kubernetes仪表盘
+### 3.6 Kubeadm部署集群的常见故障模拟
+
+
+#### 仅未关闭swap
+
+~~~shell
+## 待执行的命令
+kubeadm init --kubernetes-version=1.22.3  \
+--apiserver-advertise-address=192.168.162.81   \
+--image-repository registry.aliyuncs.com/google_containers  \
+--service-cidr=10.10.0.0/16  \
+--pod-network-cidr=10.122.0.0/16 
+
+## 实际的执行结果
+[root@k8s-master-81 ~]# kubeadm init --kubernetes-version=1.22.3  \
+> --apiserver-advertise-address=192.168.162.81   \
+> --image-repository registry.aliyuncs.com/google_containers  \
+> --service-cidr=10.10.0.0/16  \
+> --pod-network-cidr=10.122.0.0/16
+[init] Using Kubernetes version: v1.22.3
+[preflight] Running pre-flight checks
+error execution phase preflight: [preflight] Some fatal errors occurred:
+	[ERROR Swap]: running with swap on is not supported. Please disable swap
+[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
+To see the stack trace of this error execute with --v=5 or higher
+[root@k8s-master-81 ~]#
+
+~~~
+
+#### 仅未设置vm.swapiness=0
+
+
+~~~shell
+## 待执行的命令
+kubeadm init --kubernetes-version=1.22.3  \
+--apiserver-advertise-address=192.168.162.81   \
+--image-repository registry.aliyuncs.com/google_containers  \
+--service-cidr=10.10.0.0/16  \
+--pod-network-cidr=10.122.0.0/16 
+
+## 实际执行结果
+[root@k8s-master-81 ~]# kubeadm init --kubernetes-version=1.22.3  \
+> --apiserver-advertise-address=192.168.162.81   \
+> --image-repository registry.aliyuncs.com/google_containers  \
+> --service-cidr=10.10.0.0/16  \
+> --pod-network-cidr=10.122.0.0/16
+[init] Using Kubernetes version: v1.22.3
+[preflight] Running pre-flight checks
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[certs] Using certificateDir folder "/etc/kubernetes/pki"
+[certs] Generating "ca" certificate and key
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [k8s-master-81 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.10.0.1 192.168.162.81]
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "front-proxy-ca" certificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Generating "etcd/ca" certificate and key
+[certs] Generating "etcd/server" certificate and key
+[certs] etcd/server serving cert is signed for DNS names [k8s-master-81 localhost] and IPs [192.168.162.81 127.0.0.1 ::1]
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [k8s-master-81 localhost] and IPs [192.168.162.81 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "sa" key and public key
+[kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[kubeconfig] Writing "admin.conf" kubeconfig file
+[kubeconfig] Writing "kubelet.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Starting the kubelet
+[control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[control-plane] Creating static Pod manifest for "kube-apiserver"
+[control-plane] Creating static Pod manifest for "kube-controller-manager"
+[control-plane] Creating static Pod manifest for "kube-scheduler"
+[etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
+[apiclient] All control plane components are healthy after 7.003061 seconds
+[upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[kubelet] Creating a ConfigMap "kubelet-config-1.22" in namespace kube-system with the configuration for the kubelets in the cluster
+[upload-certs] Skipping phase. Please see --upload-certs
+[mark-control-plane] Marking the node k8s-master-81 as control-plane by adding the labels: [node-role.kubernetes.io/master(deprecated) node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers]
+[mark-control-plane] Marking the node k8s-master-81 as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[bootstrap-token] Using token: 1oun4f.awoxh841b4wid0st
+[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to get nodes
+[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[kubelet-finalize] Updating "/etc/kubernetes/kubelet.conf" to point to a rotatable kubelet client certificate and key
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.162.81:6443 --token 1oun4f.awoxh841b4wid0st \
+	--discovery-token-ca-cert-hash sha256:ce5a9861c06459c88f4833651e0c531862bafdc1522e9664977fafa26070b08c
+[root@k8s-master-81 ~]#
+~~~
+
+#### 仅未设置SELinux为Permissive
+
+~~~shell
+## 待执行的命令
+kubeadm init --kubernetes-version=1.22.3  \
+--apiserver-advertise-address=192.168.162.81   \
+--image-repository registry.aliyuncs.com/google_containers  \
+--service-cidr=10.10.0.0/16  \
+--pod-network-cidr=10.122.0.0/16 
+
+## 实际执行结果
+[root@k8s-master-81 ~]# kubeadm init --kubernetes-version=1.22.3  \
+> --apiserver-advertise-address=192.168.162.81   \
+> --image-repository registry.aliyuncs.com/google_containers  \
+> --service-cidr=10.10.0.0/16  \
+> --pod-network-cidr=10.122.0.0/16
+[init] Using Kubernetes version: v1.22.3
+[preflight] Running pre-flight checks
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[certs] Using certificateDir folder "/etc/kubernetes/pki"
+[certs] Generating "ca" certificate and key
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [k8s-master-81 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.10.0.1 192.168.162.81]
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "front-proxy-ca" certificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Generating "etcd/ca" certificate and key
+[certs] Generating "etcd/server" certificate and key
+[certs] etcd/server serving cert is signed for DNS names [k8s-master-81 localhost] and IPs [192.168.162.81 127.0.0.1 ::1]
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [k8s-master-81 localhost] and IPs [192.168.162.81 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "sa" key and public key
+[kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[kubeconfig] Writing "admin.conf" kubeconfig file
+[kubeconfig] Writing "kubelet.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Starting the kubelet
+[control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[control-plane] Creating static Pod manifest for "kube-apiserver"
+[control-plane] Creating static Pod manifest for "kube-controller-manager"
+[control-plane] Creating static Pod manifest for "kube-scheduler"
+[etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
+[apiclient] All control plane components are healthy after 7.004292 seconds
+[upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[kubelet] Creating a ConfigMap "kubelet-config-1.22" in namespace kube-system with the configuration for the kubelets in the cluster
+[upload-certs] Skipping phase. Please see --upload-certs
+[mark-control-plane] Marking the node k8s-master-81 as control-plane by adding the labels: [node-role.kubernetes.io/master(deprecated) node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers]
+[mark-control-plane] Marking the node k8s-master-81 as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[bootstrap-token] Using token: v224pv.xmg7fph2x9agb86b
+[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to get nodes
+[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[kubelet-finalize] Updating "/etc/kubernetes/kubelet.conf" to point to a rotatable kubelet client certificate and key
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.162.81:6443 --token v224pv.xmg7fph2x9agb86b \
+	--discovery-token-ca-cert-hash sha256:f01aa3a80c4321ab51372ebb1489cc5cf117df91a791627f6d9c6aa6be1c4470
+[root@k8s-master-81 ~]# getenforce
+Enforcing
+[root@k8s-master-81 ~]#
+~~~
+
+回顾一下安装 kubeadm , kubectl , kubelet
+
+![20220407192627](https://picgo.catface996.com/picgo20220407192627.png)
+
+未关闭SELinux影响的是安装阶段,不是初始化集群阶段
+
+再次执行安装 kubeadm , kubectl , kubelet
+
+~~~shell
+sudo yum install -y --nogpgcheck kubelet-1.22.3 kubeadm-1.22.3 kubectl-1.22.3 --disableexcludes=kubernetes
+~~~
+
+实际结果,仍然可安装成功
+
+
+#### 仅未加载br_netfilter
+
+
+#### 未配置iptables
+
+
+#### scheduler unhealthy
+
+~~~shell
+[root@k8s-master-101 manifests]# kubectl get cs
+Warning: v1 ComponentStatus is deprecated in v1.19+
+NAME                 STATUS      MESSAGE                                                                                       ERROR
+scheduler            Unhealthy   Get "http://127.0.0.1:10251/healthz": dial tcp 127.0.0.1:10251: connect: connection refused
+controller-manager   Healthy     ok
+etcd-0               Healthy     {"health":"true","reason":""}
+~~~
+
+解决方法:
+修改 /etc/kubernetes/manifests/ 目录下的 kube-scheduler.yaml 和 kube-controller-manager.yaml,注释掉port=0
+
+~~~shell
+[root@k8s-master-101 manifests]# pwd
+/etc/kubernetes/manifests
+[root@k8s-master-101 manifests]# ll
+总用量 16
+drwxr-xr-x. 2 root root   79 4月   7 20:20 backup
+-rw-------. 1 root root 2272 4月   7 16:59 etcd.yaml
+-rw-------. 1 root root 3382 4月   7 16:59 kube-apiserver.yaml
+-rw-------. 1 root root 2894 4月   7 20:02 kube-controller-manager.yaml
+-rw-------. 1 root root 1480 4月   7 20:03 kube-scheduler.yaml
+[root@k8s-master-101 manifests]#
+~~~
+
+![20220407202550](https://picgo.catface996.com/picgo20220407202550.png)
+
+然后重启kubelet即可
+
+~~~shell
+## 重启kubelet
+systemctl restart kubelet
+
+[root@k8s-master-101 manifests]# kubectl get cs
+Warning: v1 ComponentStatus is deprecated in v1.19+
+NAME                 STATUS    MESSAGE                         ERROR
+scheduler            Healthy   ok
+controller-manager   Healthy   ok
+etcd-0               Healthy   {"health":"true","reason":""}
+~~~
+
+**切记** 如果要备份文件,备份的文件不能在相同的目录下.
+
+
+### 3.7 部署和访问Kubernetes仪表盘
 
 Kubernetes官方参考文档地址:
 
 https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 
 ![image-20220406144249486](https://tva1.sinaimg.cn/large/e6c9d24ely1h0zzxtgnbhj21my0u0jz0.jpg)
+
+#### 部署dashboard
+
+~~~shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+~~~
+
+* 可以先下载yaml文件到本地,然后再部署
+* 需要修改 dashboard deployment的nodeSelector
+  * 对master节点打标签
+  * 修改dashbaord deploymnet的nodeSelector
+    ~~~yaml
+          nodeSelector:
+        ##"kubernetes.io/os": linux
+        "node-role": master
+    ~~~
+
+#### 暴露dashboard
+
+![image-20220406175600091](https://tva1.sinaimg.cn/large/e6c9d24ely1h105itn4dqj21e10u0tfb.jpg)
+
+~~~shell
+## 命令一
+kubectl proxy
+## 命令二
+kubectl proxy --address='192.168.162.51'
+## 命令三
+kubectl proxy --address='192.168.162.51' --accept-hosts='^*$'
+~~~
+
+
+
+#### 生成Bearer Token
+
+* 部署ServiceAccount
+
+  ~~~yaml
+  apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    name: admin-user
+    namespace: kubernetes-dashboard
+  ~~~
+
+* 部署ClusterRoleBinding
+
+  ~~~yaml
+  apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    name: admin-user
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: cluster-admin
+  subjects:
+    - kind: ServiceAccount
+      name: admin-user
+      namespace: kubernetes-dashboard
+  ~~~
+
+* 获取BearerToken
+
+  ~~~shell
+  kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
+  ~~~
+
+  
+
+踩坑记录
+
+* 启动代理
+
+  需要注意配置的参数 --address  --accept-hosts='^*$'
+
+* 访问dashboard提示 io/timeout
+
+  需要修改 dashboard 的Deployment中的nodeSelector
+  
+  原有的标签选择器
+  
+  ~~~yaml
+  nodeSelector:
+  ##"kubernetes.io/os": linux
+  "node-role": master
+  ~~~
+
+
+
+
 
 ## 挖坑记录
 
@@ -1808,3 +2285,7 @@ github:  https://github.com/cri-o/cri-o
 
 
 继续挖坑,等待后续视频填坑...
+
+
+
+

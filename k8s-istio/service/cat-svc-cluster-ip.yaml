@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cat-svc
+spec:
+  selector:
+    app: cat
+  internalTrafficPolicy: Cluster
+  ports:
+    - protocol: TCP
+      name: http-port
+      port: 80
+      targetPort: 9001

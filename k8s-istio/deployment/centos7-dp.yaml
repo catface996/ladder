@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: centos-dp
+spec:
+  selector:
+    matchLabels:
+      app: centos
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: centos
+    spec:
+      containers:
+        - name: centos7
+          image: catface996/centos7-with-tools:v1
+          securityContext:
+            privileged: true
