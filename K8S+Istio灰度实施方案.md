@@ -2448,8 +2448,97 @@ kubelet日志:
 4月 09 10:27:10 k8s-master-81 systemd[1]: kubelet.service failed.
 ~~~
 
+### 3.7 kubeadm引导的集群导入rancher
 
-### 3.7 部署和访问Kubernetes仪表盘
+针对三个版本的Kubernetes集群做导入验证,版本分别为:
+* 1.18.20
+  ~~~shell
+  # 安装kubeadm , kubectl , kubelet
+  sudo yum install -y --nogpgcheck kubelet-1.18.20 kubeadm-1.18.20 kubectl-1.18.20 --disableexcludes=kubernetes
+  yum list installed | grep kube
+  # 拉取镜像
+  kubeadm config images pull --image-repository registry.aliyuncs.com/google_containers  --kubernetes-version=1.18.20
+  docker images | grep registry.aliyuncs.com
+  # 引导集群
+  kubeadm init --kubernetes-version=1.18.20  \
+  --apiserver-advertise-address=192.168.162.18  \
+  --image-repository registry.aliyuncs.com/google_containers  \
+  --service-cidr=10.10.0.0/16  \
+  --pod-network-cidr=10.122.0.0/16 
+
+  kubectl get node
+  kubectl get pod -A
+
+  kubeadm join 192.168.162.18:6443 --token o1hutx.ibynwcq8881wi5d6 \
+    --discovery-token-ca-cert-hash sha256:336a3b161cd141bd194f605b8487f3d59d61907d68fa54b083e8386bd8d96a89
+  ~~~
+
+* 1.20.15
+  ~~~shell
+  # 安装kubeadm , kubectl , kubelet
+  sudo yum install -y --nogpgcheck kubelet-1.20.15 kubeadm-1.20.15 kubectl-1.20.15 --disableexcludes=kubernetes
+  yum list installed | grep kube
+  # 拉取镜像
+  kubeadm config images pull --image-repository registry.aliyuncs.com/google_containers  --kubernetes-version=1.20.15
+  docker images | grep registry.aliyuncs.com
+  # 引导集群
+  kubeadm init --kubernetes-version=1.20.15  \
+  --apiserver-advertise-address=192.168.162.20  \
+  --image-repository registry.aliyuncs.com/google_containers  \
+  --service-cidr=10.10.0.0/16  \
+  --pod-network-cidr=10.122.0.0/16 
+
+  kubectl get node
+  kubectl get pod -A
+
+
+kubeadm join 192.168.162.20:6443 --token 0y5h0s.2viuwiuanicr077j \
+    --discovery-token-ca-cert-hash sha256:6afbca7200d3e3b73722c392473dfa43d0c6e41927a72a42a53ad87acc16e1db
+  ~~~
+
+
+* 1.22.3
+  ~~~shell
+  # 安装kubeadm , kubectl , kubelet
+  sudo yum install -y --nogpgcheck kubelet-1.22.3 kubeadm-1.22.3 kubectl-1.22.3 --disableexcludes=kubernetes
+  yum list installed | grep kube
+  # 拉取镜像
+  kubeadm config images pull --image-repository registry.aliyuncs.com/google_containers  --kubernetes-version=1.22.3
+  docker images | grep registry.aliyuncs.com
+  # 引导集群
+  kubeadm init --kubernetes-version=1.22.3  \
+  --apiserver-advertise-address=192.168.162.22  \
+  --image-repository registry.aliyuncs.com/google_containers  \
+  --service-cidr=10.10.0.0/16  \
+  --pod-network-cidr=10.122.0.0/16 
+
+  kubectl get node
+  kubectl get pod -A
+
+
+kubeadm join 192.168.162.22:6443 --token 5q26to.0b0em69w2rifufxa \
+	--discovery-token-ca-cert-hash sha256:dacd787a08945b6f304195fc515af3a3e580e61063b3ec2038e7ef3ffebad936
+  ~~~
+
+rancher-2.5.12支持的Kubernetes版本如下:
+![20220410180539](https://picgo.catface996.com/picgo20220410180539.png)
+![20220410180558](https://picgo.catface996.com/picgo20220410180558.png)
+![20220410180615](https://picgo.catface996.com/picgo20220410180615.png)
+![20220410180634](https://picgo.catface996.com/picgo20220410180634.png)
+
+
+rancher 中创建三个导入集群
+* 导入之前
+![20220410182525](https://picgo.catface996.com/picgo20220410182525.png)
+
+* 导入之后
+![20220410193700](https://picgo.catface996.com/picgo20220410193700.png)
+
+* 解决 kube-controller-manager和kube-scheduler不健康的问题
+  * 注释掉 /etc/kubernetes/manifests/ 下的 kube-scheduler.yaml 和 kube-controller-manager.yaml中的 - --port=0
+  * 重启kubelet
+
+### 3.8 部署和访问Kubernetes仪表盘
 
 Kubernetes官方参考文档地址:
 
@@ -2459,19 +2548,33 @@ https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 
 #### 部署dashboard
 
-~~~shell
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
-~~~
+
 
 * 可以先下载yaml文件到本地,然后再部署
+  
+  ~~~shell
+  wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+  ~~~
+
 * 需要修改 dashboard deployment的nodeSelector
   * 对master节点打标签
+    ~~~shell
+    kubectl label nodes k8s-master-101 node-role=master
+    ~~~
+
   * 修改dashbaord deploymnet的nodeSelector
+
     ~~~yaml
-          nodeSelector:
+      nodeSelector:
         ##"kubernetes.io/os": linux
         "node-role": master
     ~~~
+
+* 部署dashboard
+  
+  ~~~shell
+  kubectl apply -f recommended.yaml
+  ~~~
 
 #### 暴露dashboard
 
