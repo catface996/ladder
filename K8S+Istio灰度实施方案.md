@@ -2469,8 +2469,6 @@ kubelet日志:
   kubectl get node
   kubectl get pod -A
 
-  kubeadm join 192.168.162.18:6443 --token o1hutx.ibynwcq8881wi5d6 \
-    --discovery-token-ca-cert-hash sha256:336a3b161cd141bd194f605b8487f3d59d61907d68fa54b083e8386bd8d96a89
   ~~~
 
 * 1.20.15
@@ -2491,9 +2489,6 @@ kubelet日志:
   kubectl get node
   kubectl get pod -A
 
-
-kubeadm join 192.168.162.20:6443 --token 0y5h0s.2viuwiuanicr077j \
-    --discovery-token-ca-cert-hash sha256:6afbca7200d3e3b73722c392473dfa43d0c6e41927a72a42a53ad87acc16e1db
   ~~~
 
 
@@ -2514,10 +2509,6 @@ kubeadm join 192.168.162.20:6443 --token 0y5h0s.2viuwiuanicr077j \
 
   kubectl get node
   kubectl get pod -A
-
-
-kubeadm join 192.168.162.22:6443 --token 5q26to.0b0em69w2rifufxa \
-	--discovery-token-ca-cert-hash sha256:dacd787a08945b6f304195fc515af3a3e580e61063b3ec2038e7ef3ffebad936
   ~~~
 
 rancher-2.5.12支持的Kubernetes版本如下:
