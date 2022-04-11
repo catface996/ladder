@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: dog-ct
-          image: dogface996/spring-cloud-istio-demo:latest
+          image: catface996/spring-cloud-istio-demo:latest
           ports:
             - containerPort: 9001
               protocol: TCP

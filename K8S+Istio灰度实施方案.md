@@ -2509,6 +2509,9 @@ kubelet日志:
 
   kubectl get node
   kubectl get pod -A
+
+  kubeadm join 192.168.162.22:6443 --token gi80nx.8cbfayyyphwkz4jo \
+	--discovery-token-ca-cert-hash sha256:f3ae988a619c5fecaca04b20e0a7476bd556658981e20c50930fce411d91446a
   ~~~
 
 rancher-2.5.12支持的Kubernetes版本如下:
@@ -2638,7 +2641,158 @@ kubectl proxy --address='192.168.162.51' --accept-hosts='^*$'
   ~~~
 
 
+## istio 安装部署(参考官方文档)
 
+官网地址: https://istio.io/
+
+![20220410233725](https://picgo.catface996.com/picgo20220410233725.png)
+
+1. Download and install istio
+   
+   * 选择哪个版本?  amd? arm? 1.12.4 ? 最新版本?
+
+      阅读下载脚本: https://istio.io/downloadIstio  -->  https://raw.githubusercontent.com/istio/istio/master/release/downloadIstioCandidate.sh
+
+      目前阿里云支持的版本:
+
+      ![20220410233649](https://picgo.catface996.com/picgo20220410233649.png)
+
+   * 如何下载?
+
+      * 从github下载,需要科学上网.
+
+        https://github.com/istio/istio/releases/
+
+        ![20220411101032](https://picgo.catface996.com/picgo20220411101032.png)
+
+        ![20220411101308](https://picgo.catface996.com/picgo20220411101308.png)
+
+
+      * 从gitee克隆.
+
+        ![20220411101456](https://picgo.catface996.com/picgo20220411101456.png)
+
+        gitee: https://gitee.com/catface996/istio-download
+
+        ~~~shell
+        git clone https://gitee.com/catface996/istio-download.git
+        ~~~
+
+
+    * 解压
+  
+      ~~~shell
+      tar -xvzf istio-1.12.4-linux-amd64.tar.gz
+      mv istio-1.12.4 /uar/local/istio-1.12.4
+      cd /usr/local/
+      ln -s istio-1.12.4/ istio
+      ~~~
+
+    * 加入环境变量
+      ~~~shell
+      cd /uar/local/istio
+      # 临时加入环境变量
+      export PATH=$PWD/bin:$PATH
+      ## 永久加入环境变量,编辑/etc/profile,在最后添加export,保存后,source /etc/profile
+      vim /etc/profile
+      export PATH=/usr/local/istio/bin:$PATH
+      source /etc/profile
+      ~~~
+
+    * 执行安装
+
+      * 提前准备所需镜像
+
+        ~~~shell
+        # istio相关镜像(master节点上拉取)
+        istio/proxyv2                                                     1.12.4              69574f8a643d        7 weeks ago         260MB
+        istio/pilot                                                       1.12.4              a11fe32e6ad7        7 weeks ago         192MB
+
+        docker pull istio/proxyv2:1.12.4
+        docker pull istio/pilot:1.12.4
+
+
+        # bookinfo sample镜像(worker节点上拉取)
+        istio/examples-bookinfo-reviews-v3                                1.16.2              83e6a8464b84        21 months ago       694MB
+        istio/examples-bookinfo-reviews-v2                                1.16.2              39cff5d782e1        21 months ago       694MB
+        istio/examples-bookinfo-reviews-v1                                1.16.2              181be23dc1af        21 months ago       694MB
+        istio/examples-bookinfo-ratings-v1                                1.16.2              99ce598b98cf        21 months ago       161MB
+        istio/examples-bookinfo-details-v1                                1.16.2              edf6b9bea3db        21 months ago       149MB
+        istio/examples-bookinfo-productpage-v1                            1.16.2              7f1e097aad6d        21 months ago       207MB
+
+        docker pull istio/examples-bookinfo-reviews-v3:1.16.2
+        docker pull istio/examples-bookinfo-reviews-v2:1.16.2
+        docker pull istio/examples-bookinfo-reviews-v1:1.16.2
+        docker pull istio/examples-bookinfo-ratings-v1:1.16.2
+        docker pull istio/examples-bookinfo-details-v1:1.16.2
+        docker pull istio/examples-bookinfo-productpage-v1:1.16.2
+
+        # dashboard相关镜像(worker节点上拉取)
+        quay.io/kiali/kiali                                               v1.42               f1dca328da23        5 months ago        203MB
+        grafana/grafana                                                   8.1.2               b9cdc06f46e6        7 months ago        213MB
+        jaegertracing/all-in-one                                          1.23                2c4eb3e70f5b        10 months ago       52.9MB
+        prom/prometheus                                                   v2.26.0             6d6859d1a42a        12 months ago       169MB
+        jimmidyson/configmap-reload                                       v0.5.0              d771cc9785a1        14 months ago       9.99MB
+
+        docker pull quay.io/kiali/kiali:v1.42
+        docker pull grafana/grafana:8.1.2
+        docker pull jaegertracing/all-in-one:1.23
+        docker pull prom/prometheus:v2.26.0
+        docker pull jimmidyson/configmap-reload:v0.5.0
+        ~~~
+
+      * 查看安装配置-profile
+
+        地址: https://istio.io/latest/docs/setup/additional-setup/config-profiles/
+
+        ![20220411104034](https://picgo.catface996.com/picgo20220411104034.png)
+
+        ![20220411104118](https://picgo.catface996.com/picgo20220411104118.png)
+
+      * 运行安装命令
+  
+        ~~~shell
+        istioctl install --set profile=demo -y
+
+        # 执行结果
+        ✔ Istio core installed
+        ✔ Istiod installed
+        ✔ Egress gateways installed
+        ✔ Ingress gateways installed
+        ✔ Installation complete
+        ~~~
+
+      * 对default命名空间开启istio注入
+  
+        ~~~shell
+        kubectl label namespace default istio-injection=enabled
+        namespace/default labeled
+
+        # 验证注入是否生效,通过部署一个pod来验证,我们来部署cat-dp.yaml
+        # 可以通过比对的方式,创建一个没有开启istio注入的命名空间,同样部署一个cat-dp
+
+        kubectl describe pod $podName
+
+        ~~~
+
+2. Deploy the sample application
+   
+3. Open the application to outside traffic
+   
+4. View the dashboard
+
+
+
+istio 1.12.4 需要的镜像
+
+~~~shell
+istio/proxyv2                                                     1.12.4              69574f8a643d        7 weeks ago         260MB
+istio/pilot                                                       1.12.4              a11fe32e6ad7        7 weeks ago         192MB
+
+# 提前拉取镜像
+docker pull istio/proxyv2:1.12.4
+docker pull istio/pilot:1.12.4
+~~~
 
 
 ## 挖坑记录
