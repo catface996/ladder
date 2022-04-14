@@ -2510,8 +2510,8 @@ kubelet日志:
   kubectl get node
   kubectl get pod -A
 
-  kubeadm join 192.168.162.22:6443 --token gi80nx.8cbfayyyphwkz4jo \
-	--discovery-token-ca-cert-hash sha256:f3ae988a619c5fecaca04b20e0a7476bd556658981e20c50930fce411d91446a
+  kubeadm join 192.168.162.22:6443 --token xerdgt.jnte2f7rbs0bse5j \
+	--discovery-token-ca-cert-hash sha256:4bfa979d801b011ca35984bcfbd8484b1d53106161e8e57290bc048879e0f9a0
   ~~~
 
 rancher-2.5.12支持的Kubernetes版本如下:
@@ -2683,14 +2683,14 @@ kubectl proxy --address='192.168.162.51' --accept-hosts='^*$'
   
       ~~~shell
       tar -xvzf istio-1.12.4-linux-amd64.tar.gz
-      mv istio-1.12.4 /uar/local/istio-1.12.4
+      mv istio-1.12.4 /usr/local/istio-1.12.4
       cd /usr/local/
       ln -s istio-1.12.4/ istio
       ~~~
 
     * 加入环境变量
       ~~~shell
-      cd /uar/local/istio
+      cd /usr/local/istio
       # 临时加入环境变量
       export PATH=$PWD/bin:$PATH
       ## 永久加入环境变量,编辑/etc/profile,在最后添加export,保存后,source /etc/profile
@@ -2771,28 +2771,357 @@ kubectl proxy --address='192.168.162.51' --accept-hosts='^*$'
         # 验证注入是否生效,通过部署一个pod来验证,我们来部署cat-dp.yaml
         # 可以通过比对的方式,创建一个没有开启istio注入的命名空间,同样部署一个cat-dp
 
+        kubectl apply -f dog-dp.yaml  
+
+        kubectl describe pod dog-dpxxx
+
+        kubectl replace --force -f cat-dp.yaml
+        # 或者
+        kubectl scale --replicas=2 deployment/cat-dp
+
         kubectl describe pod $podName
+        ## 查看pod中的container
+
 
         ~~~
 
 2. Deploy the sample application
    
+    ~~~shell
+    [root@k8s-master-22 istio]# pwd
+    /usr/local/istio
+
+    # 部署bookinfo的样例
+    kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+    # 实际执行结果
+    [root@k8s-master-22 istio]# kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+    service/details created
+    serviceaccount/bookinfo-details created
+    deployment.apps/details-v1 created
+    service/ratings created
+    serviceaccount/bookinfo-ratings created
+    deployment.apps/ratings-v1 created
+    service/reviews created
+    serviceaccount/bookinfo-reviews created
+    deployment.apps/reviews-v1 created
+    deployment.apps/reviews-v2 created
+    deployment.apps/reviews-v3 created
+    service/productpage created
+    serviceaccount/bookinfo-productpage created
+    deployment.apps/productpage-v1 created
+
+    # 查看deployment 和 pod
+    [root@k8s-master-22 istio]# kubectl get deploy
+    NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+    cat-dp           2/2     2            2           39m
+    details-v1       1/1     1            1           3m9s
+    dog-dp           1/1     1            1           34m
+    productpage-v1   1/1     1            1           3m8s
+    ratings-v1       1/1     1            1           3m9s
+    reviews-v1       1/1     1            1           3m9s
+    reviews-v2       1/1     1            1           3m9s
+    reviews-v3       1/1     1            1           3m8s
+    [root@k8s-master-22 istio]#
+
+    [root@k8s-master-22 istio]# kubectl get pod
+    NAME                              READY   STATUS    RESTARTS   AGE
+    cat-dp-57585f9c77-bpdsn           2/2     Running   0          42m
+    cat-dp-57585f9c77-gwgkz           2/2     Running   0          27m
+    details-v1-79f774bdb9-4wgfw       2/2     Running   0          6m13s
+    dog-dp-b6c8757d4-46nlh            2/2     Running   0          37m
+    productpage-v1-6b746f74dc-sp4rk   2/2     Running   0          6m12s
+    ratings-v1-b6994bb9-5xz2f         2/2     Running   0          6m13s
+    reviews-v1-545db77b95-jn5cr       2/2     Running   0          6m12s
+    reviews-v2-7bf8c9648f-nkp4q       2/2     Running   0          6m12s
+    reviews-v3-84779c7bbc-glqbp       2/2     Running   0          6m12s
+    [root@k8s-master-22 istio]#
+
+    # 验证pod是否能够提供http服务
+    kubectl exec "$(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadata.name}')" -c ratings -- curl -sS productpage:9080/productpage | grep -o "<title>.*</title>"
+
+    # 翻译一下: 进入 ratings 容器,执行 curl http://productpage:9080/productpage  看返回结果中是否有 <title>.*</title>
+    [root@k8s-master-22 istio]# kubectl exec -ti ratings-v1-b6994bb9-5xz2f curl http://productpage:9080/productpage
+    kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Simple Bookstore App</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">     
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    ...
+    ~~~
+
+
 3. Open the application to outside traffic
-   
+
+    * 将pod和istio-gateway关联
+      ~~~shell
+      # 待执行的命令
+      cd /usr/local/istio/
+      kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
+
+      # 实际的执行结果
+      [root@k8s-master-22 istio]# kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml
+      gateway.networking.istio.io/bookinfo-gateway created
+      virtualservice.networking.istio.io/bookinfo created
+      ~~~
+
+    *  确保配置没有问题
+
+      ~~~shell
+      [root@k8s-master-22 istio]# istioctl analyze
+
+      ✔ No validation issues found when analyzing namespace: default.
+      [root@k8s-master-22 istio]#
+
+      # 查看VirtualService
+      [root@k8s-master-22 istio]# kubectl get vs
+      NAME       GATEWAYS               HOSTS   AGE
+      bookinfo   ["bookinfo-gateway"]   ["*"]   9m48s
+      [root@k8s-master-22 istio]# kubectl describe vs bookinfo
+      Name:         bookinfo
+      Namespace:    default
+      Labels:       <none>
+      Annotations:  <none>
+      API Version:  networking.istio.io/v1beta1
+      Kind:         VirtualService
+      Metadata:
+        Creation Timestamp:  2022-04-11T08:37:51Z
+        Generation:          1
+        Managed Fields:
+          API Version:  networking.istio.io/v1alpha3
+          Fields Type:  FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .:
+                f:kubectl.kubernetes.io/last-applied-configuration:
+            f:spec:
+              .:
+              f:gateways:
+              f:hosts:
+              f:http:
+          Manager:         kubectl-client-side-apply
+          Operation:       Update
+          Time:            2022-04-11T08:37:51Z
+        Resource Version:  14625
+        UID:               620bc446-aed0-48c2-a7cb-9026144b5e0d
+      Spec:
+        Gateways:
+          bookinfo-gateway
+        Hosts:
+          *
+        Http:
+          Match:
+            Uri:
+              Exact:  /productpage
+            Uri:
+              Prefix:  /static
+            Uri:
+              Exact:  /login
+            Uri:
+              Exact:  /logout
+            Uri:
+              Prefix:  /api/v1/products
+          Route:
+            Destination:
+              Host:  productpage
+              Port:
+                Number:  9080
+      Events:            <none>
+
+      # 查看istio的gateway
+      [root@k8s-master-22 istio]# kubectl get gateway
+      NAME               AGE
+      bookinfo-gateway   10m
+      [root@k8s-master-22 istio]# kubectl describe gateway bookinfo-gateway
+      Name:         bookinfo-gateway
+      Namespace:    default
+      Labels:       <none>
+      Annotations:  <none>
+      API Version:  networking.istio.io/v1beta1
+      Kind:         Gateway
+      Metadata:
+        Creation Timestamp:  2022-04-11T08:37:51Z
+        Generation:          1
+        Managed Fields:
+          API Version:  networking.istio.io/v1alpha3
+          Fields Type:  FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .:
+                f:kubectl.kubernetes.io/last-applied-configuration:
+            f:spec:
+              .:
+              f:selector:
+                .:
+                f:istio:
+              f:servers:
+          Manager:         kubectl-client-side-apply
+          Operation:       Update
+          Time:            2022-04-11T08:37:51Z
+        Resource Version:  14624
+        UID:               df23873c-18d9-4e9b-94da-2724471e74ac
+      Spec:
+        Selector:
+          Istio:  ingressgateway
+        Servers:
+          Hosts:
+            *
+          Port:
+            Name:      http
+            Number:    80
+            Protocol:  HTTP
+      Events:          <none>
+      ~~~
+
+    * 访问bookinfo服务
+
+      * 通过Ingress访问
+
+        没有安装,需要在k8s集群中安装Ingress方能支持.
+
+      * 通过NodePort访问
+        ~~~shell
+        [root@k8s-master-22 istio]# kubectl get svc istio-ingressgateway -n istio-system
+        NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                                                                      AGE
+        istio-ingressgateway   LoadBalancer   10.10.210.169   <pending>     15021:30523/TCP,80:32177/TCP,443:32262/TCP,31400:30612/TCP,15443:31112/TCP   128m
+        [root@k8s-master-22 istio]#
+        # 可以看到 80:32177/TCP 中的 32177 即为NodePort,可以通过describe命令进一步确认
+        [root@k8s-master-22 istio]# kubectl describe service  -n istio-system istio-ingressgateway
+        Name:                     istio-ingressgateway
+        Namespace:                istio-system
+        Labels:                   app=istio-ingressgateway
+                                  install.operator.istio.io/owning-resource=unknown
+                                  install.operator.istio.io/owning-resource-namespace=istio-system
+                                  istio=ingressgateway
+                                  istio.io/rev=default
+                                  operator.istio.io/component=IngressGateways
+                                  operator.istio.io/managed=Reconcile
+                                  operator.istio.io/version=1.12.4
+                                  release=istio
+        Annotations:              <none>
+        Selector:                 app=istio-ingressgateway,istio=ingressgateway
+        Type:                     LoadBalancer
+        IP Family Policy:         SingleStack
+        IP Families:              IPv4
+        IP:                       10.10.210.169
+        IPs:                      10.10.210.169
+        Port:                     status-port  15021/TCP
+        TargetPort:               15021/TCP
+        NodePort:                 status-port  30523/TCP
+        Endpoints:                10.122.158.3:15021
+        Port:                     http2  80/TCP
+        TargetPort:               8080/TCP
+        NodePort:                 http2  32177/TCP
+        Endpoints:                10.122.158.3:8080
+        Port:                     https  443/TCP
+        TargetPort:               8443/TCP
+        NodePort:                 https  32262/TCP
+        Endpoints:                10.122.158.3:8443
+        Port:                     tcp  31400/TCP
+        TargetPort:               31400/TCP
+        NodePort:                 tcp  30612/TCP
+        Endpoints:                10.122.158.3:31400
+        Port:                     tls  15443/TCP
+        TargetPort:               15443/TCP
+        NodePort:                 tls  31112/TCP
+        Endpoints:                10.122.158.3:15443
+        Session Affinity:         None
+        External Traffic Policy:  Cluster
+        Events:                   <none>
+        [root@k8s-master-22 istio]#
+        ~~~
+
+        浏览器访问
+        
+        通过master节点的nodePort访问
+        ![20220411173430](https://picgo.catface996.com/picgo20220411173430.png)
+
+        通过worker节点的nodePort访问
+        ![20220411173529](https://picgo.catface996.com/picgo20220411173529.png)
+
+
 4. View the dashboard
 
+    * 安装Kiali 和其他插件并等待它们被部署
+
+      ~~~shell
+      # 待执行的部署命令
+      kubectl apply -f samples/addons
+
+      # 实际执行结果
+      [root@k8s-master-22 istio]# kubectl apply -f samples/addons
+      serviceaccount/grafana created
+      configmap/grafana created
+      service/grafana created
+      deployment.apps/grafana created
+      configmap/istio-grafana-dashboards created
+      configmap/istio-services-grafana-dashboards created
+      deployment.apps/jaeger created
+      service/tracing created
+      service/zipkin created
+      service/jaeger-collector created
+      serviceaccount/kiali created
+      configmap/kiali created
+      clusterrole.rbac.authorization.k8s.io/kiali-viewer created
+      clusterrole.rbac.authorization.k8s.io/kiali created
+      clusterrolebinding.rbac.authorization.k8s.io/kiali created
+      role.rbac.authorization.k8s.io/kiali-controlplane created
+      rolebinding.rbac.authorization.k8s.io/kiali-controlplane created
+      service/kiali created
+      deployment.apps/kiali created
+      serviceaccount/prometheus created
+      configmap/prometheus created
+      clusterrole.rbac.authorization.k8s.io/prometheus created
+      clusterrolebinding.rbac.authorization.k8s.io/prometheus created
+      service/prometheus created
+      deployment.apps/prometheus created
+      [root@k8s-master-22 istio]#
+
+      # 查看部署后的pod
+      [root@k8s-master-22 istio]# kubectl get pod -n istio-system
+      NAME                                    READY   STATUS    RESTARTS   AGE
+      grafana-6ccd56f4b6-6tj65                1/1     Running   0          32s
+      istio-egressgateway-56f4569d45-5jnq5    1/1     Running   0          3h7m
+      istio-ingressgateway-786c6bddb7-ntldl   1/1     Running   0          3h7m
+      istiod-84f87dcc49-tmqbf                 1/1     Running   0          3h7m
+      jaeger-5d44bc5c5d-s9whj                 1/1     Running   0          32s
+      kiali-79b86ff5bc-c72k6                  1/1     Running   0          32s
+      prometheus-64fd8ccd65-qhv7g             2/2     Running   0          32s
+      ~~~
 
 
-istio 1.12.4 需要的镜像
+    * 访问 Kiali 仪表板
 
-~~~shell
-istio/proxyv2                                                     1.12.4              69574f8a643d        7 weeks ago         260MB
-istio/pilot                                                       1.12.4              a11fe32e6ad7        7 weeks ago         192MB
+      注意:需要绑定服务暴露的ip地址 --address 192.168.162.22
+      ~~~shell
+      # 查看 istioctl dashboard 帮助文档
+      [root@k8s-master-22 istio]# istioctl dashboard --help
 
-# 提前拉取镜像
-docker pull istio/proxyv2:1.12.4
-docker pull istio/pilot:1.12.4
-~~~
+      Flags:
+      --address string   Address to listen on. Only accepts IP address or localhost as a value. When localhost is supplied, istioctl will try to bind on both 127.0.0.1 and ::1 and will fail if neither of these address are available to bind. (default "localhost")
+
+      # 需要执行的命令 
+      istioctl dashboard kiali --address 192.168.162.22
+
+      [root@k8s-master-22 istio]# istioctl dashboard kiali --address 192.168.162.22
+      http://192.168.162.22:20001/kiali
+      Failed to open browser; open http://192.168.162.22:20001/kiali in your browser.
+      ~~~
+
+      ![20220411180254](https://picgo.catface996.com/picgo20220411180254.png)
+
+      通过浏览器多访问几次 http://192.168.162.221:32177/productpage 后
+
+      ![20220411180423](https://picgo.catface996.com/picgo20220411180423.png)
+      
+  
 
 
 ## 挖坑记录
