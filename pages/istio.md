@@ -14,7 +14,11 @@
 				  ~~~
 			- 应用虚拟服务
 				- ~~~shell
+				  # 应用虚拟服务
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+				  
+				  # 查看虚拟服务
+				  
 				  ~~~
 				-
 			- 测试新的路由
