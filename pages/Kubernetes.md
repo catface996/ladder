@@ -44,4 +44,10 @@
 			- 理解Kubernetes对象
 			- Kubernetes对象管理
 			- 对象名称和IDs
-			-
+			- 命名空间
+			- 标签和选择算符
+			- 注释
+			- Finalizers
+			- 字段选择器
+			- 属主与附属
+			- 土建
