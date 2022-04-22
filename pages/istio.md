@@ -42,10 +42,12 @@
 				- 通过浏览器请求 /productpage   完整地址： http://192.168.162.22:31606/productpage
 				-
 			- 基于用户身份的路由
-				- ~~~shell
+				- 启用基于用户的路由
+				  ~~~shell
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
 				  ~~~
 				- 使用jason登录
+				-
 				- 使用其他任何用户登录
 				-
 			- 了解发生了什么
