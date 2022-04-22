@@ -30,6 +30,8 @@
 			- Node组件
 				- kubelet
 				- kube-proxy
+				- 容器运行时(Container Runtime)
+			- 插件(Addons)
 			-
 		- KubernetesAPI
 		- 使用Kubernetes对象
