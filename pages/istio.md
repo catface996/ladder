@@ -45,6 +45,9 @@
 				- ~~~shell
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
 				  ~~~
+				- 使用jason登录
+				- 使用其他任何用户登录
+				-
 			- 了解发生了什么
 			- 清理
 				- ~~~shell
