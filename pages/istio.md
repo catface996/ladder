@@ -3,9 +3,12 @@
 		- 请求路由
 			- 应用目标规则
 				- ~~~shell
+				  # 应用目标规则要执行的命令
 				  kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
+				  
+				  # 查看目标规则
+				  
 				  ~~~
-				-
 			- 应用虚拟服务
 				- ~~~shell
 				  $ kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
