@@ -38,4 +38,10 @@
 				- 集群界面日志
 		- KubernetesAPI
 			- OpenAPI规范
+				- OpenAPI V2
+				- OpenAPI V3
 		- 使用Kubernetes对象
+			- 理解Kubernetes对象
+			- Kubernetes对象管理
+			- 对象名称和IDs
+			-
