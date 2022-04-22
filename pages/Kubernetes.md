@@ -18,6 +18,7 @@
 				-
 				-
 		- [Kubernetes组件](https://kubernetes.io/zh/docs/concepts/overview/components/)
-			- ![image.png](../assets/image_1650596109787_0.png)
+		  ![image.png](../assets/image_1650596136346_0.png)
+			- 控制平面组件()
 		- KubernetesAPI
 		- 使用Kubernetes对象
