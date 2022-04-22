@@ -71,4 +71,5 @@
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
 - 例子
-	-
+	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
+		-
