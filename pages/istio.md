@@ -59,11 +59,15 @@
 				- 启用基于用户的路由
 				- ~~~shell
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
+				  
+				  # 实际执行结果
+				  [root@k8s-master-22 istio]# kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
+				  virtualservice.networking.istio.io/reviews configured
 				  ~~~
 				- 未登录
-					-
+					- ![image.png](../assets/image_1650644921434_0.png)
 				- 使用jason登录
-				-
+					-
 				- 使用其他任何用户登录
 				-
 			- 了解发生了什么
