@@ -32,6 +32,9 @@
 				- kube-proxy
 				- 容器运行时(Container Runtime)
 			- 插件(Addons)
-			-
+				- DNS
+				- Web界面(仪表盘)
+				- 容器资源监控
+				- 集群界面日志
 		- KubernetesAPI
 		- 使用Kubernetes对象
