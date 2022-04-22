@@ -15,18 +15,18 @@
 			- 应用虚拟服务之前
 				- ![image.png](../assets/image_1650644198341_0.png)
 				- ![image.png](../assets/image_1650644215695_0.png)
-				-
+				- ![image.png](../assets/image_1650644254232_0.png)
 			- 应用虚拟服务
-				- ~~~shell
-				  # 应用虚拟服务
-				  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
-				  
-				  # 查看虚拟服务
-				  kubectl get virtualservices -o yaml
-				  
-				  # 删除虚拟服务
-				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
-				  ~~~
+			  ~~~shell
+			  # 应用虚拟服务
+			  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+			  
+			  # 查看虚拟服务
+			  kubectl get virtualservices -o yaml
+			  
+			  # 删除虚拟服务
+			  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+			  ~~~
 				-
 			- 测试新的路由
 				- 查找istio-ingressgateway的NodePort端口：
