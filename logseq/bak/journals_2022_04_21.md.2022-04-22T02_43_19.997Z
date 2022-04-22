@@ -1,0 +1,2 @@
+- Kubernetes 从1.22版本后,开始支持交换分区.参考文档 https://kubernetes.io/zh/docs/concepts/architecture/nodes/#swap-memory
+- ![image.png](../assets/image_1650534086508_0.png)
