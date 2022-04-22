@@ -47,11 +47,11 @@
 				- Web界面(仪表盘)
 				- 容器资源监控
 				- 集群界面日志
-		- KubernetesAPI
+		- [KubernetesAPI](https://kubernetes.io/zh/docs/concepts/overview/kubernetes-api/)
 			- OpenAPI规范
 				- OpenAPI V2
 				- OpenAPI V3
-		- 使用Kubernetes对象
+		- [使用Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/)
 			- 理解Kubernetes对象
 			- Kubernetes对象管理
 			- 对象名称和IDs
