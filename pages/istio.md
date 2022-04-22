@@ -17,7 +17,7 @@
 				  tracing                ClusterIP      10.10.208.37    <none>        80/TCP,16685/TCP                                                             11d
 				  zipkin                 ClusterIP      10.10.9.194     <none>        9411/TCP                                                                     11d
 				  ~~~
-				- 通过浏览器请求 /productpage
+				- 通过浏览器请求 /productpage   完整地址： http://192.168.162.22:31606/productpage
 				-
 			- 基于用户身份的路由
 			- 了解发生了什么
