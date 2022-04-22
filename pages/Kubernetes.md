@@ -25,6 +25,8 @@
 				- kube-scheduler
 				- kube-controller-manager
 					- 节点控制器(Node Controller)
+					- 路由控制器(Route Controller)
+					- 服务控制器(Service Controller)
 					-
 		- KubernetesAPI
 		- 使用Kubernetes对象
