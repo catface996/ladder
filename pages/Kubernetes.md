@@ -91,7 +91,8 @@
 				- 使用到的镜像
 					- k8s.gcr.io/ingress-nginx/controller:v1.2.0
 					- k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1
-					- registry.cn-hangzhou.aliyuncs.com/google_containers/nginx-ingress-controller
+					- registry.cn-hangzhou.aliyuncs.com/google_containers/nginx-ingress-controller:v1.2.0
+					- registry.cn-hangzhou.aliyuncs.com/google_containers/kube-webhook-certgen
 					-
 		- Ingress控制器
 			-
