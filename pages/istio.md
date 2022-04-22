@@ -18,7 +18,10 @@
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  
 				  # 查看虚拟服务
+				  kubectl get virtualservices -o yaml
 				  
+				  # 删除虚拟服务
+				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
 				-
 			- 测试新的路由
@@ -44,5 +47,7 @@
 			- 了解发生了什么
 				-
 			- 清理
-				-
+				- ~~~shell
+				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+				  ~~~
 -
