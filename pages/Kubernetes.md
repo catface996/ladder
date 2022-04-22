@@ -52,7 +52,7 @@
 				- OpenAPI V2
 				- OpenAPI V3
 		- [使用Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/)
-			- [理解Kubernetes对象
+			- [理解Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 			- Kubernetes对象管理
 			- 对象名称和IDs
 			- 命名空间
