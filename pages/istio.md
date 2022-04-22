@@ -42,10 +42,10 @@
 				- 通过浏览器请求 /productpage   完整地址： http://192.168.162.22:31606/productpage
 				-
 			- 基于用户身份的路由
-				- kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
-				- kubectl delete -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
+				- ~~~shell
+				  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
+				  ~~~
 			- 了解发生了什么
-				-
 			- 清理
 				- ~~~shell
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
