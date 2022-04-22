@@ -7,7 +7,7 @@
 				  kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
 				  
 				  # 查看目标规则
-				  
+				  kubectl get destinationrules -o yaml
 				  ~~~
 			- 应用虚拟服务
 				- ~~~shell
