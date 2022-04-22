@@ -67,9 +67,9 @@
 				- 未登录
 					- ![image.png](../assets/image_1650644921434_0.png)
 				- 使用jason登录
-					-
-				- 使用其他任何用户登录
-				-
+					- ![image.png](../assets/image_1650644964614_0.png)
+				- 使用其他任何用户登录，例如：catface996
+					- ![image.png](../assets/image_1650645014127_0.png)
 			- 了解发生了什么
 			- 清理
 				- ~~~shell
