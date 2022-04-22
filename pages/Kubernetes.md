@@ -27,5 +27,9 @@
 					- 节点控制器(Node Controller)
 					- 路由控制器(Route Controller)
 					- 服务控制器(Service Controller)
+			- Node组件
+				- kubelet
+				- kube-proxy
+			-
 		- KubernetesAPI
 		- 使用Kubernetes对象
