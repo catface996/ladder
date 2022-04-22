@@ -52,7 +52,9 @@
 				  zipkin                 ClusterIP      10.10.9.194     <none>        9411/TCP                                                                     11d
 				  ~~~
 				- 通过浏览器请求 /productpage   完整地址： http://192.168.162.22:31606/productpage
-				-
+				- 验证结果，无论请求多少次，始终是v1版本
+					- ![image.png](../assets/image_1650644841159_0.png)
+					-
 			- 基于用户身份的路由
 				- 启用基于用户的路由
 				- ~~~shell
