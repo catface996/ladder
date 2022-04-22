@@ -3,9 +3,9 @@
 		- 请求路由
 			- 应用虚拟服务
 				- ~~~shell
-				  
+				  $ kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
-				- $ kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+				-
 			- 测试新的路由
 				- 查找istio-ingressgateway的NodePort端口：
 				  ~~~shell
@@ -24,6 +24,9 @@
 				- 通过浏览器请求 /productpage   完整地址： http://192.168.162.22:31606/productpage
 				-
 			- 基于用户身份的路由
+				-
 			- 了解发生了什么
+				-
 			- 清理
+				-
 -
