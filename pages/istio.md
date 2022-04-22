@@ -60,6 +60,8 @@
 				- ~~~shell
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
 				  ~~~
+				- 未登录
+					-
 				- 使用jason登录
 				-
 				- 使用其他任何用户登录
