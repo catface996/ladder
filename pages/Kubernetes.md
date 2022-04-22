@@ -84,7 +84,9 @@
 	- 服务、负载均衡和联网
 		- Ingress
 			- [Ingress nginx](https://kubernetes.github.io/ingress-nginx/deploy/)
-				-
+				- ~~~shell
+				  kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.0/deploy/static/provider/cloud/deploy.yaml
+				  ~~~
 		- Ingress控制器
 			-
 	-
