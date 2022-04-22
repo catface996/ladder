@@ -82,5 +82,9 @@
 			- [属主与附属](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/owners-dependents/)
 			- [推荐时间用的标签](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/common-labels/)
 	- 服务、负载均衡和联网
-		-
+		- Ingress
+			- [Ingress nginx](https://kubernetes.github.io/ingress-nginx/deploy/)
+				-
+		- Ingress控制器
+			-
 	-
