@@ -37,4 +37,5 @@
 				- 容器资源监控
 				- 集群界面日志
 		- KubernetesAPI
+			- OpenAPI规范
 		- 使用Kubernetes对象
