@@ -1,6 +1,11 @@
 - 任务
 	- 交通管理
 		- 请求路由
+			- 应用目标规则
+				- ~~~shell
+				  kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
+				  ~~~
+				-
 			- 应用虚拟服务
 				- ~~~shell
 				  $ kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
