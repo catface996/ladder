@@ -2,6 +2,7 @@
 	- [概述](https://kubernetes.io/zh/docs/concepts/overview/)
 		- [Kubernetes是什么? ](https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/)
 			- 时光回溯
+			  ![image.png](../assets/image_1650621232230_0.png)
 				- 传统部署时代
 				- 虚拟化部署时代
 				- 容器部署时代
