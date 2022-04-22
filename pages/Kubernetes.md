@@ -20,8 +20,6 @@
 		- [Kubernetes组件](https://kubernetes.io/zh/docs/concepts/overview/components/)
 		  ![image.png](../assets/image_1650596136346_0.png)
 			- 控制平面组件(Control Plane Components)
-				-
-				-
 				- kube-apiservice
 				- etcd
 				- kube-scheduler
