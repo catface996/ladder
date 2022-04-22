@@ -35,7 +35,7 @@
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
 				- 只出现v1版本
-				  ![image.png](../assets/image_1650644356611_0.png){:height 177, :width 716}
+					- ![image.png](../assets/image_1650644356611_0.png){:height 177, :width 716}
 				- 如果只应用了虚拟服务，没有应用目标规则
 					- ![image.png](../assets/image_1650645107656_0.png)
 			- 测试新的路由
