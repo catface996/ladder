@@ -2,16 +2,16 @@
 	- 交通管理
 		- 请求路由
 			- 应用目标规则
-			- ~~~shell
-			  # 应用目标规则
-			  kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
-			  
-			  # 查看目标规则
-			  kubectl get destinationrules -o yaml
-			  
-			  # 删除目标规则
-			  kubectl delete -f samples/bookinfo/networking/destination-rule-all.yaml
-			  ~~~
+				- ~~~shell
+				  # 应用目标规则
+				  kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
+				  
+				  # 查看目标规则
+				  kubectl get destinationrules -o yaml
+				  
+				  # 删除目标规则
+				  kubectl delete -f samples/bookinfo/networking/destination-rule-all.yaml
+				  ~~~
 			- 应用虚拟服务之前
 				- ![image.png](../assets/image_1650644198341_0.png)
 				- ![image.png](../assets/image_1650644215695_0.png)
@@ -38,7 +38,7 @@
 					- ![image.png](../assets/image_1650644356611_0.png){:height 177, :width 716}
 				- 如果只应用了虚拟服务，没有应用目标规则
 					- ![image.png](../assets/image_1650645107656_0.png)
-			- 测试新的路由
+			- 应用虚拟服务之后，测试新的路由
 				- 查找istio-ingressgateway的NodePort端口：
 				  ~~~shell
 				  [root@k8s-master-22 ~]# kubectl get svc -n istio-system
