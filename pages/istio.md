@@ -21,13 +21,20 @@
 			  # 应用虚拟服务
 			  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 			  
+			  # 实际执行结果
+			  [root@k8s-master-22 istio]# kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+			  virtualservice.networking.istio.io/productpage created
+			  virtualservice.networking.istio.io/reviews created
+			  virtualservice.networking.istio.io/ratings created
+			  virtualservice.networking.istio.io/details created
+			  
 			  # 查看虚拟服务
 			  kubectl get virtualservices -o yaml
 			  
 			  # 删除虚拟服务
 			  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 			  ~~~
-				-
+				- ![image.png](../assets/image_1650644356611_0.png)
 			- 测试新的路由
 				- 查找istio-ingressgateway的NodePort端口：
 				  ~~~shell
