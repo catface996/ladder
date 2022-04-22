@@ -1,8 +1,11 @@
 - 任务
 	- 交通管理
 		- 请求路由
+			- 版本介绍
+				- ![image.png](../assets/image_1650644478394_0.png)
+				-
 			- 应用目标规则
-			  ~~~shell
+			- ~~~shell
 			  # 应用目标规则
 			  kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
 			  
@@ -17,23 +20,23 @@
 				- ![image.png](../assets/image_1650644215695_0.png)
 				- ![image.png](../assets/image_1650644254232_0.png)
 			- 应用虚拟服务
-			  ~~~shell
-			  # 应用虚拟服务
-			  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
-			  
-			  # 实际执行结果
-			  [root@k8s-master-22 istio]# kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
-			  virtualservice.networking.istio.io/productpage created
-			  virtualservice.networking.istio.io/reviews created
-			  virtualservice.networking.istio.io/ratings created
-			  virtualservice.networking.istio.io/details created
-			  
-			  # 查看虚拟服务
-			  kubectl get virtualservices -o yaml
-			  
-			  # 删除虚拟服务
-			  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
-			  ~~~
+				- ~~~shell
+				  # 应用虚拟服务
+				  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+				  
+				  # 实际执行结果
+				  [root@k8s-master-22 istio]# kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+				  virtualservice.networking.istio.io/productpage created
+				  virtualservice.networking.istio.io/reviews created
+				  virtualservice.networking.istio.io/ratings created
+				  virtualservice.networking.istio.io/details created
+				  
+				  # 查看虚拟服务
+				  kubectl get virtualservices -o yaml
+				  
+				  # 删除虚拟服务
+				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+				  ~~~
 				- 只出现v1版本
 				  ![image.png](../assets/image_1650644356611_0.png){:height 177, :width 716}
 			- 测试新的路由
