@@ -17,6 +17,7 @@
 				- 不部署源代码,也不构建你的应用程序。
 				-
 				-
-		- Kubernetes组件
+		- [Kubernetes组件](https://kubernetes.io/zh/docs/concepts/overview/components/)
+			- ![image.png](../assets/image_1650596109787_0.png)
 		- KubernetesAPI
 		- 使用Kubernetes对象
