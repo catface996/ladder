@@ -56,9 +56,9 @@
 			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
-			- 标签和选择算符
-			- 注释
-			- Finalizers
+			- [标签和选择算符](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
+			- [注释](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)
+			- [Finalizers](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/finalizers/)
 			- 字段选择器
 			- 属主与附属
 			- 推荐时间用的标签
