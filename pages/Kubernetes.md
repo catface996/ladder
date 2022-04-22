@@ -11,6 +11,9 @@
 				- 自动部署和回滚
 				- 自动完成装箱计算
 				- 自我修复
+				- 秘钥与配置管理
+			- Kubernetes不是什么
+				- 不限制支持的应用类型
 				-
 		- Kubernetes组件
 		- KubernetesAPI
