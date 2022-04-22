@@ -1,9 +1,6 @@
 - 任务
 	- 交通管理
 		- 请求路由
-			- 版本介绍
-				- ![image.png](../assets/image_1650644478394_0.png)
-				-
 			- 应用目标规则
 			- ~~~shell
 			  # 应用目标规则
@@ -72,7 +69,9 @@
 				  ~~~
 - 例子
 	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
-		- 应用的版本
-		- 应用的部署图
+		- 没有istio的版本
+			- ![image.png](../assets/image_1650644733819_0.png)
+			-
+		- 部署了istio的版本
 			- ![image.png](../assets/image_1650644695876_0.png)
 			-
