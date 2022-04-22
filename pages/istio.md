@@ -2,6 +2,10 @@
 	- 交通管理
 		- 请求路由
 			- 应用虚拟服务
+				- ~~~shell
+				  
+				  ~~~
+				- $ kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 			- 测试新的路由
 				- 查找istio-ingressgateway的NodePort端口：
 				  ~~~shell
