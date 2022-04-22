@@ -6,6 +6,12 @@
 				- 虚拟化部署时代
 				- 容器部署时代
 			- 为什么需要Kubernetes,它能做什么?
+				- 服务发现和负载均衡
+				- 存储编排
+				- 自动部署和回滚
+				- 自动完成装箱计算
+				- 自我修复
+				-
 		- Kubernetes组件
 		- KubernetesAPI
 		- 使用Kubernetes对象
