@@ -12,6 +12,10 @@
 			  # 删除目标规则
 			  kubectl delete -f samples/bookinfo/networking/destination-rule-all.yaml
 			  ~~~
+			- 应用虚拟服务之前
+				- ![image.png](../assets/image_1650644198341_0.png)
+				- ![image.png](../assets/image_1650644215695_0.png)
+				-
 			- 应用虚拟服务
 				- ~~~shell
 				  # 应用虚拟服务
