@@ -23,6 +23,8 @@
 				- kube-apiservice
 				- etcd
 				- kube-scheduler
-				-
+				- kube-controller-manager
+					- 节点控制器(Node Controller)
+					-
 		- KubernetesAPI
 		- 使用Kubernetes对象
