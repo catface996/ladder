@@ -72,4 +72,7 @@
 				  ~~~
 - 例子
 	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
-		-
+		- 应用的版本
+		- 应用的部署图
+			- ![image.png](../assets/image_1650644695876_0.png)
+			-
