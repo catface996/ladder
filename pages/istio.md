@@ -34,7 +34,8 @@
 			  # 删除虚拟服务
 			  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 			  ~~~
-				- ![image.png](../assets/image_1650644356611_0.png)
+				- 只出现v1版本
+				  ![image.png](../assets/image_1650644356611_0.png){:height 177, :width 716}
 			- 测试新的路由
 				- 查找istio-ingressgateway的NodePort端口：
 				  ~~~shell
@@ -54,7 +55,7 @@
 				-
 			- 基于用户身份的路由
 				- 启用基于用户的路由
-				  ~~~shell
+				- ~~~shell
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
 				  ~~~
 				- 使用jason登录
