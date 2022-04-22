@@ -36,6 +36,8 @@
 				  ~~~
 				- 只出现v1版本
 				  ![image.png](../assets/image_1650644356611_0.png){:height 177, :width 716}
+				- 如果只应用了虚拟服务，没有应用目标规则
+					- ![image.png](../assets/image_1650645107656_0.png)
 			- 测试新的路由
 				- 查找istio-ingressgateway的NodePort端口：
 				  ~~~shell
