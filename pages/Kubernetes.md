@@ -59,6 +59,6 @@
 			- [标签和选择算符](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
 			- [注释](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)
 			- [Finalizers](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/finalizers/)
-			- 字段选择器
-			- 属主与附属
-			- 推荐时间用的标签
+			- [字段选择器](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/field-selectors/)
+			- [属主与附属](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/owners-dependents/)
+			- [推荐时间用的标签](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/common-labels/)
