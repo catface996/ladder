@@ -1,6 +1,11 @@
 - 概念
 	- 概述
 		- Kubernetes是什么?
+			- 时光回溯
+				- 传统部署时代
+				- 虚拟化部署时代
+				- 容器部署时代
+			- 为什么需要Kubernetes,它能做什么?
 		- Kubernetes组件
 		- KubernetesAPI
 		- 使用Kubernetes对象
