@@ -2,16 +2,16 @@
 	- 交通管理
 		- 请求路由
 			- 应用目标规则
-				- ~~~shell
-				  # 应用目标规则
-				  kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
-				  
-				  # 查看目标规则
-				  kubectl get destinationrules -o yaml
-				  
-				  # 删除目标规则
-				  kubectl delete -f samples/bookinfo/networking/destination-rule-all.yaml
-				  ~~~
+			  ~~~shell
+			  # 应用目标规则
+			  kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
+			  
+			  # 查看目标规则
+			  kubectl get destinationrules -o yaml
+			  
+			  # 删除目标规则
+			  kubectl delete -f samples/bookinfo/networking/destination-rule-all.yaml
+			  ~~~
 			- 应用虚拟服务
 				- ~~~shell
 				  # 应用虚拟服务
