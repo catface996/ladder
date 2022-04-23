@@ -2,6 +2,7 @@
 	- [概述](https://kubernetes.io/zh/docs/concepts/overview/)
 		- [Kubernetes是什么? ](https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/)
 		  id:: 62638d0b-8cf5-412e-b7e3-eb6a3d29b788
+		  collapsed:: true
 			- 时光回溯
 			  collapsed:: true
 			  ![image.png](../assets/image_1650621232230_0.png)
@@ -53,6 +54,7 @@
 				-
 		- [Kubernetes组件](https://kubernetes.io/zh/docs/concepts/overview/components/)
 		  id:: 62638d0b-2509-439b-a1e1-df37b3aa61e2
+		  collapsed:: true
 		  ![image.png](../assets/image_1650596136346_0.png)
 			- 控制平面组件(Control Plane Components)
 				- kube-apiserver
@@ -105,6 +107,7 @@
 				- 容器资源监控
 				- 集群界面日志
 		- [KubernetesAPI](https://kubernetes.io/zh/docs/concepts/overview/kubernetes-api/)
+		  collapsed:: true
 			- OpenAPI规范
 				- OpenAPI V2
 				- OpenAPI V3
