@@ -141,9 +141,8 @@
 					- spec - 你所期望的该对象的状态，对象 spec 的精确格式对每个 Kubernetes 对象来说是不同的。
 			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 				- 管理技巧
-				  ![image.png](../assets/image_1650726685838_0.png)
+					- ![image.png](../assets/image_1650726685838_0.png)
 				- [指令式命令](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
-				  collapsed:: true
 					- 例子
 					  kubectl create deployment nginx --image nginx
 					- 权衡
@@ -156,7 +155,6 @@
 							- 除了实时内容外，命令不提供记录原。
 							- 明星不提供用于创建新对象的模板。
 				- [指令式对象配置](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/imperative-config/)
-				  collapsed:: true
 					- 例子
 						- kubectl create -f nginx.yaml
 						- kubectl delete -f nginx.yaml -f redis.yaml
@@ -178,7 +176,6 @@
 								- 指令式对象配置更适合文件，而非目录。
 								- 对活动对象的更新，必须反应在配置文件中，否则会在下一次替换时丢失。(比如副本数，文件中为3，手动调整为6后，重新发布，又变回了3)
 				- [声明式对象配置](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/declarative-config/)
-				  collapsed:: true
 					- 例子
 						- kubectl diff -f configs/
 						  kubectl apply -f configs/
