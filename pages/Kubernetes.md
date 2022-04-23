@@ -114,8 +114,8 @@
 		- [使用Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/)
 		  id:: 62638d0b-9f49-4406-a924-d4ea728d6efb
 			- [理解Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
-				- 总结：
-				  collapsed:: true
+			  id:: 62638d0b-62aa-4e9f-9892-128653b42c87
+				- 总结
 					- Kubernetes 对象是持久化的实体
 					- Kubernetes 使用这些实体去表示整个集群的状态
 					- 达成的效果：
