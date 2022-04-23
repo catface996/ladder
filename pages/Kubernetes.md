@@ -128,6 +128,10 @@
 				- 描述 Kubernetes 对象
 					- 多数情况下是使用yaml文件描述。
 				- 必需字段
+					- apiVersion - 创建该对象所使用的 Kubernetes API 的版本
+						- 例如：apps/v1
+					- kind - 想要创建的对象的类别
+						- 例如：Pod，Deployment，Service
 					-
 			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
