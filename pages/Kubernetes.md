@@ -85,9 +85,11 @@
 					- 路由控制器（Route Controller）: 用于在底层云基础架构中设置路由
 					- 服务控制器（Service Controller）: 用于创建、更新和删除云提供商负载均衡器
 			- Node组件
-			  collapsed:: true
 				- kubelet
 				- kube-proxy
+					- 是集群中每个节点上运行的网络代理
+					- 维护节点上的网络规则
+					- 如果操作系统提供了数据包过滤层并可用的话，kube-proxy 会通过它(例如)来实现网络规则。否则， kube-proxy 仅转发流量本身。
 				- 容器运行时(Container Runtime)
 			- 插件(Addons)
 			  collapsed:: true
