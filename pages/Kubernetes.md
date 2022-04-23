@@ -52,6 +52,7 @@
 				-
 				-
 		- [Kubernetes组件](https://kubernetes.io/zh/docs/concepts/overview/components/)
+		  id:: 62638d0b-2509-439b-a1e1-df37b3aa61e2
 		  ![image.png](../assets/image_1650596136346_0.png)
 			- 控制平面组件(Control Plane Components)
 				- kube-apiserver
