@@ -58,8 +58,8 @@
 				- [[etcd]]
 					- etcd 是兼具一致性和高可用性的键值数据库
 						- ((6263b38c-6891-4342-9190-7b68c9b803ee)) 一致性✔️
-						- 高可用✔️
-						- 分区容错❌
+						- ((6263b398-d03f-403d-a306-39fb4491a41b)) 高可用✔️
+						- ((6263b3ab-4843-43de-97ba-a431f053b10a)) 分区容错❌
 				- kube-scheduler
 				- kube-controller-manager
 					- 节点控制器(Node Controller)
