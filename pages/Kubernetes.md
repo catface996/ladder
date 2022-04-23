@@ -1,0 +1,100 @@
+- 概念
+	- [概述](https://kubernetes.io/zh/docs/concepts/overview/)
+		- [Kubernetes是什么? ](https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/)
+		  collapsed:: true
+			- 时光回溯
+			  ![image.png](../assets/image_1650621232230_0.png)
+				- 传统部署时代
+					- 例如：安装Oracle
+						- 针对操作系统准备安装包(下载或者U盘拷贝)
+						- 安装Oracle需要的基础类库
+						- 配置操作系统的相应配置
+						- 执行安装检查，安装命令
+						- 安装失败之后，要完全卸载
+				- 虚拟化部署时代
+					- 只是做了物理资源隔离，安装一个Oracle仍旧是个复杂的过程。
+				- 容器部署时代
+					- 敏捷应用程序的创建和部署
+						- 关注点在如何构建应用程序的镜像以及启动镜像时的参数配置
+					- 持续开发、集成和部署
+					- 关注开发和运维的分离
+					- 可观察性
+					- 跨开发、测试和生产环境的一致性
+						- 可以使用同样的构建产物，在不同的环境上运行，只是启动参数的差异。
+					- 跨云和操作系统发型版本的可移植性
+						- 容器运行环境解决了不同的云和操作系统之间的差异
+					- 以应用程序为中心的管理
+					- 松耦合、分布式、弹性、解放的微服务
+						- 应用跟硬件，操作系统，网络都没有关系
+						- 弹性：副本数可伸缩
+					- 资源隔离
+						- 每个应用使用的资管互不影响
+					- 资源利用
+						- 一个应用的资源利用不是固定的，例如启动一个应用的最低配置和最大需要的配置等。
+			- 为什么需要Kubernetes,它能做什么?
+				- 服务发现和负载均衡
+					- 微服务的两大基石
+						- RPC
+						- 消息
+				- 存储编排
+				- 自动部署和回滚
+				- 自动完成装箱计算
+					- 背包问题
+				- 自我修复
+					- 传统部署方案需要写定时任务来做应用健康检查和自我修复
+				- 秘钥与配置管理
+			- Kubernetes不是什么
+				- 不限制支持的应用类型。
+				- 不部署源代码,也不构建你的应用程序。
+				-
+				-
+		- [Kubernetes组件](https://kubernetes.io/zh/docs/concepts/overview/components/)
+		  ![image.png](../assets/image_1650596136346_0.png)
+			- 控制平面组件(Control Plane Components)
+				- kube-apiserver
+				- etcd
+				- kube-scheduler
+				- kube-controller-manager
+					- 节点控制器(Node Controller)
+					- 路由控制器(Route Controller)
+					- 服务控制器(Service Controller)
+			- Node组件
+				- kubelet
+				- kube-proxy
+				- 容器运行时(Container Runtime)
+			- 插件(Addons)
+				- DNS
+				- Web界面(仪表盘)
+				- 容器资源监控
+				- 集群界面日志
+		- [KubernetesAPI](https://kubernetes.io/zh/docs/concepts/overview/kubernetes-api/)
+			- OpenAPI规范
+				- OpenAPI V2
+				- OpenAPI V3
+		- [使用Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/)
+			- [理解Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
+			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
+			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
+			- [标签和选择算符](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
+			- [注释](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)
+			- [Finalizers](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/finalizers/)
+			- [字段选择器](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/field-selectors/)
+			- [属主与附属](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/owners-dependents/)
+			- [推荐时间用的标签](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/common-labels/)
+	- 服务、负载均衡和联网
+		- Ingress
+			- [Ingress nginx](https://kubernetes.github.io/ingress-nginx/deploy/)
+				- 部署命令：
+				  ~~~shell
+				  kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.0/deploy/static/provider/cloud/deploy.yaml
+				  ~~~
+				- 使用到的镜像
+					- k8s.gcr.io/ingress-nginx/controller:v1.2.0
+					- k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1
+					- registry.cn-hangzhou.aliyuncs.com/google_containers/nginx-ingress-controller:v1.2.0
+					- registry.cn-hangzhou.aliyuncs.com/google_containers/kube-webhook-certgen:v1.1.1
+					-
+		- Ingress控制器
+			-
+	-
