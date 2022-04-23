@@ -113,6 +113,9 @@
 				- OpenAPI V3
 		- [使用Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/)
 			- [理解Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+				- Kubernetes 对象 是持久化的实体
+				- Kubernetes 使用这些实体去表示整个集群的状态
+				- 达成的效果：
 				-
 			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
