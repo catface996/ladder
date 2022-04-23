@@ -56,7 +56,7 @@
 					- etcd 是兼具一致性和高可用性的键值数据库
 						- 一致性✔️
 						- 高可用✔️
-						- 分区容错
+						- 分区容错❌
 				- kube-scheduler
 				- kube-controller-manager
 					- 节点控制器(Node Controller)
