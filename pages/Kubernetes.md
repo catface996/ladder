@@ -51,10 +51,13 @@
 		- [Kubernetes组件](https://kubernetes.io/zh/docs/concepts/overview/components/)
 		  ![image.png](../assets/image_1650596136346_0.png)
 			- 控制平面组件(Control Plane Components)
-				- kube-apiserver 支持水平扩展
-					- x轴扩展 增加副本数 ✔️
-					- y轴扩展 功能、业务拆分成不同的微服务
-					- z轴扩展 数据分片，租户隔离
+				- kube-apiserver
+					- 该组件公开了 Kubernetes API
+					- 支持水平扩展
+						- x轴扩展 增加副本数 ✔️
+						- y轴扩展 功能、业务拆分成不同的微服务
+						- z轴扩展 数据分片，租户隔离
+					-
 				- [[etcd]]
 					- etcd 是兼具一致性和高可用性的键值数据库
 						- ((6263b38c-6891-4342-9190-7b68c9b803ee)) 一致性✔️
