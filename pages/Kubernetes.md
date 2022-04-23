@@ -119,7 +119,8 @@
 					- 哪些容器化应用在运行（以及在哪些节点上）
 					- 可以被应用使用的资源
 					- 关于应用运行时表现的策略，比如重启策略、升级策略，以及容错策略
-				- Kubernetes 对象是 “目标性记录”
+				- Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernetes 系统将持续工作以确保对象存在。 通过创建对象，本质上是在告知 Kubernetes 系统，所需要的集群工作负载看起来是什么样子的， 这就是 Kubernetes 集群的 期望状态（Desired State）。
+				- 所有对Kubernetes对象的操作，最终都是使用 Kubernetes API
 				-
 			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
