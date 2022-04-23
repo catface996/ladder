@@ -112,6 +112,7 @@
 				- OpenAPI V2
 				- OpenAPI V3
 		- [使用Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/)
+		  collapsed:: true
 			- [理解Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 				- 总结：
 					- Kubernetes 对象是持久化的实体
@@ -170,7 +171,7 @@
 							- 缺点：
 								- 指令式对象配置更适合文件，而非目录。
 								- 对活动对象的更新，必须反应在配置文件中，否则会在下一次替换时丢失。(比如副本数，文件中为3，手动调整为6后，重新发布，又变回了3)
-				- 声明式对象配置
+				- [声明式对象配置](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/declarative-config/)
 					- 例子
 						- kubectl diff -f configs/
 						  kubectl apply -f configs/
@@ -194,7 +195,8 @@
 			- [字段选择器](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/field-selectors/)
 			- [属主与附属](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/owners-dependents/)
 			- [推荐时间用的标签](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/common-labels/)
-	- 服务、负载均衡和联网
+	- [服务、负载均衡和联网](https://kubernetes.io/zh/docs/concepts/services-networking/)
+	  collapsed:: true
 		- Ingress
 			- [Ingress nginx](https://kubernetes.github.io/ingress-nginx/deploy/)
 				- 部署命令：
@@ -209,4 +211,5 @@
 					-
 		- Ingress控制器
 			-
+	-
 	-
