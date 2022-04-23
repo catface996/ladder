@@ -91,6 +91,9 @@
 					- 维护节点上的网络规则
 					- 如果操作系统提供了数据包过滤层并可用的话，kube-proxy 会通过它(例如[[iptables]])来实现网络规则。否则， kube-proxy 仅转发流量本身。
 				- 容器运行时(Container Runtime)
+					- [[Docker]]
+					- [[containerd]]
+					-
 			- 插件(Addon
 			  collapsed:: true
 				- DNS
