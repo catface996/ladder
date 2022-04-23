@@ -87,7 +87,7 @@
 					- 服务控制器（Service Controller）: 用于创建、更新和删除云提供商负载均衡器
 			- Node组件
 				- kubelet
-					-
+					- 一个在集群中每个节点上运行的代理。 它保证容器（containers）都 运行在 Pod 中。
 				- kube-proxy
 					- 功能：
 						- 是集群中每个节点上运行的网络代理
