@@ -73,7 +73,7 @@
 						- 工作负载间的干扰和最后时限
 					-
 				- kube-controller-manager
-					- 节点控制器(Node Controller)
+					- 节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应
 					- 路由控制器(Route Controller)
 					- 服务控制器(Service Controller)
 			- Node组件
