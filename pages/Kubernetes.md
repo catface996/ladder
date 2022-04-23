@@ -116,7 +116,9 @@
 				- Kubernetes 对象 是持久化的实体
 				- Kubernetes 使用这些实体去表示整个集群的状态
 				- 达成的效果：
-				-
+					- 哪些容器化应用在运行（以及在哪些节点上）
+					- 可以被应用使用的资源
+					- 关于应用运行时表现的策略，比如重启策略、升级策略，以及容错策略
 			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
