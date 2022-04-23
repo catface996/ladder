@@ -51,7 +51,6 @@
 		- [Kubernetes组件](https://kubernetes.io/zh/docs/concepts/overview/components/)
 		  ![image.png](../assets/image_1650596136346_0.png)
 			- 控制平面组件(Control Plane Components)
-			  collapsed:: true
 				- kube-apiserver
 				  collapsed:: true
 					- 该组件公开了 Kubernetes API
@@ -81,6 +80,8 @@
 					- 任务控制器（Job controller）: 监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
 					- 端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)
 					- 服务帐户和令牌控制器（Service Account & Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌
+				- cloud-controller-manager
+					-
 			- Node组件
 			  collapsed:: true
 				- kubelet
