@@ -180,8 +180,9 @@
 						- 与指令式对象配置相比
 							- 优点：
 								- 对活动对象所做的更改即使未合并到配置文件中，也会被保留下来。
-								-
+								- 声明性对象配置更好地支持对目录进行操作并自动检测每个文件的操作类型(创建，修补，删除)。
 							- 缺点：
+								-
 								-
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 				-
