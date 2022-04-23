@@ -64,6 +64,8 @@
 						- ((6263b398-d03f-403d-a306-39fb4491a41b)) 高可用✔️
 						- ((6263b3ab-4843-43de-97ba-a431f053b10a)) 分区容错❌
 				- kube-scheduler
+					- 负责监视新创建的、未指定运行节点（node）的 Pods，选择节点让 Pod 在上面运行
+					-
 				- kube-controller-manager
 					- 节点控制器(Node Controller)
 					- 路由控制器(Route Controller)
