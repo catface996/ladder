@@ -193,7 +193,9 @@
 								- 声明式对象配置难于调试并且出现异常时结果难以解释。
 								- 使用diff产生的部分更新会创建复杂的合并和布丁操作。
 								-
-				- 分析工作场景，
+				- 分析工作场景，选择合适的方案
+					- 运维中要解决的问题
+						- 1.审计，谁在什么时间做了什么操作，
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 				-
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
