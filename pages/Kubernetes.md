@@ -183,7 +183,7 @@
 								- 声明性对象配置更好地支持对目录进行操作并自动检测每个文件的操作类型(创建，修补，删除)。
 							- 缺点：
 								- 声明式对象配置难于调试并且出现异常时结果难以解释。
-								- 使用diff产生的部分更新会创建复杂的
+								- 使用diff产生的部分更新会创建复杂的合并和布丁操作。
 								-
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 				-
