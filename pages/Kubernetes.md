@@ -198,7 +198,10 @@
 						- 1.审计，谁在什么时间做了什么操作，达到了什么效果
 						- 2.可重复执行
 						- 3.可回滚
-							- 命令如何
+							- 命令如何回滚，配置如何回滚
+						- 4.版本控制
+						- 5.CI/CD
+						-
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 				-
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
