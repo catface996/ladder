@@ -151,7 +151,11 @@
 							- 明星不提供用于创建新对象的模板。
 				- 指令式对象配置
 					- 例子
+						- kubectl create -f nginx.yaml
+						- kubectl delete -f nginx.yaml -f redis.yaml
+						- kubectl replace -f nginx.yaml
 					- 权衡
+						-
 				- 声明式对象配置
 					- 例子
 					- 权衡
