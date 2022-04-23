@@ -141,6 +141,9 @@
 					- 例子
 					  kubectl create deployment nginx --image nginx
 					- 权衡
+						- 与对象配置相比的有点：
+							- 命令简单，易学且易于记忆。
+							- 命令仅需一步
 				- 指令式对象配置
 					- 例子
 					- 权衡
