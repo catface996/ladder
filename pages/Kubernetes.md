@@ -195,7 +195,10 @@
 								-
 				- 分析工作场景，选择合适的方案
 					- 运维中要解决的问题
-						- 1.审计，谁在什么时间做了什么操作，
+						- 1.审计，谁在什么时间做了什么操作，达到了什么效果
+						- 2.可重复执行
+						- 3.可回滚
+							- 命令如何
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 				-
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
