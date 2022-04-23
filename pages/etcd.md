@@ -1,1 +1,3 @@
-- https://etcd.io/
+- 官网地址：https://etcd.io
+- [[CAP]]的抉择
+	- 选择了了CP
