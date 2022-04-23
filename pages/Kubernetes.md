@@ -74,8 +74,9 @@
 					-
 				- kube-controller-manager
 					- 节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应
-					- 路由控制器(Route Controller)
-					- 服务控制器(Service Controller)
+					- 任务控制器（Job controller）: 监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
+					- 端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)
+					- 服务帐户和令牌控制器（Service Account & Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌
 			- Node组件
 				- kubelet
 				- kube-proxy
