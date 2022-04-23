@@ -51,7 +51,9 @@
 		- [Kubernetes组件](https://kubernetes.io/zh/docs/concepts/overview/components/)
 		  ![image.png](../assets/image_1650596136346_0.png)
 			- 控制平面组件(Control Plane Components)
+			  collapsed:: true
 				- kube-apiserver
+				  collapsed:: true
 					- 该组件公开了 Kubernetes API
 					- 支持水平扩展
 						- x轴扩展 增加副本数 ✔️
@@ -59,11 +61,13 @@
 						- z轴扩展 数据分片，租户隔离
 					-
 				- [[etcd]]
+				  collapsed:: true
 					- etcd 是兼具一致性和高可用性的键值数据库
 						- ((6263b38c-6891-4342-9190-7b68c9b803ee)) 一致性✔️
 						- ((6263b398-d03f-403d-a306-39fb4491a41b)) 高可用✔️
 						- ((6263b3ab-4843-43de-97ba-a431f053b10a)) 分区容错❌
 				- kube-scheduler
+				  collapsed:: true
 					- 负责监视新创建的、未指定运行节点的 Pods，选择节点让 Pod 在上面运行。
 					- 调度决策考虑的因素包括
 						- 单个 Pod 和 Pod 集合的资源需求
@@ -71,17 +75,19 @@
 						- 亲和性和反亲和性规范
 						- 数据位置
 						- 工作负载间的干扰和最后时限
-					-
 				- kube-controller-manager
+				  collapsed:: true
 					- 节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应
 					- 任务控制器（Job controller）: 监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
 					- 端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)
 					- 服务帐户和令牌控制器（Service Account & Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌
 			- Node组件
+			  collapsed:: true
 				- kubelet
 				- kube-proxy
 				- 容器运行时(Container Runtime)
 			- 插件(Addons)
+			  collapsed:: true
 				- DNS
 				- Web界面(仪表盘)
 				- 容器资源监控
