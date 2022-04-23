@@ -139,10 +139,14 @@
 				  ![image.png](../assets/image_1650726685838_0.png)
 				- 指令式命令
 					- 例子
+					  kubectl create deployment nginx --image nginx
 					- 权衡
 				- 指令式对象配置
 					- 例子
-					-
+					- 权衡
+				- 声明式对象配置
+					- 例子
+					- 权衡
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 				-
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
