@@ -4,5 +4,5 @@
 	- http://www.cs.cmu.edu/~wing/publications/HerlihyWing90.pdf
 - Consistency
 - Availability
--
+- Partition Tolerance
 	-
