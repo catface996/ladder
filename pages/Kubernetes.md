@@ -132,7 +132,8 @@
 						- 例如：apps/v1
 					- kind - 想要创建的对象的类别
 						- 例如：Pod，Deployment，Service
-					-
+					- metadata - 帮助唯一性标识对象的一些数据，包括一个 name 字符串、UID 和可选的 namespac
+					- spec - 你所期望的该对象的状态
 			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
