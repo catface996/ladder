@@ -1,5 +1,4 @@
 - 任务
-  collapsed:: true
 	- [交通管理](https://istio.io/latest/docs/tasks/traffic-management/)
 	  collapsed:: true
 		- [请求路由](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
@@ -236,7 +235,6 @@
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
 - 例子
-  collapsed:: true
 	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
 		- 没有istio的版本
 			- ![image.png](../assets/image_1650644733819_0.png)
