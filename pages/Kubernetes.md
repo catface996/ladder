@@ -112,8 +112,9 @@
 				- OpenAPI V2
 				- OpenAPI V3
 		- [使用Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/)
-		  collapsed:: true
+		  id:: 62638d0b-9f49-4406-a924-d4ea728d6efb
 			- [理解Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+			  collapsed:: true
 				- 总结：
 					- Kubernetes 对象是持久化的实体
 					- Kubernetes 使用这些实体去表示整个集群的状态
@@ -136,6 +137,7 @@
 					- metadata - 帮助唯一性标识对象的一些数据，包括一个 name 字符串、UID 和可选的 namespac
 					- spec - 你所期望的该对象的状态，对象 spec 的精确格式对每个 Kubernetes 对象来说是不同的。
 			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
+			  collapsed:: true
 				- 管理技巧
 				  ![image.png](../assets/image_1650726685838_0.png)
 				- [指令式命令](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
