@@ -119,6 +119,8 @@
 					- 哪些容器化应用在运行（以及在哪些节点上）
 					- 可以被应用使用的资源
 					- 关于应用运行时表现的策略，比如重启策略、升级策略，以及容错策略
+				- Kubernetes 对象是 “目标性记录”
+				-
 			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
