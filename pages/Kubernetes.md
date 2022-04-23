@@ -155,7 +155,11 @@
 						- kubectl delete -f nginx.yaml -f redis.yaml
 						- kubectl replace -f nginx.yaml
 					- 权衡
-						-
+						- 与执行令式命令相比
+							- 优点：
+							- 缺点：
+						- 与声明式对象配置相比：
+							-
 				- 声明式对象配置
 					- 例子
 					- 权衡
