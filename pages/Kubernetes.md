@@ -137,7 +137,7 @@
 			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 				- 管理技巧
 				  ![image.png](../assets/image_1650726685838_0.png)
-				- 指令式命令
+				- [指令式命令](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
 					- 例子
 					  kubectl create deployment nginx --image nginx
 					- 权衡
@@ -149,7 +149,7 @@
 							- 命令不提供与更改关联的审核跟踪。
 							- 除了实时内容外，命令不提供记录原。
 							- 明星不提供用于创建新对象的模板。
-				- 指令式对象配置
+				- [指令式对象配置](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/imperative-config/)
 					- 例子
 						- kubectl create -f nginx.yaml
 						- kubectl delete -f nginx.yaml -f redis.yaml
