@@ -2,8 +2,8 @@
 	- [概述](https://kubernetes.io/zh/docs/concepts/overview/)
 		- [Kubernetes是什么? ](https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/)
 		  id:: 62638d0b-8cf5-412e-b7e3-eb6a3d29b788
-		  collapsed:: true
 			- 时光回溯
+			  collapsed:: true
 			  ![image.png](../assets/image_1650621232230_0.png)
 				- 传统部署时代
 					- 例如：安装Oracle
@@ -33,6 +33,7 @@
 					- 资源利用
 						- 一个应用的资源利用不是固定的，例如启动一个应用的最低配置和最大需要的配置等。
 			- 为什么需要Kubernetes,它能做什么?
+			  collapsed:: true
 				- 服务发现和负载均衡
 					- 微服务的两大基石
 						- RPC
@@ -45,6 +46,7 @@
 					- 传统部署方案需要写定时任务来做应用健康检查和自我修复
 				- 秘钥与配置管理
 			- Kubernetes不是什么
+			  collapsed:: true
 				- 不限制支持的应用类型。
 				- 不部署源代码,也不构建你的应用程序。
 				-
