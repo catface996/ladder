@@ -114,8 +114,8 @@
 		- [使用Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/)
 		  id:: 62638d0b-9f49-4406-a924-d4ea728d6efb
 			- [理解Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
-			  collapsed:: true
 				- 总结：
+				  collapsed:: true
 					- Kubernetes 对象是持久化的实体
 					- Kubernetes 使用这些实体去表示整个集群的状态
 					- 达成的效果：
@@ -125,11 +125,14 @@
 					- Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernetes 系统将持续工作以确保对象存在。 通过创建对象，本质上是在告知 Kubernetes 系统，所需要的集群工作负载看起来是什么样子的， 这就是 Kubernetes 集群的 期望状态（Desired State）。
 					- 所有对Kubernetes对象的操作，最终都是通过使用 Kubernetes API
 				- 对象规约（Spec）与状态（Status）
+				  collapsed:: true
 					- Spec： 对象期望状态（Desired State）。
 					- Status：对象当前状态（Current State）
 				- 描述 Kubernetes 对象
+				  collapsed:: true
 					- 多数情况下是使用yaml文件描述。
 				- 必需字段
+				  collapsed:: true
 					- apiVersion - 创建该对象所使用的 Kubernetes API 的版本
 						- 例如：apps/v1
 					- kind - 想要创建的对象的类别
