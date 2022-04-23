@@ -172,7 +172,12 @@
 								- 对活动对象的更新，必须反应在配置文件中，否则会在下一次替换时丢失。(比如副本数，文件中为3，手动调整为6后，重新发布，又变回了3)
 				- 声明式对象配置
 					- 例子
+						- kubectl diff -f configs/
+						  kubectl apply -f configs/
+						- kubectl diff -R -f configs/
+						  kubectl apply -R -f configs/
 					- 权衡
+						-
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 				-
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
