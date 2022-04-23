@@ -94,8 +94,9 @@
 					- [[containerd]]
 					- [[CRI-O]]
 			- 插件(Addon
-			  collapsed:: true
 				- DNS
+					- 集群 DNS 是一个 DNS 服务器，和环境中的其他 DNS 服务器一起工作，它为 Kubernetes 服务提供 DNS 记录。
+					- Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列表中。
 				- Web界面(仪表盘)
 				- 容器资源监控
 				- 集群界面日志
