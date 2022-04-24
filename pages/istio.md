@@ -240,12 +240,14 @@
 			- 开始之前
 				- ✔️已经装好istio。
 				- ✔️已经部署Bookinfo，并应用了默认的目标规则。
-				- 在流量管理概念文档中查看有关的讨论。
+				- TODO 在流量管理概念文档中查看有关 ((6264e77a-3345-4ce0-a63f-2bae8b1149fb)) 的讨论。
+				-
 				-
 		-
 - 概念
 	- [流量管理](https://istio.io/latest/zh/docs/concepts/traffic-management)
 		- [故障注入](https://istio.io/latest/zh/docs/concepts/traffic-management/#fault-injection)
+		  id:: 6264e77a-3345-4ce0-a63f-2bae8b1149fb
 			- 描述
 				- 可以使用 Istio 的故障注入机制来为整个应用程序测试故障恢复能力。
 				- Istio 允许在应用层注入错误。这使您可以注入更多相关的故障，例如 HTTP 错误码，以获得更多相关的结果。
