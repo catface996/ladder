@@ -422,6 +422,8 @@
 			- 测试终止配置
 				- 用浏览器打开Bookinfo应用。
 				- 使用用户jason登录到/productpage页面。
+					- ![image.png](../assets/image_1650785710826_0.png)
+					-
 				- 使用匿名用户打开Bookinfo。
 			- 清理
 				- ~~~shell
