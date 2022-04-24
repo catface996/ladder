@@ -240,7 +240,6 @@
 		- [故障注入](https://istio.io/latest/zh/docs/tasks/traffic-management/fault-injection/)
 		  id:: 6264e673-0dc2-4025-9229-96f2cb81461a
 			- 开始之前
-			  collapsed:: true
 				- ✔️已经装好istio。
 				- ✔️已经部署Bookinfo，并应用了默认的目标规则。
 				  collapsed:: true
