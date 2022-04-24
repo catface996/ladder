@@ -281,8 +281,12 @@
 				  ~~~
 				- 确认规则已经创建
 				  ~~~shell
+				  kubectl get virtualservice ratings -o yaml
 				  ~~~
 			- 测试终止配置
+				- 用浏览器打开Bookinfo应用。
+				- 使用用户jason登录到/productpage页面。
+				-
 			- 清理
 		-
 - 概念
