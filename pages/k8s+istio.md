@@ -1,3 +1,9 @@
 - 0-Kubernetes官方安装文档要求的主机环境搭建-安装CentOS7
 - 1-K8S官网快速体验K8S
 - 2-Docker官方安装文档介绍和实战
+- 3-Kubernetes官方文档介绍和使用Kubeadm安装简单集群实战
+- 4-创建Deployment和Service通过NodePort暴露来验证集群(参考Kubernetes官方文档)
+- 5-集群内无法访问Service解决方案(flannel和calico比对)
+- 6-安装Kubernetes集群常见故障模拟(使用kubeadm安装)
+- 7-k8s集群导入Rancher以及三个版本的比对(1.18, 1.20, 1.22)
+- 8-istio官方安装文档介绍和实战
