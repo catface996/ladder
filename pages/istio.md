@@ -244,18 +244,21 @@
 				- ✔️已经部署Bookinfo，并应用了默认的目标规则。
 				  collapsed:: true
 					- ((62638d0b-25b9-4026-8323-d21e1daf5501))
-				- DONE 在流量管理概念文档中查看有关 ((6264e77a-3345-4ce0-a63f-2bae8b1149fb)) 的讨论。
-				- DONE 通过自行配置请求路由任务或运行一下命令来初始化应用程序版本路由。
+				- TODO  在流量管理概念文档中查看有关 ((6264e77a-3345-4ce0-a63f-2bae8b1149fb)) 的讨论。
+				- TODO 通过自行配置请求路由任务或运行一下命令来初始化应用程序版本路由。
 				  collapsed:: true
+				  :LOGBOOK:
+				  CLOCK: [2022-04-24 Sun 16:20:06]--[2022-04-24 Sun 16:20:07] =>  00:00:01
+				  :END:
 					- ~~~shell
 					  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 					  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
 					  ~~~
 				- 经过上面的配置，下面是请求的流程：
 					- productpage → reviews:v2 → ratings (针对 jason 用户)
-						- DONE 浏览器访问，kiali展示
+						- TODO 浏览器访问，kiali展示
 					- productpage → reviews:v1 (其他用户)
-						- DONE 浏览器访问，kiali展示
+						- TODO 浏览器访问，kiali展示
 				- ((62638d0b-8892-4c54-b53c-439a6660ef62)) 和 ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
 			- 注入HTTP延迟故障
 				- 创建故障注入规则以延迟来自测试用户jason的流量
@@ -334,7 +337,6 @@
 					          subset: v1
 					  ~~~
 			- 测试延迟配置
-			  collapsed:: true
 				- 通过浏览器打开Bookinfo应用。
 				- 使用用户jason登录到、productpage页面。
 				- 查看页面的响应时间。
@@ -343,10 +345,8 @@
 					- ![image.png](../assets/image_1650783924834_0.png)
 					-
 			- 理解原理
-			  collapsed:: true
 				- productpage -- 3s * 2 --> reviews -- 10s --> ratings
 			- 错误修复
-			  collapsed:: true
 				- 增加productpage与reviews服务之间的超时或降低reviews与ratings的超时。
 				- 终止并重启修复后端额微服务。
 				- 确认/productpage页面正常响且没有任何错误。
