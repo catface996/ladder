@@ -1,5 +1,4 @@
 - 任务
-  collapsed:: true
 	- [流量管理](https://istio.io/latest/docs/tasks/traffic-management/)
 		- [请求路由](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
 		  id:: 62638d0b-1d62-4986-bc05-43098be840e2
@@ -242,6 +241,7 @@
 			- 开始之前
 				- ✔️已经装好istio。
 				- ✔️已经部署Bookinfo，并应用了默认的目标规则。
+					-
 				- TODO 在流量管理概念文档中查看有关 ((6264e77a-3345-4ce0-a63f-2bae8b1149fb)) 的讨论。
 				- TODO 通过自行配置请求路由任务或运行一下命令来初始化应用程序版本路由。
 				  ~~~shell
