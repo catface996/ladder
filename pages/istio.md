@@ -331,7 +331,6 @@
 					          subset: v1
 					  ~~~
 			- 测试延迟配置
-			  collapsed:: true
 				- 通过浏览器打开Bookinfo应用。
 				- 使用用户jason登录到、productpage页面。
 				- 查看页面的响应时间。
@@ -340,7 +339,6 @@
 					- ![image.png](../assets/image_1650783924834_0.png)
 					-
 			- 理解原理
-			  collapsed:: true
 				- productpage -- 3s * 2 --> reviews -- 10s --> ratings
 			- 错误修复
 			  collapsed:: true
