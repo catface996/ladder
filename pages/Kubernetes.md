@@ -90,23 +90,25 @@
 					- 路由控制器（Route Controller）: 用于在底层云基础架构中设置路由
 					- 服务控制器（Service Controller）: 用于创建、更新和删除云提供商负载均衡器
 			- Node组件
-			  collapsed:: true
 				- kubelet
+				  collapsed:: true
 					- 一个在集群中每个节点上运行的代理。
 					- 它保证容器（containers）都 运行在 Pod 中。
 					- kubelet 接收一组通过各类机制提供给它的 PodSpecs，确保这些 PodSpecs 中描述的容器处于运行状态且健康。
 					- kubelet 不会管理不是由 Kubernetes 创建的容器。
 				- kube-proxy
+				  collapsed:: true
 					- 是集群中每个节点上运行的网络代理
 					- 维护节点上的网络规则
 					- 如果操作系统提供了数据包过滤层并可用的话，kube-proxy 会通过它(例如[[iptables]])来实现网络规则。否则， kube-proxy 仅转发流量本身。
 				- 容器运行时(Container Runtime)
+				  collapsed:: true
 					- [[Docker]]
 					- [[containerd]]
 					- [[CRI-O]]
 			- 插件(Addon
-			  collapsed:: true
 				- DNS
+				  collapsed:: true
 					- 集群 DNS 是一个 DNS 服务器，和环境中的其他 DNS 服务器一起工作，它为 Kubernetes 服务提供 DNS 记录。
 					- Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列表中。
 				- Web界面(仪表盘)
