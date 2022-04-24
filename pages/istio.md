@@ -342,7 +342,6 @@
 					- ![image.png](../assets/image_1650783924834_0.png)
 					-
 			- 理解原理
-			  collapsed:: true
 				- productpage -- 3s * 2 --> reviews -- 10s --> ratings
 			- 错误修复
 			  collapsed:: true
