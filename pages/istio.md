@@ -279,7 +279,9 @@
 				  ~~~shell
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-abort.yaml
 				  ~~~
-				-
+				- 确认规则已经创建
+				  ~~~shell
+				  ~~~
 			- 测试终止配置
 			- 清理
 		-
