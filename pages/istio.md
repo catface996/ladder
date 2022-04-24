@@ -1,4 +1,5 @@
 - 任务
+  collapsed:: true
 	- [流量管理](https://istio.io/latest/docs/tasks/traffic-management/)
 		- [请求路由](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
 		  id:: 62638d0b-1d62-4986-bc05-43098be840e2
