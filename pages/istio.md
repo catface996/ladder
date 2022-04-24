@@ -1,6 +1,7 @@
 - 任务
 	- [交通管理](https://istio.io/latest/docs/tasks/traffic-management/)
 		- [请求路由](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
+		  id:: 62638d0b-1d62-4986-bc05-43098be840e2
 		  collapsed:: true
 			- 前置准备
 				- 访问bookinfo
@@ -233,6 +234,7 @@
 				- ~~~shell
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
+		- [故障注入]()
 - 例子
 	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
 		- 没有istio的版本
