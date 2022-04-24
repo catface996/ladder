@@ -259,6 +259,35 @@
 			- 注入HTTP延迟故障
 				- 创建故障注入规则以延迟来自测试用户jason的流量
 				  ~~~shell
+				  # 查看 virtual-service-ratings-test-delay.yaml
+				  [root@k8s-master-22 istio]# cat samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
+				  apiVersion: networking.istio.io/v1alpha3
+				  kind: VirtualService
+				  metadata:
+				    name: ratings
+				  spec:
+				    hosts:
+				    - ratings
+				    http:
+				    - match:
+				      - headers:
+				          end-user:
+				            exact: jason
+				      fault:
+				        delay:
+				          percentage:
+				            value: 100.0
+				          fixedDelay: 7s
+				      route:
+				      - destination:
+				          host: ratings
+				          subset: v1
+				    - route:
+				      - destination:
+				          host: ratings
+				          subset: v1
+				          
+				  # 应用延迟
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
 				  ~~~
 				- 确认规则已经创建：
