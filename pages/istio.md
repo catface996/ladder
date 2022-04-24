@@ -349,7 +349,6 @@
 				- 终止并重启修复后端额微服务。
 				- 确认/productpage页面正常响且没有任何错误。
 			- 注入HTTP abort故障
-			  collapsed:: true
 				- 为用户jason创建一个发送HTTP abort的故障注入规则
 				  ~~~shell
 				  # 查看待应用的abort配置
@@ -424,7 +423,6 @@
 				          subset: v1
 				  ~~~
 			- 测试终止配置
-			  collapsed:: true
 				- 用浏览器打开Bookinfo应用。
 				- 使用用户jason登录到/productpage页面。
 					- ![image.png](../assets/image_1650785710826_0.png)
