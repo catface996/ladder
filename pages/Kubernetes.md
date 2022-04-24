@@ -202,13 +202,12 @@
 						- 5.CI/CD
 						-
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
-			  集群中的每一个对象都有一个名称 来标识在同类资源中的唯一性。
-			  每个 Kubernetes 对象也有一个UID 来标识在整个集群中的唯一性。
-				- 名称
+				- 名称 集群中的每一个对象都有一个名称 来标识在同类资源中的唯一性。
 					- DNS子域名
 					- RFC 1123
 					- RFC 1035
-					-
+					- 路径分段名称
+				- UIDs 每个 Kubernetes 对象也有一个UID 来标识在整个集群中的唯一性。
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
 			- [标签和选择算符](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
 			- [注释](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)
