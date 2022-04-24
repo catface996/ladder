@@ -256,6 +256,7 @@
 						- TODO 浏览器访问，kiali展示
 				- ((62638d0b-8892-4c54-b53c-439a6660ef62)) 和 ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
 			- 注入HTTP延迟故障
+			  collapsed:: true
 				- 创建故障注入规则以延迟来自测试用户jason的流量
 					- ~~~shell
 					  # 查看 virtual-service-ratings-test-delay.yaml
@@ -331,6 +332,7 @@
 					          subset: v1
 					  ~~~
 			- 测试延迟配置
+			  collapsed:: true
 				- 通过浏览器打开Bookinfo应用。
 				- 使用用户jason登录到、productpage页面。
 				- 查看页面的响应时间。
@@ -339,6 +341,7 @@
 					- ![image.png](../assets/image_1650783924834_0.png)
 					-
 			- 理解原理
+			  collapsed:: true
 				- productpage -- 3s * 2 --> reviews -- 10s --> ratings
 			- 错误修复
 			  collapsed:: true
