@@ -254,8 +254,12 @@
 			- 注入HTTP延迟故障
 				- 创建故障注入规则以延迟来自测试用户jason的流量
 				  ~~~shell
+				  kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
 				  ~~~
-				-
+				- 确认规则已经创建：
+				  ~~~shell
+				  kubectl get virtualservice ratings -o yaml
+				  ~~~
 		-
 - 概念
 	- [流量管理](https://istio.io/latest/zh/docs/concepts/traffic-management)
