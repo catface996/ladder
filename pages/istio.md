@@ -265,7 +265,9 @@
 			- 测试延迟配置
 			- 理解原理
 			- 错误修复
-			- 注入HTTP
+			- 注入HTTP abort故障
+			- 测试终止配置
+			- 清理
 		-
 - 概念
 	- [流量管理](https://istio.io/latest/zh/docs/concepts/traffic-management)
