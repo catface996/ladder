@@ -236,8 +236,9 @@
 				  ~~~
 		- [故障注入](https://istio.io/latest/zh/docs/tasks/traffic-management/fault-injection/)
 			- 开始之前
-				- 已经装好istio。
-				- 已经部署Bookinfo，并应用了默认的目标规则。
+				- ✔️已经装好istio。
+				- ✔️已经部署Bookinfo，并应用了默认的目标规则。
+				- 在流量
 				-
 		-
 - 例子
