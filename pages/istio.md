@@ -262,6 +262,8 @@
 				  kubectl get virtualservice ratings -o yaml
 				  ~~~
 			- 测试延迟配置
+				- 通过浏览器打开Bookinfo应用.
+				-
 			- 理解原理
 			- 错误修复
 			- 注入HTTP abort故障
