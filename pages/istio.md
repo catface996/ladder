@@ -1,6 +1,5 @@
 - 任务
 	- [交通管理](https://istio.io/latest/docs/tasks/traffic-management/)
-	  collapsed:: true
 		- [请求路由](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
 		  collapsed:: true
 			- 前置准备
