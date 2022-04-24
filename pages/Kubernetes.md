@@ -57,7 +57,6 @@
 		  ![image.png](../assets/image_1650596136346_0.png)
 			- 控制平面组件(Control Plane Components)
 				- kube-apiserver
-				  collapsed:: true
 					- 该组件公开了 Kubernetes API
 					- 支持水平扩展
 						- x轴扩展 增加副本数 ✔️
@@ -113,7 +112,7 @@
 					- Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列表中。
 				- Web界面(仪表盘)
 				- 容器资源监控
-				- 集群界面日志
+				- 集群层面日志
 		- [KubernetesAPI](https://kubernetes.io/zh/docs/concepts/overview/kubernetes-api/)
 		  collapsed:: true
 			- OpenAPI规范
