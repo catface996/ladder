@@ -238,7 +238,6 @@
 		- [故障注入](https://istio.io/latest/zh/docs/tasks/traffic-management/fault-injection/)
 		  id:: 6264e673-0dc2-4025-9229-96f2cb81461a
 			- 开始之前
-			  collapsed:: true
 				- ✔️已经装好istio。
 				- ✔️已经部署Bookinfo，并应用了默认的目标规则。
 				- TODO 在流量管理概念文档中查看有关 ((6264e77a-3345-4ce0-a63f-2bae8b1149fb)) 的讨论。
@@ -286,8 +285,11 @@
 			- 测试终止配置
 				- 用浏览器打开Bookinfo应用。
 				- 使用用户jason登录到/productpage页面。
-				-
+				- 使用匿名用户打开Bookinfo。
 			- 清理
+				- ~~~shell
+				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+				  ~~~
 		-
 - 概念
 	- [流量管理](https://istio.io/latest/zh/docs/concepts/traffic-management)
