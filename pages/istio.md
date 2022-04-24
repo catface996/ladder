@@ -244,6 +244,7 @@
 		-
 - 概念
 	- 流量管理
+		- 故障注入
 - 例子
   collapsed:: true
 	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
