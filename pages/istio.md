@@ -268,7 +268,9 @@
 			- 理解原理
 				- productpage -- 3s * 2 --> reviews -- 10s --> ratings
 			- 错误修复
-				- 增加productpage与reviews服务之间的超时
+				- 增加productpage与reviews服务之间的超时或降低reviews与ratings的超时。
+				- 终止并重启修复后端额微服务。
+				- 确认、product
 			- 注入HTTP abort故障
 			- 测试终止配置
 			- 清理
