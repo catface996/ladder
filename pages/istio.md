@@ -6,6 +6,7 @@
 		  collapsed:: true
 			- 前置准备
 				- 访问bookinfo
+				  id:: 62638d0b-8892-4c54-b53c-439a6660ef62
 					- 查找istio-ingressgateway的NodePort端口：
 					  ~~~shell
 					  [root@k8s-master-22 ~]# kubectl get svc -n istio-system
@@ -246,13 +247,12 @@
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
 				  ~~~
-				- 经过上面的配置，下面是请求的流程：
+				- 经过上面的配置，下面是请求的流程， ((62638d0b-8892-4c54-b53c-439a6660ef62))
 					- productpage → reviews:v2 → ratings (针对 jason 用户)
 						- TODO 浏览器访问，kiali展示
 					- productpage → reviews:v1 (其他用户)
 						- TODO 浏览器访问，kiali展示
 			- 注入HTTP延迟故障
-			  collapsed:: true
 				- 创建故障注入规则以延迟来自测试用户jason的流量
 				  ~~~shell
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
