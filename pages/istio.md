@@ -258,9 +258,7 @@
 						- DONE 浏览器访问，kiali展示
 				- ((62638d0b-8892-4c54-b53c-439a6660ef62)) 和 ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
 			- 注入HTTP延迟故障
-			  collapsed:: true
 				- 创建故障注入规则以延迟来自测试用户jason的流量
-				  collapsed:: true
 					- ~~~shell
 					  # 查看 virtual-service-ratings-test-delay.yaml
 					  [root@k8s-master-22 istio]# cat samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
@@ -352,6 +350,7 @@
 				- 终止并重启修复后端额微服务。
 				- 确认/productpage页面正常响且没有任何错误。
 			- 注入HTTP abort故障
+			  collapsed:: true
 				- 为用户jason创建一个发送HTTP abort的故障注入规则
 				  ~~~shell
 				  # 查看待应用的abort配置
@@ -426,6 +425,7 @@
 				          subset: v1
 				  ~~~
 			- 测试终止配置
+			  collapsed:: true
 				- 用浏览器打开Bookinfo应用。
 				- 使用用户jason登录到/productpage页面。
 					- ![image.png](../assets/image_1650785710826_0.png)
@@ -434,6 +434,7 @@
 					- ![image.png](../assets/image_1650785829741_0.png)
 					- ![image.png](../assets/image_1650785954965_0.png)
 			- 清理
+			  collapsed:: true
 				- ~~~shell
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
