@@ -252,7 +252,9 @@
 					- productpage → reviews:v1 (其他用户)
 						- TODO 浏览器访问，kiali展示
 			- 注入HTTP延迟故障
-				-
+				- 创建故障注入规则以延迟来自测试用户jason的流量
+				  ~~~shell
+				  ~~~
 				-
 		-
 - 概念
