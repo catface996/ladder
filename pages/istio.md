@@ -240,7 +240,6 @@
 		- [故障注入](https://istio.io/latest/zh/docs/tasks/traffic-management/fault-injection/)
 		  id:: 6264e673-0dc2-4025-9229-96f2cb81461a
 			- 开始之前
-			  collapsed:: true
 				- ✔️已经装好istio。
 				- ✔️已经部署Bookinfo，并应用了默认的目标规则。
 				  collapsed:: true
@@ -259,6 +258,7 @@
 				- ((62638d0b-8892-4c54-b53c-439a6660ef62)) 和 ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
 			- 注入HTTP延迟故障
 				- 创建故障注入规则以延迟来自测试用户jason的流量
+				  collapsed:: true
 					- ~~~shell
 					  # 查看 virtual-service-ratings-test-delay.yaml
 					  [root@k8s-master-22 istio]# cat samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
