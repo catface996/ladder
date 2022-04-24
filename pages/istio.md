@@ -266,7 +266,7 @@
 				- 使用用户jason登录到、productpage页面。
 				- 查看页面的响应时间
 			- 理解原理
-				- productpage--> 3 * 2 -->reviews --> 10s --ratings
+				- productpage -- 3s * 2 --> reviews -- 10s --> ratings
 			- 错误修复
 			- 注入HTTP abort故障
 			- 测试终止配置
