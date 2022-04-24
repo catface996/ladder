@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dog-dp
+spec:
+  selector:
+    matchLabels:
+      app: dog
+      env: prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dog
+        env: prod
+    spec:
+      containers:
+        - name: dog-ct
+          image: catface996/spring-cloud-istio-demo:latest
+          ports:
+            - containerPort: 9001
+              protocol: TCP
