@@ -17,9 +17,10 @@
   ![20220423132027](https://picgo.catface996.com/picgo20220423132027.png)
   ![20220423132055](https://picgo.catface996.com/picgo20220423132055.png)
 
-  选择clone的仓库的目录
+  选择clone的仓库文件中的 logseq-in-github目录
 
-  ![20220424163913](https://picgo.catface996.com/picgo20220424163913.png)
+  ![20220424174150](https://picgo.catface996.com/picgo20220424174150.png)
+  ![20220423132304](https://picgo.catface996.com/picgo20220423132304.png)
 
   至此，就可以正常查看从github clone的笔记了。
 
