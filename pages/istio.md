@@ -252,12 +252,11 @@
 					  ~~~
 				- 经过上面的配置，下面是请求的流程：
 					- productpage → reviews:v2 → ratings (针对 jason 用户)
-						- TODO 浏览器访问，kiali展示
+						- DONE 浏览器访问，kiali展示
 					- productpage → reviews:v1 (其他用户)
-						- TODO 浏览器访问，kiali展示
+						- DONE 浏览器访问，kiali展示
 				- ((62638d0b-8892-4c54-b53c-439a6660ef62)) 和 ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
 			- 注入HTTP延迟故障
-			  collapsed:: true
 				- 创建故障注入规则以延迟来自测试用户jason的流量
 					- ~~~shell
 					  # 查看 virtual-service-ratings-test-delay.yaml
