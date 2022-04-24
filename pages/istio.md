@@ -348,11 +348,76 @@
 			- 注入HTTP abort故障
 				- 为用户jason创建一个发送HTTP abort的故障注入规则
 				  ~~~shell
+				  # 查看待应用的abort配置
+				  [root@k8s-master-22 istio]# cat  samples/bookinfo/networking/virtual-service-ratings-test-abort.yaml
+				  apiVersion: networking.istio.io/v1alpha3
+				  kind: VirtualService
+				  metadata:
+				    name: ratings
+				  spec:
+				    hosts:
+				    - ratings
+				    http:
+				    - match:
+				      - headers:
+				          end-user:
+				            exact: jason
+				      fault:
+				        abort:
+				          percentage:
+				            value: 100.0
+				          httpStatus: 500
+				      route:
+				      - destination:
+				          host: ratings
+				          subset: v1
+				    - route:
+				      - destination:
+				          host: ratings
+				          subset: v1
+				          
+				  # 应用配置        
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-abort.yaml
 				  ~~~
 				- 确认规则已经创建
 				  ~~~shell
 				  kubectl get virtualservice ratings -o yaml
+				  
+				  ## 查看结果
+				  [root@k8s-master-22 istio]# kubectl get virtualservice ratings -o yaml
+				  apiVersion: networking.istio.io/v1beta1
+				  kind: VirtualService
+				  metadata:
+				    annotations:
+				      kubectl.kubernetes.io/last-applied-configuration: |
+				        {"apiVersion":"networking.istio.io/v1alpha3","kind":"VirtualService","metadata":{"annotations":{},"name":"ratings","namespace":"default"},"spec":{"hosts":["ratings"],"http":[{"fault":{"abort":{"httpStatus":500,"percentage":{"value":100}}},"match":[{"headers":{"end-user":{"exact":"jason"}}}],"route":[{"destination":{"host":"ratings","subset":"v1"}}]},{"route":[{"destination":{"host":"ratings","subset":"v1"}}]}]}}
+				    creationTimestamp: "2022-04-24T04:46:10Z"
+				    generation: 4
+				    name: ratings
+				    namespace: default
+				    resourceVersion: "104859"
+				    uid: 5df5c140-d41c-4d31-ab5f-3b4885155f28
+				  spec:
+				    hosts:
+				    - ratings
+				    http:
+				    - fault:
+				        abort:
+				          httpStatus: 500
+				          percentage:
+				            value: 100
+				      match:
+				      - headers:
+				          end-user:
+				            exact: jason
+				      route:
+				      - destination:
+				          host: ratings
+				          subset: v1
+				    - route:
+				      - destination:
+				          host: ratings
+				          subset: v1
 				  ~~~
 			- 测试终止配置
 				- 用浏览器打开Bookinfo应用。
