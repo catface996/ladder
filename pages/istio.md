@@ -351,7 +351,6 @@
 				- 终止并重启修复后端额微服务。
 				- 确认/productpage页面正常响且没有任何错误。
 			- 注入HTTP abort故障
-			  collapsed:: true
 				- 为用户jason创建一个发送HTTP abort的故障注入规则
 				  ~~~shell
 				  # 查看待应用的abort配置
@@ -426,7 +425,6 @@
 				          subset: v1
 				  ~~~
 			- 测试终止配置
-			  collapsed:: true
 				- 用浏览器打开Bookinfo应用。
 				- 使用用户jason登录到/productpage页面。
 					- ![image.png](../assets/image_1650785710826_0.png)
@@ -435,13 +433,11 @@
 					- ![image.png](../assets/image_1650785829741_0.png)
 					- ![image.png](../assets/image_1650785954965_0.png)
 			- 清理
-			  collapsed:: true
 				- ~~~shell
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
 		-
 - 概念
-  collapsed:: true
 	- [流量管理](https://istio.io/latest/zh/docs/concepts/traffic-management)
 		- [故障注入](https://istio.io/latest/zh/docs/concepts/traffic-management/#fault-injection)
 		  id:: 6264e77a-3345-4ce0-a63f-2bae8b1149fb
@@ -455,6 +451,7 @@
 				- Istio 故障恢复功能对应用程序来说是完全透明的。在返回响应之前，应用程序不知道 Envoy sidecar 代理是否正在处理被调用服务的故障。这意味着，如果在应用程序代码中设置了故障恢复策略，那么您需要记住这**两个策略都是独立工作**的，否则会发生冲突。例如，假设您设置了两个超时，一个在虚拟服务中配置，另一个在应用程序中配置。应用程序为服务的 API 调用设置了 2 秒超时。而您在虚拟服务中配置了一个 3 秒超时和重试。在这种情况下，应用程序的超时会先生效，因此 Envoy 的超时和重试尝试会失效。
 			-
 - 例子
+  collapsed:: true
 	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
 		- 没有istio的版本
 			- ![image.png](../assets/image_1650644733819_0.png)
