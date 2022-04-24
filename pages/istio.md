@@ -257,7 +257,6 @@
 						- TODO 浏览器访问，kiali展示
 				- ((62638d0b-8892-4c54-b53c-439a6660ef62)) 和 ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
 			- 注入HTTP延迟故障
-			  collapsed:: true
 				- 创建故障注入规则以延迟来自测试用户jason的流量
 					- ~~~shell
 					  # 查看 virtual-service-ratings-test-delay.yaml
@@ -292,7 +291,6 @@
 					  kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
 					  ~~~
 				- 确认规则已经创建
-				  collapsed:: true
 					- ~~~shell
 					  kubectl get virtualservice ratings -o yaml
 					  
