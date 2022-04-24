@@ -253,6 +253,7 @@
 					- productpage → reviews:v1 (其他用户)
 						- TODO 浏览器访问，kiali展示
 			- 注入HTTP延迟故障
+			  collapsed:: true
 				- 创建故障注入规则以延迟来自测试用户jason的流量
 				  ~~~shell
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
@@ -262,17 +263,23 @@
 				  kubectl get virtualservice ratings -o yaml
 				  ~~~
 			- 测试延迟配置
+			  collapsed:: true
 				- 通过浏览器打开Bookinfo应用。
 				- 使用用户jason登录到、productpage页面。
 				- 查看页面的响应时间
 			- 理解原理
 				- productpage -- 3s * 2 --> reviews -- 10s --> ratings
 			- 错误修复
+			  collapsed:: true
 				- 增加productpage与reviews服务之间的超时或降低reviews与ratings的超时。
 				- 终止并重启修复后端额微服务。
 				- 确认、productpage页面正常响且没有任何错误。
 			- 注入HTTP abort故障
-				- 为用户
+				- 为用户jason创建一个发送HTTP abort的故障注入规则
+				  ~~~shell
+				  kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-abort.yaml
+				  ~~~
+				-
 			- 测试终止配置
 			- 清理
 		-
