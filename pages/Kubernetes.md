@@ -202,6 +202,7 @@
 						- 5.CI/CD
 						-
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
+			  collapsed:: true
 				- 名称 集群中的每一个对象都有一个名称 来标识在同类资源中的唯一性。
 					- DNS子域名
 						- 不能超过253个字符
