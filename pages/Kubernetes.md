@@ -198,6 +198,7 @@
 						- 5.CI/CD
 						-
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
+			  id:: 62638d0b-e442-4e7d-bf15-8874f56955cb
 			  collapsed:: true
 				- 名称 集群中的每一个对象都有一个名称 来标识在同类资源中的唯一性。
 					- DNS子域名
@@ -214,6 +215,7 @@
 					- 路径分段名称
 				- UIDs 每个 Kubernetes 对象也有一个UID 来标识在整个集群中的唯一性。
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
+			  id:: 62638d0b-7c8b-424a-be77-3df5bd50c77f
 			- [标签和选择算符](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
 			- [注释](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)
 			- [Finalizers](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/finalizers/)
