@@ -57,17 +57,20 @@
 		  ![image.png](../assets/image_1650596136346_0.png)
 			- 控制平面组件(Control Plane Components)
 				- kube-apiserver
+				  collapsed:: true
 					- 该组件公开了 Kubernetes API
 					- 支持水平扩展
 						- x轴扩展 增加副本数 ✔️
 						- y轴扩展 功能、业务拆分成不同的微服务
 						- z轴扩展 数据分片，租户隔离
 				- [[etcd]]
+				  collapsed:: true
 					- etcd 是兼具一致性和高可用性的键值数据库
 						- ((6263b38c-6891-4342-9190-7b68c9b803ee)) 一致性✔️
 						- ((6263b398-d03f-403d-a306-39fb4491a41b)) 高可用✔️
 						- ((6263b3ab-4843-43de-97ba-a431f053b10a)) 分区容错❌
 				- kube-scheduler
+				  collapsed:: true
 					- 负责监视新创建的、未指定运行节点的 Pods，选择节点让 Pod 在上面运行。
 					- 调度决策考虑的因素包括
 						- 单个 Pod 和 Pod 集合的资源需求
@@ -76,15 +79,18 @@
 						- 数据位置
 						- 工作负载间的干扰和最后时限
 				- kube-controller-manager
+				  collapsed:: true
 					- 节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应
 					- 任务控制器（Job controller）: 监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
 					- 端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)
 					- 服务帐户和令牌控制器（Service Account & Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌
 				- cloud-controller-manager
+				  collapsed:: true
 					- 节点控制器（Node Controller）: 用于在节点终止响应后检查云提供商以确定节点是否已被删除
 					- 路由控制器（Route Controller）: 用于在底层云基础架构中设置路由
 					- 服务控制器（Service Controller）: 用于创建、更新和删除云提供商负载均衡器
 			- Node组件
+			  collapsed:: true
 				- kubelet
 					- 一个在集群中每个节点上运行的代理。
 					- 它保证容器（containers）都 运行在 Pod 中。
@@ -99,6 +105,7 @@
 					- [[containerd]]
 					- [[CRI-O]]
 			- 插件(Addon
+			  collapsed:: true
 				- DNS
 					- 集群 DNS 是一个 DNS 服务器，和环境中的其他 DNS 服务器一起工作，它为 Kubernetes 服务提供 DNS 记录。
 					- Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列表中。
