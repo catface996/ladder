@@ -245,7 +245,8 @@
 - 概念
 	- [流量管理](https://istio.io/latest/zh/docs/concepts/traffic-management)
 		- [故障注入](https://istio.io/latest/zh/docs/concepts/traffic-management/#fault-injection)
-			-
+			- 可以使用 Istio 的故障注入机制来为整个应用程序测试故障恢复能力。
+			- Istio 允许在应用层注入错误。
 		-
 - 例子
   collapsed:: true
