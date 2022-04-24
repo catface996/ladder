@@ -115,6 +115,7 @@
 		  id:: 62638d0b-9f49-4406-a924-d4ea728d6efb
 			- [理解Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 			  id:: 62638d0b-62aa-4e9f-9892-128653b42c87
+			  collapsed:: true
 				- 总结
 					- Kubernetes 对象是持久化的实体
 					- Kubernetes 使用这些实体去表示整个集群的状态
@@ -140,6 +141,7 @@
 					- metadata - 帮助唯一性标识对象的一些数据，包括一个 name 字符串、UID 和可选的 namespac
 					- spec - 你所期望的该对象的状态，对象 spec 的精确格式对每个 Kubernetes 对象来说是不同的。
 			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
+			  collapsed:: true
 				- 管理技巧
 					- ![image.png](../assets/image_1650726685838_0.png)
 				- [指令式命令](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
@@ -200,7 +202,8 @@
 						- 5.CI/CD
 						-
 			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
-				-
+			  集群中的每一个对象都有一个名称 来标识在同类资源中的唯一性。
+			  每个 Kubernetes 对象也有一个UID 来标识在整个集群中的唯一性。
 			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
 			- [标签和选择算符](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
 			- [注释](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)
