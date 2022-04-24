@@ -262,9 +262,11 @@
 				  kubectl get virtualservice ratings -o yaml
 				  ~~~
 			- 测试延迟配置
-				- 通过浏览器打开Bookinfo应用.
-				-
+				- 通过浏览器打开Bookinfo应用。
+				- 使用用户jason登录到、productpage页面。
+				- 查看页面的响应时间
 			- 理解原理
+				-
 			- 错误修复
 			- 注入HTTP abort故障
 			- 测试终止配置
