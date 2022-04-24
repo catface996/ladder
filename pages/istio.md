@@ -244,7 +244,8 @@
 		-
 - 概念
 	- 流量管理
-		- 故障注入
+		- [故障注入](https://istio.io/latest/zh/docs/concepts/traffic-management/#fault-injection)
+		-
 - 例子
   collapsed:: true
 	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
