@@ -1,5 +1,5 @@
 - 任务
-	- [交通管理](https://istio.io/latest/docs/tasks/traffic-management/)
+	- [流量管理](https://istio.io/latest/docs/tasks/traffic-management/)
 		- [请求路由](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
 		  id:: 62638d0b-1d62-4986-bc05-43098be840e2
 		  collapsed:: true
@@ -238,7 +238,7 @@
 			- 开始之前
 				- ✔️已经装好istio。
 				- ✔️已经部署Bookinfo，并应用了默认的目标规则。
-				- 在流量
+				- 在流量管理概念文档中查看有关故障注入的讨论。
 				-
 		-
 - 例子
