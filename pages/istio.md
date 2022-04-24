@@ -234,7 +234,12 @@
 				- ~~~shell
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
-		- [故障注入]()
+		- [故障注入](https://istio.io/latest/zh/docs/tasks/traffic-management/fault-injection/)
+			- 开始之前
+				- 已经装好istio。
+				- 已经部署Bookinfo，并应用了默认的目标规则。
+				-
+		-
 - 例子
 	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
 		- 没有istio的版本
