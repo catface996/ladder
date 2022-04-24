@@ -247,11 +247,12 @@
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
 				  ~~~
-				- 经过上面的配置，下面是请求的流程， ((62638d0b-8892-4c54-b53c-439a6660ef62))
+				- 经过上面的配置，下面是请求的流程：
 					- productpage → reviews:v2 → ratings (针对 jason 用户)
 						- TODO 浏览器访问，kiali展示
 					- productpage → reviews:v1 (其他用户)
 						- TODO 浏览器访问，kiali展示
+				- ((62638d0b-8892-4c54-b53c-439a6660ef62))
 			- 注入HTTP延迟故障
 				- 创建故障注入规则以延迟来自测试用户jason的流量
 				  ~~~shell
