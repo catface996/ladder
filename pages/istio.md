@@ -1,5 +1,4 @@
 - 任务
-  collapsed:: true
 	- [流量管理](https://istio.io/latest/docs/tasks/traffic-management/)
 		- [请求路由](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
 		  id:: 62638d0b-1d62-4986-bc05-43098be840e2
@@ -439,6 +438,7 @@
 				  ~~~
 		-
 - 概念
+  collapsed:: true
 	- [流量管理](https://istio.io/latest/zh/docs/concepts/traffic-management)
 		- [故障注入](https://istio.io/latest/zh/docs/concepts/traffic-management/#fault-injection)
 		  id:: 6264e77a-3345-4ce0-a63f-2bae8b1149fb
@@ -452,7 +452,6 @@
 				- Istio 故障恢复功能对应用程序来说是完全透明的。在返回响应之前，应用程序不知道 Envoy sidecar 代理是否正在处理被调用服务的故障。这意味着，如果在应用程序代码中设置了故障恢复策略，那么您需要记住这**两个策略都是独立工作**的，否则会发生冲突。例如，假设您设置了两个超时，一个在虚拟服务中配置，另一个在应用程序中配置。应用程序为服务的 API 调用设置了 2 秒超时。而您在虚拟服务中配置了一个 3 秒超时和重试。在这种情况下，应用程序的超时会先生效，因此 Envoy 的超时和重试尝试会失效。
 			-
 - 例子
-  collapsed:: true
 	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
 		- 没有istio的版本
 			- ![image.png](../assets/image_1650644733819_0.png)
