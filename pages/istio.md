@@ -425,6 +425,8 @@
 					- ![image.png](../assets/image_1650785710826_0.png)
 					- ![image.png](../assets/image_1650785757677_0.png)
 				- 使用匿名用户打开Bookinfo。
+					- ![image.png](../assets/image_1650785829741_0.png)
+					-
 			- 清理
 				- ~~~shell
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
