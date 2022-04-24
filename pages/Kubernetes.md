@@ -1,10 +1,12 @@
 - 概念
-	- [概述](https://kubernetes.io/zh/docs/concepts/overview/)
-		- [Kubernetes是什么? ](https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/)
-		  id:: 62638d0b-8cf5-412e-b7e3-eb6a3d29b788
+	- 概述
+	  collapsed:: true
+		- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/)
+		- Kubernetes是什么?
 		  collapsed:: true
+		  id:: 62638d0b-8cf5-412e-b7e3-eb6a3d29b788
+			- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/)
 			- 时光回溯
-			  collapsed:: true
 			  ![image.png](../assets/image_1650621232230_0.png)
 				- 传统部署时代
 					- 例如：安装Oracle
@@ -34,7 +36,6 @@
 					- 资源利用
 						- 一个应用的资源利用不是固定的，例如启动一个应用的最低配置和最大需要的配置等。
 			- 为什么需要Kubernetes,它能做什么?
-			  collapsed:: true
 				- 服务发现和负载均衡
 					- 微服务的两大基石
 						- RPC
@@ -52,9 +53,11 @@
 				- 不部署源代码,也不构建你的应用程序。
 				-
 				-
-		- [Kubernetes组件](https://kubernetes.io/zh/docs/concepts/overview/components/)
+		- Kubernetes组件
 		  id:: 62638d0b-2509-439b-a1e1-df37b3aa61e2
-		  ![image.png](../assets/image_1650596136346_0.png)
+		  collapsed:: true
+			- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/components/)
+			- ![image.png](../assets/image_1650596136346_0.png)
 			- 控制平面组件(Control Plane Components)
 				- kube-apiserver
 					- 该组件公开了 Kubernetes API
@@ -64,7 +67,7 @@
 						- z轴扩展 数据分片，租户隔离
 				- [[etcd]]
 					- etcd 是兼具一致性和高可用性的键值数据库
-						- ((6263b38c-6891-4342-9190-7b68c9b803ee)) 一致性✔️
+						- ((6263b38c-6891-4342-9190-7b68c9b803ee)) 一致性 ✔️
 						- ((6263b398-d03f-403d-a306-39fb4491a41b)) 高可用 ✔️
 						- ((6263b3ab-4843-43de-97ba-a431f053b10a)) 分区容错 X
 				- kube-scheduler
@@ -108,16 +111,21 @@
 				- Web界面(仪表盘)
 				- 容器资源监控
 				- 集群层面日志
-		- [KubernetesAPI](https://kubernetes.io/zh/docs/concepts/overview/kubernetes-api/)
+		- KubernetesAPI
 		  collapsed:: true
+			- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/kubernetes-api/)
 			- OpenAPI规范
 				- OpenAPI V2
 				- OpenAPI V3
-		- [使用Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/)
+		- 使用Kubernetes对象
 		  id:: 62638d0b-9f49-4406-a924-d4ea728d6efb
-			- [理解Kubernetes对象](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+			- [官网地址]((https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/))
+			- 理解Kubernetes对象
 			  id:: 62638d0b-62aa-4e9f-9892-128653b42c87
+			  collapsed:: true
+				- [官网地址]((https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/))
 				- 总结
+				  collapsed:: true
 					- Kubernetes 对象是持久化的实体
 					- Kubernetes 使用这些实体去表示整个集群的状态
 					- 达成的效果：
@@ -127,6 +135,7 @@
 					- Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernetes 系统将持续工作以确保对象存在。 通过创建对象，本质上是在告知 Kubernetes 系统，所需要的集群工作负载看起来是什么样子的， 这就是 Kubernetes 集群的 期望状态（Desired State）。
 					- 所有对Kubernetes对象的操作，最终都是通过使用 Kubernetes API
 				- 对象规约（Spec）与状态（Status）
+				  collapsed:: true
 					- Spec： 对象期望状态（Desired State）。
 					- Status：对象当前状态（Current State）
 				- 描述 Kubernetes 对象
@@ -138,8 +147,10 @@
 						- 例如：Pod，Deployment，Service
 					- metadata - 帮助唯一性标识对象的一些数据，包括一个 name 字符串、UID 和可选的 namespac
 					- spec - 你所期望的该对象的状态，对象 spec 的精确格式对每个 Kubernetes 对象来说是不同的。
-			- [Kubernetes对象管理](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
+			- Kubernetes对象管理
 			  id:: 62638d0b-2d2a-4742-b172-68791f409b92
+			  collapsed:: true
+				- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 				- 管理技巧
 					- ![image.png](../assets/image_1650726685838_0.png)
 				- [指令式命令](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
@@ -199,10 +210,12 @@
 						- 4.版本控制，版本差异的比对
 						- 5.CI/CD
 						-
-			- [对象名称和IDs](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
-			  id:: 62638d0b-e442-4e7d-bf15-8874f56955cb
+			- 对象名称和IDs
 			  collapsed:: true
+			  id:: 62638d0b-e442-4e7d-bf15-8874f56955cb
+				- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 				- 名称 集群中的每一个对象都有一个名称 来标识在同类资源中的唯一性。
+				  collapsed:: true
 					- DNS子域名
 						- 不能超过253个字符
 						- 只能包含小写字母、数字，以及'-' 和 '.'
@@ -216,16 +229,284 @@
 					- RFC 1035
 					- 路径分段名称
 				- UIDs 每个 Kubernetes 对象也有一个UID 来标识在整个集群中的唯一性。
-			- [命名空间](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
+			- 命名空间
 			  id:: 62638d0b-7c8b-424a-be77-3df5bd50c77f
-			- [标签和选择算符](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
-			- [注释](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)
+			  collapsed:: true
+				- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
+				- 作用
+					- 将同一集群中的资源划分为相互隔离的组。
+				- 限制
+					- 同一名字空间内的资源名称要唯一，但跨名字空间时没有这个要求。
+					- 作用于Demployment、Service等
+					- 对StorageClass、Node、PersistentVolume等不适应。
+				- 何时使用多个命名空间
+					- 命名空间适用于存在很多跨多个团队或项目的用户的场景。
+					- 命名空间不能相互嵌套，每个 Kubernetes 资源只能在一个名字空间中。
+					- 命名空间是在多个用户之间划分集群资源的一种方法。
+					- 不必使用多个名字空间来分隔仅仅轻微不同的资源，例如同一软件的不同版本： 应该使用标签 来区分同一名字空间中的不同资源。
+				- 使用命名空间
+				  collapsed:: true
+					- 查看命名空间
+					  collapsed:: true
+						- ~~~shell
+						  ## 待执行的命令
+						  kubectl get namespace
+						  
+						  ## 执行结果
+						  [root@k8s-master-22 ~]# kubectl get namespaces
+						  NAME              STATUS   AGE
+						  default           Active   13d
+						  istio-system      Active   13d
+						  kube-node-lease   Active   13d
+						  kube-public       Active   13d
+						  kube-system       Active   13d
+						  [root@k8s-master-22 ~]#
+						  ~~~
+						- Kubernetes会创建四个初始的命名空间
+							- default 没有指明使用其它名字空间的对象所使用的默认名字空间
+							- kube-system Kubernetes 系统创建对象所使用的名字空间
+							- kube-public 这个命名空间是自动创建的，所有用户都可以读取它。
+							- kube-node-lease 此命名空间用于与各个节点相关的租约对象。允许kubelet发送心跳到api-server
+					- 为操作指定命名空间
+					  collapsed:: true
+						- 例如
+							- ~~~shell
+							  kubectl run nginx --image=nginx --namespace=<insert-namespace-name-here>
+							  kubectl get pods --namespace=<insert-namespace-name-here>
+							  
+							  ## 实际执行结果
+							  kubectl get pod --namespace=kube-system
+							  [root@k8s-master-22 ~]# kubectl get pod --namespace=kube-system
+							  NAME                                       READY   STATUS    RESTARTS        AGE
+							  calico-kube-controllers-6fd7b9848d-4zlm5   1/1     Running   3 (4h40m ago)   13d
+							  calico-node-5c694                          1/1     Running   3 (4h40m ago)   13d
+							  calico-node-qgtxj                          1/1     Running   3 (4h40m ago)   13d
+							  coredns-7f6cbbb7b8-r4px6                   1/1     Running   3 (4h39m ago)   13d
+							  coredns-7f6cbbb7b8-snbdj                   1/1     Running   3 (4h39m ago)   13d
+							  etcd-k8s-master-22                         1/1     Running   4 (25m ago)     13d
+							  kube-apiserver-k8s-master-22               1/1     Running   6 (24m ago)     13d
+							  kube-controller-manager-k8s-master-22      1/1     Running   4 (25m ago)     13d
+							  kube-proxy-c964g                           1/1     Running   3 (4h40m ago)   13d
+							  kube-proxy-sdqxg                           1/1     Running   3 (4h40m ago)   13d
+							  kube-scheduler-k8s-master-22               1/1     Running   4 (25m ago)     13d
+							  ~~~
+					- 设置默认的命名空间
+					  collapsed:: true
+						- 当前默认命名空间为default
+						  ~~~shell
+						  kubectl get pod
+						  ## 实际执行结果
+						  [root@k8s-master-22 ~]# kubectl get pod
+						  NAME                              READY   STATUS    RESTARTS        AGE
+						  cat-dp-58cf7df488-gf8h4           2/2     Running   6 (4h42m ago)   13d
+						  details-v1-79f774bdb9-jd7tv       2/2     Running   6 (4h42m ago)   13d
+						  dog-dp-b6c8757d4-dts8v            2/2     Running   6 (4h42m ago)   13d
+						  productpage-v1-6b746f74dc-slrjm   2/2     Running   6 (4h42m ago)   13d
+						  ratings-v1-b6994bb9-pnnss         2/2     Running   6 (4h42m ago)   13d
+						  reviews-v1-545db77b95-8xl8k       2/2     Running   6 (4h42m ago)   13d
+						  reviews-v2-7bf8c9648f-wklnd       2/2     Running   6 (4h42m ago)   13d
+						  reviews-v3-84779c7bbc-ckb87       2/2     Running   6 (4h42m ago)   13d
+						  
+						  kubectl get pod -n default
+						  ## 实际执行结果
+						  [root@k8s-master-22 ~]# kubectl get pod -n default
+						  NAME                              READY   STATUS    RESTARTS        AGE
+						  cat-dp-58cf7df488-gf8h4           2/2     Running   6 (4h43m ago)   13d
+						  details-v1-79f774bdb9-jd7tv       2/2     Running   6 (4h43m ago)   13d
+						  dog-dp-b6c8757d4-dts8v            2/2     Running   6 (4h43m ago)   13d
+						  productpage-v1-6b746f74dc-slrjm   2/2     Running   6 (4h43m ago)   13d
+						  ratings-v1-b6994bb9-pnnss         2/2     Running   6 (4h43m ago)   13d
+						  reviews-v1-545db77b95-8xl8k       2/2     Running   6 (4h43m ago)   13d
+						  reviews-v2-7bf8c9648f-wklnd       2/2     Running   6 (4h43m ago)   13d
+						  reviews-v3-84779c7bbc-ckb87       2/2     Running   6 (4h43m ago)   13d
+						  ~~~
+						- 设置默认的命名空间为kube-system
+						  ~~~shell
+						  kubectl config set-context --current --namespace=kube-system
+						  
+						  ## 实际执行结果
+						  [root@k8s-master-22 ~]# kubectl config set-context --current --namespace=kube-system
+						  Context "kubernetes-admin@kubernetes" modified.
+						  
+						  ## 查看当前命名空间
+						  kubectl config view --minify | grep namespace:
+						  
+						  ## 实际执行结果
+						  [root@k8s-master-22 ~]# kubectl config view --minify | grep namespace:
+						      namespace: kube-system
+						      
+						  ## 查看pod
+						  kubectl get pod
+						  
+						  ## 实际执行结果
+						  [root@k8s-master-22 ~]# kubectl get pod
+						  NAME                                       READY   STATUS    RESTARTS        AGE
+						  calico-kube-controllers-6fd7b9848d-4zlm5   1/1     Running   3 (4h47m ago)   13d
+						  calico-node-5c694                          1/1     Running   3 (4h47m ago)   13d
+						  calico-node-qgtxj                          1/1     Running   3 (4h47m ago)   13d
+						  coredns-7f6cbbb7b8-r4px6                   1/1     Running   3 (4h47m ago)   13d
+						  coredns-7f6cbbb7b8-snbdj                   1/1     Running   3 (4h47m ago)   13d
+						  etcd-k8s-master-22                         1/1     Running   4 (32m ago)     13d
+						  kube-apiserver-k8s-master-22               1/1     Running   6 (32m ago)     13d
+						  kube-controller-manager-k8s-master-22      1/1     Running   4 (32m ago)     13d
+						  kube-proxy-c964g                           1/1     Running   3 (4h47m ago)   13d
+						  kube-proxy-sdqxg                           1/1     Running   3 (4h47m ago)   13d
+						  kube-scheduler-k8s-master-22               1/1     Running   4 (32m ago)     13d
+						  
+						  ## 还原默认的命名空间为default
+						  kubectl config set-context --current --namespace=default
+						  ## 查看当前默认的命名空间
+						  kubectl config view --minify | grep namespace:
+						  ~~~
+						-
+				- 命名空间和DNS
+				  collapsed:: true
+					- 创建一个服务(Service)，就会创建一个对应的DNS条目。
+						- 条目形式： 该条目的形式是 <服务名称>.<名字空间名称>.svc.cluster.local
+						- 解析：容器如果只使用服务名，它将被解析到本地名字空间的服务。
+				- 并非所有的对象都在命名空间中
+				  collapsed:: true
+					- 大多数资源都位于某个命名空间中。
+						- Deployment
+						- Pod
+						- Service
+					- 底层资源一般不在命名空间中
+						- 节点
+						- 持久化卷
+					- 查看在命名空间和不在命名空间中的资源
+						- ~~~shell
+						  # 位于名字空间中的资源
+						  kubectl api-resources --namespaced=true
+						  
+						  # 不在名字空间中的资源
+						  kubectl api-resources --namespaced=false
+						  ~~~
+						- 实际的执行结果
+						  collapsed:: true
+							- 在命名空间中的资源
+							  ~~~shell
+							  [root@k8s-master-22 ~]# kubectl api-resources --namespaced=true
+							  NAME                        SHORTNAMES   APIVERSION                     NAMESPACED   KIND
+							  bindings                                 v1                             true         Binding
+							  configmaps                  cm           v1                             true         ConfigMap
+							  endpoints                   ep           v1                             true         Endpoints
+							  events                      ev           v1                             true         Event
+							  limitranges                 limits       v1                             true         LimitRange
+							  persistentvolumeclaims      pvc          v1                             true         PersistentVolumeClaim
+							  pods                        po           v1                             true         Pod
+							  podtemplates                             v1                             true         PodTemplate
+							  replicationcontrollers      rc           v1                             true         ReplicationController
+							  resourcequotas              quota        v1                             true         ResourceQuota
+							  secrets                                  v1                             true         Secret
+							  serviceaccounts             sa           v1                             true         ServiceAccount
+							  services                    svc          v1                             true         Service
+							  controllerrevisions                      apps/v1                        true         ControllerRevision
+							  daemonsets                  ds           apps/v1                        true         DaemonSet
+							  deployments                 deploy       apps/v1                        true         Deployment
+							  replicasets                 rs           apps/v1                        true         ReplicaSet
+							  statefulsets                sts          apps/v1                        true         StatefulSet
+							  localsubjectaccessreviews                authorization.k8s.io/v1        true         LocalSubjectAccessReview
+							  horizontalpodautoscalers    hpa          autoscaling/v1                 true         HorizontalPodAutoscaler
+							  cronjobs                    cj           batch/v1                       true         CronJob
+							  jobs                                     batch/v1                       true         Job
+							  leases                                   coordination.k8s.io/v1         true         Lease
+							  networkpolicies                          crd.projectcalico.org/v1       true         NetworkPolicy
+							  networksets                              crd.projectcalico.org/v1       true         NetworkSet
+							  endpointslices                           discovery.k8s.io/v1            true         EndpointSlice
+							  events                      ev           events.k8s.io/v1               true         Event
+							  wasmplugins                              extensions.istio.io/v1alpha1   true         WasmPlugin
+							  istiooperators              iop,io       install.istio.io/v1alpha1      true         IstioOperator
+							  destinationrules            dr           networking.istio.io/v1beta1    true         DestinationRule
+							  envoyfilters                             networking.istio.io/v1alpha3   true         EnvoyFilter
+							  gateways                    gw           networking.istio.io/v1beta1    true         Gateway
+							  serviceentries              se           networking.istio.io/v1beta1    true         ServiceEntry
+							  sidecars                                 networking.istio.io/v1beta1    true         Sidecar
+							  virtualservices             vs           networking.istio.io/v1beta1    true         VirtualService
+							  workloadentries             we           networking.istio.io/v1beta1    true         WorkloadEntry
+							  workloadgroups              wg           networking.istio.io/v1alpha3   true         WorkloadGroup
+							  ingresses                   ing          networking.k8s.io/v1           true         Ingress
+							  networkpolicies             netpol       networking.k8s.io/v1           true         NetworkPolicy
+							  poddisruptionbudgets        pdb          policy/v1                      true         PodDisruptionBudget
+							  rolebindings                             rbac.authorization.k8s.io/v1   true         RoleBinding
+							  roles                                    rbac.authorization.k8s.io/v1   true         Role
+							  authorizationpolicies                    security.istio.io/v1beta1      true         AuthorizationPolicy
+							  peerauthentications         pa           security.istio.io/v1beta1      true         PeerAuthentication
+							  requestauthentications      ra           security.istio.io/v1beta1      true         RequestAuthentication
+							  csistoragecapacities                     storage.k8s.io/v1beta1         true         CSIStorageCapacity
+							  telemetries                 telemetry    telemetry.istio.io/v1alpha1    true         Telemetry
+							  ~~~
+							- 不在命名空间中的资源
+							  ~~~shell
+							  [root@k8s-master-22 ~]# kubectl api-resources --namespaced=false
+							  NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND
+							  componentstatuses                 cs           v1                                     false        ComponentStatus
+							  namespaces                        ns           v1                                     false        Namespace
+							  nodes                             no           v1                                     false        Node
+							  persistentvolumes                 pv           v1                                     false        PersistentVolume
+							  mutatingwebhookconfigurations                  admissionregistration.k8s.io/v1        false        MutatingWebhookConfiguration
+							  validatingwebhookconfigurations                admissionregistration.k8s.io/v1        false        ValidatingWebhookConfiguration
+							  customresourcedefinitions         crd,crds     apiextensions.k8s.io/v1                false        CustomResourceDefinition
+							  apiservices                                    apiregistration.k8s.io/v1              false        APIService
+							  tokenreviews                                   authentication.k8s.io/v1               false        TokenReview
+							  selfsubjectaccessreviews                       authorization.k8s.io/v1                false        SelfSubjectAccessReview
+							  selfsubjectrulesreviews                        authorization.k8s.io/v1                false        SelfSubjectRulesReview
+							  subjectaccessreviews                           authorization.k8s.io/v1                false        SubjectAccessReview
+							  certificatesigningrequests        csr          certificates.k8s.io/v1                 false        CertificateSigningRequest
+							  bgpconfigurations                              crd.projectcalico.org/v1               false        BGPConfiguration
+							  bgppeers                                       crd.projectcalico.org/v1               false        BGPPeer
+							  blockaffinities                                crd.projectcalico.org/v1               false        BlockAffinity
+							  caliconodestatuses                             crd.projectcalico.org/v1               false        CalicoNodeStatus
+							  clusterinformations                            crd.projectcalico.org/v1               false        ClusterInformation
+							  felixconfigurations                            crd.projectcalico.org/v1               false        FelixConfiguration
+							  globalnetworkpolicies                          crd.projectcalico.org/v1               false        GlobalNetworkPolicy
+							  globalnetworksets                              crd.projectcalico.org/v1               false        GlobalNetworkSet
+							  hostendpoints                                  crd.projectcalico.org/v1               false        HostEndpoint
+							  ipamblocks                                     crd.projectcalico.org/v1               false        IPAMBlock
+							  ipamconfigs                                    crd.projectcalico.org/v1               false        IPAMConfig
+							  ipamhandles                                    crd.projectcalico.org/v1               false        IPAMHandle
+							  ippools                                        crd.projectcalico.org/v1               false        IPPool
+							  ipreservations                                 crd.projectcalico.org/v1               false        IPReservation
+							  kubecontrollersconfigurations                  crd.projectcalico.org/v1               false        KubeControllersConfiguration
+							  flowschemas                                    flowcontrol.apiserver.k8s.io/v1beta1   false        FlowSchema
+							  prioritylevelconfigurations                    flowcontrol.apiserver.k8s.io/v1beta1   false        PriorityLevelConfiguration
+							  ingressclasses                                 networking.k8s.io/v1                   false        IngressClass
+							  runtimeclasses                                 node.k8s.io/v1                         false        RuntimeClass
+							  podsecuritypolicies               psp          policy/v1beta1                         false        PodSecurityPolicy
+							  clusterrolebindings                            rbac.authorization.k8s.io/v1           false        ClusterRoleBinding
+							  clusterroles                                   rbac.authorization.k8s.io/v1           false        ClusterRole
+							  priorityclasses                   pc           scheduling.k8s.io/v1                   false        PriorityClass
+							  csidrivers                                     storage.k8s.io/v1                      false        CSIDriver
+							  csinodes                                       storage.k8s.io/v1                      false        CSINode
+							  storageclasses                    sc           storage.k8s.io/v1                      false        StorageClass
+							  volumeattachments                              storage.k8s.io/v1                      false        VolumeAttachment
+							  ~~~
+				- 自动打标签
+				  collapsed:: true
+					- Kubernetes 控制面会为所有名字空间设置一个不可变更的 标签 kubernetes.io/metadata.name，只要 NamespaceDefaultLabelName 这一 特性门控 被启用。标签的值是名字空间的名称。
+			- 标签和选择算符
+			  id:: 62651b7d-b442-4f84-be47-244febb2f08b
+				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
+			- 注释
+			  id:: 62651b7d-3a50-4826-a4c4-df4994311b15
+				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)
 			- [Finalizers](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/finalizers/)
-			- [字段选择器](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/field-selectors/)
-			- [属主与附属](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/owners-dependents/)
-			- [推荐时间用的标签](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/common-labels/)
-	- [服务、负载均衡和联网](https://kubernetes.io/zh/docs/concepts/services-networking/)
+			- 字段选择器
+			  id:: 62651b7d-d25d-4ace-bdbd-ed29a6460b46
+				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/field-selectors/)
+			- 属主与附属
+			  id:: 62651b7d-55c5-4fbc-aec1-e36c79704a99
+				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/owners-dependents/)
+			- 推荐使用的标签
+			  id:: 62651b7d-3204-4878-85cd-aa7e393cc772
+				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/common-labels/)
+			-
+			-
+	- Kubernetes架构
+	- 容器
+	- 工作负载
+	- 服务、负载均衡和联网
 	  collapsed:: true
+		- [官方文档](https://kubernetes.io/zh/docs/concepts/services-networking/)
 		- Ingress
 			- [Ingress nginx](https://kubernetes.github.io/ingress-nginx/deploy/)
 				- 部署命令：
@@ -240,5 +521,13 @@
 					-
 		- Ingress控制器
 			-
+		-
+	- 存储
+	- 配置
+	- 安全
+	- 策略
+	- 调度，抢占和驱逐
+	- 集群管理
+	- 扩展Kubernetes
 	-
 	-
