@@ -250,8 +250,10 @@
 					- productpage → reviews:v2 → ratings (针对 jason 用户)
 						- TODO 浏览器访问，kiali展示
 					- productpage → reviews:v1 (其他用户)
-						-
-					-
+						- TODO 浏览器访问，kiali展示
+			- 注入HTTP延迟故障
+				-
+				-
 		-
 - 概念
 	- [流量管理](https://istio.io/latest/zh/docs/concepts/traffic-management)
