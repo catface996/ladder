@@ -257,42 +257,79 @@
 				- ((62638d0b-8892-4c54-b53c-439a6660ef62)) 和 ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
 			- 注入HTTP延迟故障
 				- 创建故障注入规则以延迟来自测试用户jason的流量
-				  ~~~shell
-				  # 查看 virtual-service-ratings-test-delay.yaml
-				  [root@k8s-master-22 istio]# cat samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
-				  apiVersion: networking.istio.io/v1alpha3
-				  kind: VirtualService
-				  metadata:
-				    name: ratings
-				  spec:
-				    hosts:
-				    - ratings
-				    http:
-				    - match:
-				      - headers:
-				          end-user:
-				            exact: jason
-				      fault:
-				        delay:
-				          percentage:
-				            value: 100.0
-				          fixedDelay: 7s
-				      route:
-				      - destination:
-				          host: ratings
-				          subset: v1
-				    - route:
-				      - destination:
-				          host: ratings
-				          subset: v1
-				          
-				  # 应用延迟
-				  kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
-				  ~~~
-				- 确认规则已经创建：
-				  ~~~shell
-				  kubectl get virtualservice ratings -o yaml
-				  ~~~
+					- ~~~shell
+					  # 查看 virtual-service-ratings-test-delay.yaml
+					  [root@k8s-master-22 istio]# cat samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
+					  apiVersion: networking.istio.io/v1alpha3
+					  kind: VirtualService
+					  metadata:
+					    name: ratings
+					  spec:
+					    hosts:
+					    - ratings
+					    http:
+					    - match:
+					      - headers:
+					          end-user:
+					            exact: jason
+					      fault:
+					        delay:
+					          percentage:
+					            value: 100.0
+					          fixedDelay: 7s
+					      route:
+					      - destination:
+					          host: ratings
+					          subset: v1
+					    - route:
+					      - destination:
+					          host: ratings
+					          subset: v1
+					          
+					  # 应用延迟
+					  kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
+					  ~~~
+				- 确认规则已经创建
+				  collapsed:: true
+					- ~~~shell
+					  kubectl get virtualservice ratings -o yaml
+					  
+					  # 确认结果
+					  [root@k8s-master-22 istio]# kubectl get virtualservice ratings -o yaml
+					  apiVersion: networking.istio.io/v1beta1
+					  kind: VirtualService
+					  metadata:
+					    annotations:
+					      kubectl.kubernetes.io/last-applied-configuration: |
+					        {"apiVersion":"networking.istio.io/v1alpha3","kind":"VirtualService","metadata":{"annotations":{},"name":"ratings","namespace":"default"},"spec":{"hosts":["ratings"],"http":[{"fault":{"delay":{"fixedDelay":"7s","percentage":{"value":100}}},"match":[{"headers":{"end-user":{"exact":"jason"}}}],"route":[{"destination":{"host":"ratings","subset":"v1"}}]},{"route":[{"destination":{"host":"ratings","subset":"v1"}}]}]}}
+					    creationTimestamp: "2022-04-24T04:46:10Z"
+					    generation: 3
+					    name: ratings
+					    namespace: default
+					    resourceVersion: "102703"
+					    uid: 5df5c140-d41c-4d31-ab5f-3b4885155f28
+					  spec:
+					    hosts:
+					    - ratings
+					    http:
+					    - fault:
+					        delay:
+					          fixedDelay: 7s
+					          percentage:
+					            value: 100
+					      match:
+					      - headers:
+					          end-user:
+					            exact: jason
+					      route:
+					      - destination:
+					          host: ratings
+					          subset: v1
+					    - route:
+					      - destination:
+					          host: ratings
+					          subset: v1
+					  ~~~
 			- 测试延迟配置
 				- 通过浏览器打开Bookinfo应用。
 				- 使用用户jason登录到、productpage页面。
