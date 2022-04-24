@@ -245,6 +245,7 @@
 					- ((62638d0b-25b9-4026-8323-d21e1daf5501))
 				- TODO 在流量管理概念文档中查看有关 ((6264e77a-3345-4ce0-a63f-2bae8b1149fb)) 的讨论。
 				- TODO 通过自行配置请求路由任务或运行一下命令来初始化应用程序版本路由。
+					-
 					- ~~~shell
 					  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 					  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
@@ -298,7 +299,7 @@
 				- 使用用户jason登录到、productpage页面。
 				- 查看页面的响应时间。
 				- 结果：
-					-
+					- ![image.png](../assets/image_1650784019533_0.png)
 					- ![image.png](../assets/image_1650783924834_0.png)
 					-
 			- 理解原理
