@@ -7,7 +7,7 @@ spec:
     matchLabels:
       app: cat
       env: prod
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:

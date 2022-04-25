@@ -124,20 +124,28 @@
 			- 理解Kubernetes对象
 			  id:: 62638d0b-62aa-4e9f-9892-128653b42c87
 			  collapsed:: true
-				- [官网地址]((https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/))
+				- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 				- 总结
-				  collapsed:: true
 					- Kubernetes 对象是持久化的实体
 					- Kubernetes 使用这些实体去表示整个集群的状态
-					- 达成的效果：
+					- 达成的效果
 						- 哪些容器化应用在运行（以及在哪些节点上）
 						- 可以被应用使用的资源
 						- 关于应用运行时表现的策略，比如重启策略、升级策略，以及容错策略
 					- Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernetes 系统将持续工作以确保对象存在。 通过创建对象，本质上是在告知 Kubernetes 系统，所需要的集群工作负载看起来是什么样子的， 这就是 Kubernetes 集群的 期望状态（Desired State）。
+						- ~~~sql
+						  select amount from wallet where user_id = 123456;
+						  100
+						  
+						  update wallet set amount = amount+10 where user_id = 123456;
+						  
+						  or 
+						  
+						  update wallet set amount = 100+10 where user_id = 123456; 
+						  ~~~
 					- 所有对Kubernetes对象的操作，最终都是通过使用 Kubernetes API
 				- 对象规约（Spec）与状态（Status）
-				  collapsed:: true
-					- Spec： 对象期望状态（Desired State）。
+					- Spec： 对象期望状态（Desired State）
 					- Status：对象当前状态（Current State）
 				- 描述 Kubernetes 对象
 					- 多数情况下是使用yaml文件描述。
@@ -150,10 +158,12 @@
 					- spec - 你所期望的该对象的状态，对象 spec 的精确格式对每个 Kubernetes 对象来说是不同的。
 			- Kubernetes对象管理
 			  id:: 62638d0b-2d2a-4742-b172-68791f409b92
+			  collapsed:: true
 				- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 				- 管理技巧
 					- ![image.png](../assets/image_1650726685838_0.png)
-				- [指令式命令](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
+				- 指令式命令
+					- [官方文档](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/imperative-command/)
 					- 例子
 					  kubectl create deployment nginx --image nginx
 					- 权衡
@@ -165,7 +175,8 @@
 							- 命令不提供与更改关联的审核跟踪。
 							- 除了实时内容外，命令不提供记录原。
 							- 明星不提供用于创建新对象的模板。
-				- [指令式对象配置](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/imperative-config/)
+				- 指令式对象配置
+					- [官方文档](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/imperative-config/)
 					- 例子
 						- kubectl create -f nginx.yaml
 						- kubectl delete -f nginx.yaml -f redis.yaml
@@ -186,7 +197,8 @@
 							- 缺点：
 								- 指令式对象配置更适合文件，而非目录。
 								- 对活动对象的更新，必须反应在配置文件中，否则会在下一次替换时丢失。(比如副本数，文件中为3，手动调整为6后，重新发布，又变回了3)
-				- [声明式对象配置](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/declarative-config/)
+				- 声明式对象配置
+					- [官方文档](https://kubernetes.io/zh/docs/tasks/manage-kubernetes-objects/declarative-config/)
 					- 例子
 						- kubectl diff -f configs/
 						  kubectl apply -f configs/
@@ -215,7 +227,6 @@
 			  id:: 62638d0b-e442-4e7d-bf15-8874f56955cb
 				- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/names/)
 				- 名称 集群中的每一个对象都有一个名称 来标识在同类资源中的唯一性。
-				  collapsed:: true
 					- DNS子域名
 						- 不能超过253个字符
 						- 只能包含小写字母、数字，以及'-' 和 '.'
@@ -231,7 +242,6 @@
 				- UIDs 每个 Kubernetes 对象也有一个UID 来标识在整个集群中的唯一性。
 			- 命名空间
 			  id:: 62638d0b-7c8b-424a-be77-3df5bd50c77f
-			  collapsed:: true
 				- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
 				- 作用
 					- 将同一集群中的资源划分为相互隔离的组。
@@ -245,9 +255,7 @@
 					- 命名空间是在多个用户之间划分集群资源的一种方法。
 					- 不必使用多个名字空间来分隔仅仅轻微不同的资源，例如同一软件的不同版本： 应该使用标签 来区分同一名字空间中的不同资源。
 				- 使用命名空间
-				  collapsed:: true
 					- 查看命名空间
-					  collapsed:: true
 						- ~~~shell
 						  ## 待执行的命令
 						  kubectl get namespace
@@ -268,7 +276,6 @@
 							- kube-public 这个命名空间是自动创建的，所有用户都可以读取它。
 							- kube-node-lease 此命名空间用于与各个节点相关的租约对象。允许kubelet发送心跳到api-server
 					- 为操作指定命名空间
-					  collapsed:: true
 						- 例如
 							- ~~~shell
 							  kubectl run nginx --image=nginx --namespace=<insert-namespace-name-here>
@@ -291,7 +298,6 @@
 							  kube-scheduler-k8s-master-22               1/1     Running   4 (25m ago)     13d
 							  ~~~
 					- 设置默认的命名空间
-					  collapsed:: true
 						- 当前默认命名空间为default
 						  ~~~shell
 						  kubectl get pod
@@ -360,12 +366,10 @@
 						  ~~~
 						-
 				- 命名空间和DNS
-				  collapsed:: true
 					- 创建一个服务(Service)，就会创建一个对应的DNS条目。
 						- 条目形式： 该条目的形式是 <服务名称>.<名字空间名称>.svc.cluster.local
 						- 解析：容器如果只使用服务名，它将被解析到本地名字空间的服务。
 				- 并非所有的对象都在命名空间中
-				  collapsed:: true
 					- 大多数资源都位于某个命名空间中。
 						- Deployment
 						- Pod
@@ -481,12 +485,55 @@
 							  volumeattachments                              storage.k8s.io/v1                      false        VolumeAttachment
 							  ~~~
 				- 自动打标签
-				  collapsed:: true
 					- Kubernetes 控制面会为所有名字空间设置一个不可变更的 标签 kubernetes.io/metadata.name，只要 NamespaceDefaultLabelName 这一 特性门控 被启用。标签的值是名字空间的名称。
 			- 标签和选择算符
 			  id:: 62651b7d-b442-4f84-be47-244febb2f08b
-			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
+				- 介绍
+					- 作用范围：附加到Kubernetes对象，例如Pods，Deployment等。
+					- 用途：
+						- 对用户有意义。
+						- 不直接对核心系统有语义含义。
+						- 用于组合和选择对象的子集。
+					- 规范：
+						- 每个对象可以定义一组建/值标签。
+						- 每个建对于给定的对象必须是唯一的。
+					- 动机
+						- 标签使用户能够以松散耦合的方式将他们自己的组织结构映射到系统对象，而无需客户端存储这些映射。  --即可以动态的，按照客户的要求来组织对象的集合，而非固定的记录对象集合。
+						- 服务部署和批处理流水线通常是多维实体（例如，多个分区或部署、多个发行序列、多个层，每层多个微服务）。
+						- 示例标签：
+							- "release" : "stable", "release" : "canary"
+							- "environment" : "dev", "environment" : "qa", "environment" : "production"
+							- "tier" : "frontend", "tier" : "backend", "tier" : "cache"
+							- "partition" : "customerA", "partition" : "customerB"
+							- "track" : "daily", "track" : "weekly"
+					- 语法和字符集
+						- 标签 是键值对。有效的标签键有两个段：可选的前缀和名称，用斜杠（/）分隔。 名称段是必需的，必须小于等于 63 个字符，以字母数字字符（[a-z0-9A-Z]）开头和结尾， 带有破折号（-），下划线（_），点（ .）和之间的字母数字。 前缀是可选的。如果指定，前缀必须是 DNS 子域：由点（.）分隔的一系列 DNS 标签，总共不超过 253 个字符， 后跟斜杠（/）。
+						- kubernetes.io/ 和 k8s.io/ 前缀是为 Kubernetes 核心组件保留的。
+						- 有效标签值：
+							- 必须为 63 个字符或更少（可以为空）
+							  除非标签值为空，必须以字母数字字符（[a-z0-9A-Z]）开头和结尾
+							  包含破折号（-）、下划线（_）、点（.）和字母或数字。
+					- 标签选择算符
+						- 基于等值的需求
+							- 等于
+								- ~~~shell
+								  kubectl get pod -l app=cat
+								  ~~~
+							- 不等于
+								- ~~~shell
+								  kubectl get pod -l app!=cat
+								  ~~~
+						- 基于集合的需求
+							-
+					- API
+						- LIST和WATCH过滤
+						- 在API对象中设置引用
+							- Service和ReplicationController
+							- 支持基于集合需求的资源
+							- 选择节点集
+					-
+				-
 			- 注释
 			  id:: 62651b7d-3a50-4826-a4c4-df4994311b15
 			  collapsed:: true
@@ -498,6 +545,7 @@
 			  id:: 62651b7d-d25d-4ace-bdbd-ed29a6460b46
 			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/field-selectors/)
+				-
 			- 属主与附属
 			  id:: 62651b7d-55c5-4fbc-aec1-e36c79704a99
 			  collapsed:: true
