@@ -1,8 +1,11 @@
 - 任务
-	- [流量管理](https://istio.io/latest/docs/tasks/traffic-management/)
-		- [请求路由](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
-		  id:: 62638d0b-1d62-4986-bc05-43098be840e2
+  collapsed:: true
+	- 流量管理
+		- [官方文档](https://istio.io/latest/docs/tasks/traffic-management/)
+		- 请求路由
 		  collapsed:: true
+		  id:: 62638d0b-1d62-4986-bc05-43098be840e2
+			- [官方文档](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
 			- 前置准备
 				- 访问bookinfo
 				  id:: 62638d0b-8892-4c54-b53c-439a6660ef62
@@ -237,8 +240,10 @@
 				- ~~~shell
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
-		- [故障注入](https://istio.io/latest/zh/docs/tasks/traffic-management/fault-injection/)
+		- 故障注入
 		  id:: 6264e673-0dc2-4025-9229-96f2cb81461a
+		  collapsed:: true
+			- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/fault-injection/)
 			- 开始之前
 				- ✔️已经装好istio。
 				- ✔️已经部署Bookinfo，并应用了默认的目标规则。
@@ -436,8 +441,154 @@
 				- ~~~shell
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
+		- 流量转移
+		  id:: 626600dd-9313-4c88-85f4-59f1c2f17f5d
+			- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/traffic-shifting/)
+			- 开始之前
+			  collapsed:: true
+				- 已经安装好istio。
+				- 已经部署好Bookinfo示例应用程序。
+				- 已经了解流量管理概念。
+			- 应用基于权重的路由
+				- 已经配置了默认的目标规则
+					- ~~~shell
+					  kubectl get dr
+					  
+					  ## 实际执行结果
+					  [root@k8s-master-22 istio]# kubectl get dr
+					  NAME          HOST          AGE
+					  details       details       2d8h
+					  productpage   productpage   2d8h
+					  ratings       ratings       2d8h
+					  reviews       reviews       2d8h
+					  ~~~
+				- 将所有流量路由到v1版本
+					- ~~~shell
+					  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+					  
+					  ## 实际执行结果
+					  [root@k8s-master-22 istio]# kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+					  virtualservice.networking.istio.io/productpage created
+					  virtualservice.networking.istio.io/reviews created
+					  virtualservice.networking.istio.io/ratings created
+					  virtualservice.networking.istio.io/details created
+					  ~~~
+				- 在浏览器中打开/productpage，验证是否都路由到v1
+					- ((62638d0b-8892-4c54-b53c-439a6660ef62))
+					- ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
+					- ![image.png](../assets/image_1650855080300_0.png)
+					- ![image.png](../assets/image_1650855104116_0.png)
+				- 使用以下命令把50%的流量从reviews:v1转移到reviews:v3
+					- ~~~shell
+					  ## 查看50%流量转移到v3的配置
+					  cat samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml
+					  
+					  ## 实际执行结果
+					  [root@k8s-master-22 istio]# cat samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml
+					  apiVersion: networking.istio.io/v1alpha3
+					  kind: VirtualService
+					  metadata:
+					    name: reviews
+					  spec:
+					    hosts:
+					      - reviews
+					    http:
+					    - route:
+					      - destination:
+					          host: reviews
+					          subset: v1
+					        weight: 50
+					      - destination:
+					          host: reviews
+					          subset: v3
+					        weight: 50
+					  
+					  ## 应用50%流量转移到v3的配置
+					  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml
+					  
+					  ## 实际执行结果
+					  [root@k8s-master-22 istio]# kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml
+					  virtualservice.networking.istio.io/reviews configured
+					  ~~~
+				- 确认规则已经被替换
+					- ~~~shell
+					  ## 确认规则已经被替换
+					  kubectl get virtualservice reviews -o yaml
+					  
+					  ## 实际执行结果
+					  [root@k8s-master-22 istio]# kubectl get virtualservice reviews -o yaml
+					  apiVersion: networking.istio.io/v1beta1
+					  kind: VirtualService
+					  metadata:
+					    annotations:
+					      kubectl.kubernetes.io/last-applied-configuration: |
+					        {"apiVersion":"networking.istio.io/v1alpha3","kind":"VirtualService","metadata":{"annotations":{},"name":"reviews","namespace":"default"},"spec":{"hosts":["reviews"],"http":[{"route":[{"destination":{"host":"reviews","subset":"v1"},"weight":50},{"destination":{"host":"reviews","subset":"v3"},"weight":50}]}]}}
+					    creationTimestamp: "2022-04-25T02:31:32Z"
+					    generation: 2
+					    name: reviews
+					    namespace: default
+					    resourceVersion: "139815"
+					    uid: 32ac7e0c-444d-4835-b8f7-56c911405c2f
+					  spec:
+					    hosts:
+					    - reviews
+					    http:
+					    - route:
+					      - destination:
+					          host: reviews
+					          subset: v1
+					        weight: 50
+					      - destination:
+					          host: reviews
+					          subset: v3
+					        weight: 50
+					  ~~~
+				- 刷新浏览器中的/productpage页面，约有50%的几率看到红色星级的评价内容。
+					- ![image.png](../assets/image_1650854994067_0.png)
+					- ![image.png](../assets/image_1650855011308_0.png)
+					- ![image.png](../assets/image_1650854510872_0.png)
+				- 流量100%路由到reviews:v3
+					- ~~~shell
+					  ## 查看待应用的配置
+					  cat samples/bookinfo/networking/virtual-service-reviews-v3.yaml
+					  
+					  ## 待应用的配置
+					  [root@k8s-master-22 istio]# cat samples/bookinfo/networking/virtual-service-reviews-v3.yaml
+					  apiVersion: networking.istio.io/v1alpha3
+					  kind: VirtualService
+					  metadata:
+					    name: reviews
+					  spec:
+					    hosts:
+					      - reviews
+					    http:
+					    - route:
+					      - destination:
+					          host: reviews
+					          subset: v3
+					  
+					  ## 应用配置，流量100%路由到v3
+					  kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-v3.yaml
+					  
+					  ## 应用结果
+					  [root@k8s-master-22 istio]# kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-v3.yaml
+					  virtualservice.networking.istio.io/reviews configured
+					  ~~~
+					- ![image.png](../assets/image_1650854733359_0.png)
+					- ![image.png](../assets/image_1650854770835_0.png)
+			- 理解原理
+				- 如果想了解支持自动伸缩的版本路由，请查看[使用Istio进行金丝雀部署](https://istio.io/latest/zh/blog/2017/0.1-canary/)
+			- 清理
+			  collapsed:: true
+				- 删除应用的路由规则
+				  ~~~shell
+				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+				  ~~~
+				-
 		-
+	-
 - 概念
+  collapsed:: true
 	- [流量管理](https://istio.io/latest/zh/docs/concepts/traffic-management)
 		- [故障注入](https://istio.io/latest/zh/docs/concepts/traffic-management/#fault-injection)
 		  id:: 6264e77a-3345-4ce0-a63f-2bae8b1149fb
@@ -451,7 +602,6 @@
 				- Istio 故障恢复功能对应用程序来说是完全透明的。在返回响应之前，应用程序不知道 Envoy sidecar 代理是否正在处理被调用服务的故障。这意味着，如果在应用程序代码中设置了故障恢复策略，那么您需要记住这**两个策略都是独立工作**的，否则会发生冲突。例如，假设您设置了两个超时，一个在虚拟服务中配置，另一个在应用程序中配置。应用程序为服务的 API 调用设置了 2 秒超时。而您在虚拟服务中配置了一个 3 秒超时和重试。在这种情况下，应用程序的超时会先生效，因此 Envoy 的超时和重试尝试会失效。
 			-
 - 例子
-  collapsed:: true
 	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
 		- 没有istio的版本
 			- ![image.png](../assets/image_1650644733819_0.png)

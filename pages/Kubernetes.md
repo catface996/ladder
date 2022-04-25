@@ -1,4 +1,5 @@
 - 概念
+  collapsed:: true
 	- 概述
 	  collapsed:: true
 		- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/)
@@ -149,7 +150,6 @@
 					- spec - 你所期望的该对象的状态，对象 spec 的精确格式对每个 Kubernetes 对象来说是不同的。
 			- Kubernetes对象管理
 			  id:: 62638d0b-2d2a-4742-b172-68791f409b92
-			  collapsed:: true
 				- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/object-management/)
 				- 管理技巧
 					- ![image.png](../assets/image_1650726685838_0.png)
@@ -485,19 +485,26 @@
 					- Kubernetes 控制面会为所有名字空间设置一个不可变更的 标签 kubernetes.io/metadata.name，只要 NamespaceDefaultLabelName 这一 特性门控 被启用。标签的值是名字空间的名称。
 			- 标签和选择算符
 			  id:: 62651b7d-b442-4f84-be47-244febb2f08b
+			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
 			- 注释
 			  id:: 62651b7d-3a50-4826-a4c4-df4994311b15
+			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)
-			- [Finalizers](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/finalizers/)
+			- Finalizers
+			  collapsed:: true
+				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/finalizers/)
 			- 字段选择器
 			  id:: 62651b7d-d25d-4ace-bdbd-ed29a6460b46
+			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/field-selectors/)
 			- 属主与附属
 			  id:: 62651b7d-55c5-4fbc-aec1-e36c79704a99
+			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/owners-dependents/)
 			- 推荐使用的标签
 			  id:: 62651b7d-3204-4878-85cd-aa7e393cc772
+			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/common-labels/)
 			-
 			-
@@ -531,3 +538,11 @@
 	- 扩展Kubernetes
 	-
 	-
+- 任务
+	- [官方文档](https://kubernetes.io/zh/docs/tasks/)
+	- 运行应用
+		- [官方文档](https://kubernetes.io/zh/docs/tasks/run-application/)
+		- Pod 水平自动扩缩
+			- [官方文档](https://kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/)
+	-
+-
