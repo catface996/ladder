@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: monkey-dp
+  annotations:
+    author: catface996
 spec:
   selector:
     matchLabels:

@@ -1,5 +1,4 @@
 - 概念
-  collapsed:: true
 	- 概述
 	  collapsed:: true
 		- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/)
@@ -242,6 +241,7 @@
 				- UIDs 每个 Kubernetes 对象也有一个UID 来标识在整个集群中的唯一性。
 			- 命名空间
 			  id:: 62638d0b-7c8b-424a-be77-3df5bd50c77f
+			  collapsed:: true
 				- [官网地址](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/namespaces/)
 				- 作用
 					- 将同一集群中的资源划分为相互隔离的组。
@@ -488,6 +488,7 @@
 					- Kubernetes 控制面会为所有名字空间设置一个不可变更的 标签 kubernetes.io/metadata.name，只要 NamespaceDefaultLabelName 这一 特性门控 被启用。标签的值是名字空间的名称。
 			- 标签和选择算符
 			  id:: 62651b7d-b442-4f84-be47-244febb2f08b
+			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
 				- 介绍
 					- 作用范围：附加到Kubernetes对象，例如Pods，Deployment等。
@@ -571,18 +572,45 @@
 								  
 								  
 								  ~~~
+						- 多条件&&
+							- ~~~shell
+							  ## 选取app=cat并且env=prod的pod
+							  kubectl get pod -l app=cat,env=prod
+							  
+							  ## 实际执行结果
+							  [root@k8s-master-22 deployment]# kubectl get pod -l app=cat,env=prod
+							  NAME                          READY   STATUS    RESTARTS   AGE
+							  cat-dp-prod-7b4c9b4f8-6wrh8   2/2     Running   0          73s
+							  cat-dp-prod-7b4c9b4f8-8k7hf   2/2     Running   0          73s
+							  
+							  ## 选取不带env标签的pod
+							  kubectl get pod -l "! env"
+							  
+							  ## 实际执行结果
+							  [root@k8s-master-22 deployment]# kubectl get pod -l "! env"
+							  NAME                              READY   STATUS    RESTARTS         AGE
+							  details-v1-79f774bdb9-jd7tv       2/2     Running   12 (4h50m ago)   13d
+							  productpage-v1-6b746f74dc-slrjm   2/2     Running   12 (4h50m ago)   13d
+							  ratings-v1-b6994bb9-pnnss         2/2     Running   12 (4h49m ago)   13d
+							  reviews-v1-545db77b95-8xl8k       2/2     Running   12 (4h50m ago)   13d
+							  reviews-v2-7bf8c9648f-wklnd       2/2     Running   12 (4h50m ago)   13d
+							  reviews-v3-84779c7bbc-ckb87       2/2     Running   12 (4h50m ago)   13d
+							  ~~~
 					- API
 						- LIST和WATCH过滤
 						- 在API对象中设置引用
 							- Service和ReplicationController
 							- 支持基于集合需求的资源
 							- 选择节点集
+								- 用途之一 ((626693b3-b90c-4760-9ab8-1149688fb7a7))
+								-
 					-
 				-
 			- 注释
 			  id:: 62651b7d-3a50-4826-a4c4-df4994311b15
-			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)
+				- 为对象附加元数据
+				-
 			- Finalizers
 			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/finalizers/)
@@ -627,6 +655,13 @@
 	- 安全
 	- 策略
 	- 调度，抢占和驱逐
+		- [官方文档](https://kubernetes.io/zh/docs/concepts/scheduling-eviction/)
+		- 调度
+			- 将Pods指派到节点
+			  id:: 626693b3-b90c-4760-9ab8-1149688fb7a7
+				- [官方文档](https://kubernetes.io/zh/docs/concepts/scheduling-eviction/assign-pod-node/)
+				-
+		-
 	- 集群管理
 	- 扩展Kubernetes
 	-
