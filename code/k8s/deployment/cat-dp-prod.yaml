@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cat-dp
+  name: cat-dp-prod
 spec:
   selector:
     matchLabels:
@@ -15,7 +15,7 @@ spec:
         env: prod
     spec:
       containers:
-        - name: cat-ct
+        - name: cat-ct-prod
           image: catface996/spring-cloud-istio-demo:latest
           ports:
             - containerPort: 9001

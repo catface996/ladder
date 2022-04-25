@@ -525,7 +525,52 @@
 								  kubectl get pod -l app!=cat
 								  ~~~
 						- 基于集合的需求
-							-
+							- in
+								- ~~~shell
+								  ## 选取cat和dog
+								  ubectl get pod -l "app in (cat,dog)"
+								  
+								  ## 实际执行结果
+								  [root@k8s-master-22 deployment]# kubectl get pod -l "app in (cat,dog)"
+								  NAME                      READY   STATUS    RESTARTS   AGE
+								  cat-dp-58cf7df488-dcs4g   2/2     Running   0          25m
+								  cat-dp-58cf7df488-hk4fb   2/2     Running   0          26m
+								  dog-dp-b6c8757d4-t5vnv    2/2     Running   0          26m
+								  ~~~
+							- notin
+								- ~~~shell
+								  ## 选取非cat，非dog
+								  kubectl get pod -l "app notin (cat,dog)"
+								  
+								  ## 实际执行结果
+								  [root@k8s-master-22 deployment]# kubectl get pod -l "app notin (cat,dog)"
+								  NAME                              READY   STATUS    RESTARTS         AGE
+								  details-v1-79f774bdb9-jd7tv       2/2     Running   12 (3h59m ago)   13d
+								  monkey-dp-65686cb678-pvk87        2/2     Running   0                7m17s
+								  productpage-v1-6b746f74dc-slrjm   2/2     Running   12 (3h59m ago)   13d
+								  ratings-v1-b6994bb9-pnnss         2/2     Running   12 (3h58m ago)   13d
+								  reviews-v1-545db77b95-8xl8k       2/2     Running   12 (3h59m ago)   13d
+								  reviews-v2-7bf8c9648f-wklnd       2/2     Running   12 (3h59m ago)   13d
+								  reviews-v3-84779c7bbc-ckb87       2/2     Running   12 (3h59m ago)   13d
+								  ~~~
+							- exist
+								- ~~~shell
+								  ## 选取存在env标签的pod
+								  kubectl get pod -l env
+								  
+								  ## 执行结果
+								  [root@k8s-master-22 deployment]# kubectl get pod -l env
+								  NAME                         READY   STATUS    RESTARTS   AGE
+								  cat-dp-58cf7df488-dcs4g      2/2     Running   0          54m
+								  cat-dp-58cf7df488-hk4fb      2/2     Running   0          55m
+								  dog-dp-b6c8757d4-t5vnv       2/2     Running   0          55m
+								  monkey-dp-65686cb678-pvk87   2/2     Running   0          35m
+								  [root@k8s-master-22 deployment]#
+								  
+								  ## 选取不存在env标签的pod
+								  
+								  
+								  ~~~
 					- API
 						- LIST和WATCH过滤
 						- 在API对象中设置引用
