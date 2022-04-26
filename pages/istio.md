@@ -1,5 +1,4 @@
 - 任务
-  collapsed:: true
 	- 流量管理
 		- [官方文档](https://istio.io/latest/docs/tasks/traffic-management/)
 		- 请求路由
@@ -443,6 +442,7 @@
 				  ~~~
 		- 流量转移
 		  id:: 626600dd-9313-4c88-85f4-59f1c2f17f5d
+		  collapsed:: true
 			- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/traffic-shifting/)
 			- 开始之前
 			  collapsed:: true
@@ -585,6 +585,110 @@
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
 				-
+		- Egress
+		  collapsed:: true
+			- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/egress/)
+			- 访问外部服务
+			  id:: 62678f97-a882-4d74-a432-bc4ccaef29bd
+				- 官方文档[https://istio.io/latest/zh/docs/tasks/traffic-management/egress/egress-control/]
+				- 开始之前
+				- Envoy转发流量到外部服务
+				- 控制对外部服务的访问
+					- 更改默认的封锁策略
+					- 访问一个外部的http服务
+					- 访问外部的https服务
+					- 管理到外部服务的流量
+					- 清理对外服务的受控访问
+				- 直接访问外部服务
+					- 确定平台内部的IP范围
+					- 配置代理绕行
+					- 访问外部服务
+					- 清除对外部服务的直接访问
+				- 理解原理
+				- 安全说明
+				- 清理
+	- 可观察性
+	  collapsed:: true
+		- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/)
+		- 指标度量
+			- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/metrics/)
+			- 通过Prometheus查询度量指标
+			  id:: 6266ab50-b550-4424-b3b4-0a17d07be1a5
+				- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/metrics/querying-metrics/)
+				- 开始之前
+				  collapsed:: true
+					- DONE 已经在k8s集群中安装了istio。
+					- DONE 安装 Prometheus Addon
+						- 安装istio的时候，已经安装了Kiali和其他组件
+						  ~~~shell
+						  kubectl apply -f samples/addons
+						  ~~~
+					- DONE 部署Bookinfo应用。
+				- 查询Istio度量指标
+					- 验证集群中运行的Prometheus服务
+					  collapsed:: true
+						- ~~~shell
+						  kubectl -n istio-system get svc prometheus
+						  
+						  ## 实际执行结果
+						  [root@k8s-master-22 ~]# kubectl -n istio-system get svc prometheus
+						  NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+						  prometheus   ClusterIP   10.10.189.192   <none>        9090/TCP   14d
+						  ~~~
+					- 向网格发送流量
+					  collapsed:: true
+						- ((62638d0b-8892-4c54-b53c-439a6660ef62))
+					- 打开Prometheus UI
+					  collapsed:: true
+						- ~~~shell
+						  ## 启动Prometheus代理
+						  istioctl dashboard prometheus --address 192.168.162.22
+						  
+						  ## 执行结果
+						  [root@k8s-master-22 ~]# istioctl dashboard prometheus --address 192.168.162.22
+						  http://192.168.162.22:9090
+						  Failed to open browser; open http://192.168.162.22:9090 in your browser.
+						  ~~~
+						- ![image.png](../assets/image_1650897954527_0.png)
+					- 执行一个Prometheus查询
+						- ~~~shell
+						  istio_requests_total
+						  ~~~
+						- 执行结果
+							- ![image.png](../assets/image_1650898331546_0.png)
+						- 切换成Graph视图
+							- ![image.png](../assets/image_1650898372619_0.png)
+					- 其他尝试
+						- 请求productpage服务的总次数
+							- ~~~shell
+							  istio_requests_total{destination_service="productpage.default.svc.cluster.local"}
+							  ~~~
+							- ![image.png](../assets/image_1650956801234_0.png)
+						- 请求reviews服务v3版本的总次数
+							- ~~~shell
+							  istio_requests_total{destination_service="reviews.default.svc.cluster.local", destination_version="v3"}
+							  ~~~
+							- ![image.png](../assets/image_1650956784682_0.png)
+						- 过去5分钟productpage服务所有实例的请求频次
+							- ~~~shell
+							  rate(istio_requests_total{destination_service=~"productpage.*", response_code="200"}[5m])
+							  ~~~
+							- ![image.png](../assets/image_1650956896033_0.png)
+				-
+			- 使用Grafana可视化指标
+			  id:: 62678da1-e553-4b20-ab42-d054b66bf6a9
+				- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/metrics/using-istio-dashboard/)
+				- 开始之前
+					- 在集群中安装Istio，并启用Grafana组件。
+					- 部署Bookinfo应用。
+				- 查看Istio Dashboard
+					- 验证prometheus服务正在集群中运行。
+					- 验证Grafana服务正在集群中运行。
+					- 通过Grafana UI打开Istio Dashboard。
+					- 发送流量到网格。
+					- 可视化服务仪表盘。
+					- 可视化工作负载仪表盘。
+				- 关于Grafana插件
 		-
 	-
 - 概念
@@ -602,6 +706,7 @@
 				- Istio 故障恢复功能对应用程序来说是完全透明的。在返回响应之前，应用程序不知道 Envoy sidecar 代理是否正在处理被调用服务的故障。这意味着，如果在应用程序代码中设置了故障恢复策略，那么您需要记住这**两个策略都是独立工作**的，否则会发生冲突。例如，假设您设置了两个超时，一个在虚拟服务中配置，另一个在应用程序中配置。应用程序为服务的 API 调用设置了 2 秒超时。而您在虚拟服务中配置了一个 3 秒超时和重试。在这种情况下，应用程序的超时会先生效，因此 Envoy 的超时和重试尝试会失效。
 			-
 - 例子
+  collapsed:: true
 	- [图书应用](https://istio.io/latest/docs/examples/bookinfo/)
 		- 没有istio的版本
 			- ![image.png](../assets/image_1650644733819_0.png)

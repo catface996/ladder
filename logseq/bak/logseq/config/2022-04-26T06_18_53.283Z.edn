@@ -165,8 +165,7 @@
  :ref/default-open-blocks-level 2
 
  :ref/linked-references-collapsed-threshold 50
- :favorites ["learn and share" "待攻克的知识点"]
- :editor/logical-outdenting? true
+ :favorites ["k8s+istio" "待攻克的知识点" "0基础入门Kubernetes" "istio" "Kubernetes"]
 
  ;; any number between 0 and 1 (the greater it is the faster the changes of the next-interval of card reviews) (default 0.5)
  ;; :srs/learning-fraction 0.5

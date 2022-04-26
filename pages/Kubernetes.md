@@ -246,8 +246,8 @@
 				- 作用
 					- 将同一集群中的资源划分为相互隔离的组。
 				- 限制
-					- 同一名字空间内的资源名称要唯一，但跨名字空间时没有这个要求。
-					- 作用于Demployment、Service等
+					- 同一命名空间内的资源名称要唯一，但命名空间时没有这个要求。
+					- 作用于Demployment、Service等。
 					- 对StorageClass、Node、PersistentVolume等不适应。
 				- 何时使用多个命名空间
 					- 命名空间适用于存在很多跨多个团队或项目的用户的场景。
@@ -386,7 +386,6 @@
 						  kubectl api-resources --namespaced=false
 						  ~~~
 						- 实际的执行结果
-						  collapsed:: true
 							- 在命名空间中的资源
 							  ~~~shell
 							  [root@k8s-master-22 ~]# kubectl api-resources --namespaced=true
@@ -485,10 +484,9 @@
 							  volumeattachments                              storage.k8s.io/v1                      false        VolumeAttachment
 							  ~~~
 				- 自动打标签
-					- Kubernetes 控制面会为所有名字空间设置一个不可变更的 标签 kubernetes.io/metadata.name，只要 NamespaceDefaultLabelName 这一 特性门控 被启用。标签的值是名字空间的名称。
+					- Kubernetes 控制面会为所有命名空间设置一个不可变更的 标签 kubernetes.io/metadata.name，只要 NamespaceDefaultLabelName 这一 特性被启用。标签的值是名字空间的名称。
 			- 标签和选择算符
 			  id:: 62651b7d-b442-4f84-be47-244febb2f08b
-			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
 				- 介绍
 					- 作用范围：附加到Kubernetes对象，例如Pods，Deployment等。
@@ -608,15 +606,95 @@
 				-
 			- 注释
 			  id:: 62651b7d-3a50-4826-a4c4-df4994311b15
+			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/annotations/)
 				- 为对象附加元数据
-				-
+					- ~~~shell
+					  ## 例如
+					  annotations:
+					      author: catface996
+					      
+					  ## 在cat-dp-gray.yaml 中配置    
+					  [root@k8s-master-22 deployment]# cat cat-dp-gray.yaml
+					  apiVersion: apps/v1
+					  kind: Deployment
+					  metadata:
+					    name: cat-dp-gray
+					    annotations:
+					      author: catface996
+					  spec:
+					    selector:
+					      matchLabels:
+					        app: cat
+					        env: gray
+					    replicas: 2
+					    template:
+					      metadata:
+					        labels:
+					          app: cat
+					          env: gray
+					      spec:
+					        containers:
+					          - name: cat-ct-gray
+					            image: catface996/spring-cloud-istio-demo:latest
+					            ports:
+					              - containerPort: 9001
+					                protocol: TCP
+					                
+					  ## 配置生效后
+					  [root@k8s-master-22 deployment]# kubectl describe deployment cat-dp-gray
+					  Name:                   cat-dp-gray
+					  Namespace:              default
+					  CreationTimestamp:      Mon, 25 Apr 2022 08:15:44 -0400
+					  Labels:                 <none>
+					  Annotations:            author: catface996
+					                          deployment.kubernetes.io/revision: 1
+					  Selector:               app=cat,env=gray
+					  Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+					  StrategyType:           RollingUpdate
+					  MinReadySeconds:        0
+					  RollingUpdateStrategy:  25% max unavailable, 25% max surge
+					  Pod Template:
+					    Labels:  app=cat
+					             env=gray
+					    Containers:
+					     cat-ct-gray:
+					      Image:        catface996/spring-cloud-istio-demo:latest
+					      Port:         9001/TCP
+					      Host Port:    0/TCP
+					      Environment:  <none>
+					      Mounts:       <none>
+					    Volumes:        <none>
+					  Conditions:
+					    Type           Status  Reason
+					    ----           ------  ------
+					    Progressing    True    NewReplicaSetAvailable
+					    Available      True    MinimumReplicasAvailable
+					  OldReplicaSets:  <none>
+					  NewReplicaSet:   cat-dp-gray-79545bc67d (2/2 replicas created)
+					  Events:
+					    Type    Reason             Age   From                   Message
+					    ----    ------             ----  ----                   -------
+					    Normal  ScalingReplicaSet  24m   deployment-controller  Scaled up replica set cat-dp-gray-79545bc67d to 2
+					                
+					  
+					  ~~~
+				- 常用的例子
+					- 由声明性配置所管理的字段。 将这些字段附加为注解，能够将它们与客户端或服务端设置的默认值、 自动生成的字段以及通过自动调整大小或自动伸缩系统设置的字段区分开来。
+					- 构建、发布或镜像信息（如时间戳、发布 ID、Git 分支、PR 数量、镜像哈希、仓库地址）。
+					- 指向日志记录、监控、分析或审计仓库的指针。
+					- 可用于调试目的的客户端库或工具信息：例如，名称、版本和构建信息。
+					- 用户或者工具/系统的来源信息，例如来自其他生态系统组件的相关对象的 URL。
+					- 轻量级上线工具的元数据信息：例如，配置或检查点。
+					- 负责人员的电话或呼机号码，或指定在何处可以找到该信息的目录条目，如团队网站。
+					- 从用户到最终运行的指令，以修改行为或使用非标准功能。
+				- 语法和字符集
+					- 注意： kubernetes.io/ 和 k8s.io/ 前缀是为Kubernetes核心组件保留的。
 			- Finalizers
 			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/finalizers/)
 			- 字段选择器
 			  id:: 62651b7d-d25d-4ace-bdbd-ed29a6460b46
-			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/field-selectors/)
 				-
 			- 属主与附属
