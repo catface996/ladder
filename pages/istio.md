@@ -590,23 +590,463 @@
 			- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/egress/)
 			- 访问外部服务
 			  id:: 62678f97-a882-4d74-a432-bc4ccaef29bd
-				- 官方文档[https://istio.io/latest/zh/docs/tasks/traffic-management/egress/egress-control/]
+				- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/egress/egress-control/)
+				- 任务背景
+					- 由于默认情况下，来自 Istio-enable Pod 的所有出站流量都会重定向到其 Sidecar 代理，集群外部 URL 的可访问性取决于代理的配置。默认情况下，Istio 将 Envoy 代理配置为允许传递未知服务的请求。尽管这为入门 Istio 带来了方便，但是，通常情况下，配置更严格的控制是更可取的。
+					- 三种访问外部服务的方法：
+						- 允许envoy代理将请求传递到未在网格内配置的服务。
+						- 配置 service entry 以提供对外部服务的受控访问。
+						- 对于特定范围的IP，完全绕过Envoy代理。
 				- 开始之前
+					- k8s集群中完成Istio安装，并弃用Envoy的访问记录。
+					- 部署一个sleep示例应用，作为发送请求的测试源。
+						- 注意：**需要开启Istio注入**。
+						- 提醒：你可以使用任何安装了curl的pod作为测试源。
+						- ~~~shell
+						  kubectl apply -f samples/sleep/sleep.yaml
+						  ~~~
+					- 设置环境变量SOURCE_POD，值为你的源pod的名称：
+						- 提示：这一步是为了方便后续的操作。
+						- ~~~shell
+						  export SOURCE_POD=$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name})
+						  ~~~
 				- Envoy转发流量到外部服务
+					- 注意：Istio 有一个安装选项， global.outboundTrafficPolicy.mode，它配置 sidecar 对外部服务（那些没有在 Istio 的内部服务注册中定义的服务）的处理方式。如果这个选项设置为 ALLOW_ANY，Istio 代理允许调用未知的服务。如果这个选项设置为 REGISTRY_ONLY，那么 Istio 代理会阻止任何没有在网格中定义的 HTTP 服务或 service entry 的主机。ALLOW_ANY 是默认值，不控制对外部服务的访问，方便你快速地评估 Istio。你可以稍后再配置对外部服务的访问 。
+					- 查看 meshConfig.outboundTrafficPolic.mode选项
+						- ~~~shell
+						  ## 待执行的命令
+						  kubectl get istiooperator installed-state -n istio-system -o jsonpath='{.spec.meshConfig.outboundTrafficPolicy.mode}'
+						  
+						  ## 实际执行结果
+						  [root@k8s-master-22 istio]# kubectl get istiooperator installed-state -n istio-system -o jsonpath='{.spec.meshConfig.outboundTrafficPolicy.mode}'
+						  [root@k8s-master-22 istio]#
+						  ## 没有输出代表是ALLOW_ANY
+						  ~~~
+					- 查看集群中的Egress
+						- ~~~shell
+						  ## 待执行的命令
+						  kubectl get svc istio-egressgateway -n istio-system
+						  
+						  ## 实际执行结果
+						  [root@k8s-master-22 istio]# kubectl get svc istio-egressgateway -n istio-system
+						  NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+						  istio-egressgateway   ClusterIP   10.10.175.208   <none>        80/TCP,443/TCP   15d
+						  ~~~
+					- 从SOURCE_POD 向外部HTTPS服务器发送两个请求
+						- ~~~shell
+						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSI https://www.baidu.com | grep  "HTTP/"; kubectl exec "$SOURCE_POD" -c sleep -- curl -sI https://www.tencent.com | grep "HTTP/"
+						  
+						  ## 向百度和腾讯的官网发送请求
+						  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- curl -sSI https://www.baidu.com | grep  "HTTP/"; kubectl exec "$SOURCE_POD" -c sleep -- curl -sI https://www.tencent.com | grep "HTTP/"
+						  HTTP/1.1 200 OK
+						  HTTP/2 200
+						  ~~~
 				- 控制对外部服务的访问
 					- 更改默认的封锁策略
+						- ~~~shell
+						  istioctl install <flags-you-used-to-install-Istio> \
+						                     --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY
+						                     
+						  ## 实际执行的命令
+						  istioctl install --set profile=demo -y \
+						                     --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY
+						  
+						  ## 实际的执行结果
+						  [root@k8s-master-22 istio]# istioctl install --set profile=demo -y \
+						  >                    --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY
+						  ✔ Istio core installed
+						  ✔ Istiod installed
+						  ✔ Ingress gateways installed
+						  ✔ Egress gateways installed
+						  ✔ Installation complete                                                                                                                                                        
+						  Making this installation the default for injection and validation.
+						  
+						  ## 查看meshConfig.outboundTrafficPolicy
+						  ## 待执行的命令
+						  kubectl get istiooperator installed-state -n istio-system -o jsonpath='{.spec.meshConfig.outboundTrafficPolicy.mode}'
+						  ## 实际执行结果
+						  [root@k8s-master-22 istio]# kubectl get istiooperator installed-state -n istio-system -o jsonpath='{.spec.meshConfig.outboundTrafficPolicy.mode}'
+						  REGISTRY_ONLY
+						  ~~~
 					- 访问一个外部的http服务
+						- ~~~shell
+						  ## 访问百度和腾讯
+						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSI http://www.baidu.com | grep  "HTTP/"; kubectl exec "$SOURCE_POD" -c sleep -- curl -sI http://www.tencent.com | grep "HTTP/"
+						   
+						  ## 实际执行结果
+						  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- curl -sSI http://www.baidu.com | grep  "HTTP/"; kubectl exec "$SOURCE_POD" -c sleep -- curl -sI http://www.tencent.com | grep "HTTP/"
+						  HTTP/1.1 502 Bad Gateway
+						  HTTP/1.1 502 Bad Gateway
+						  ~~~
+						- 创建一个ServiceEntry,以允许访问一个外部的HTTP服务
+						  collapsed:: true
+							- 注意：
+								- DNS 解析在下面的服务条目中用作安全措。将解析设置为 NONE会开启了攻击的可能。恶意客户端在真正连接到其他IP时，可能会伪装设置 HOST 头信息为 httpbin.org（与 httpbin.org 不相关）。Istio sidecar 代理将信任 HOST 头信息，并错误地允许通信，甚至将其传递到其他主机的 IP 地址。 该主机可能是恶意的站点，或者网格安全策略禁止的站点。
+								- 使用 DNS 解析，Sidecar 代理将忽略原始目标 IP 地址并引导流量到 httpbin.org，并执行 DNS 查询以获取 httpbin.org 的IP地址
+							- ~~~shell
+							  ## 创建一个外部服务
+							  kubectl apply -f - <<EOF
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: ServiceEntry
+							  metadata:
+							    name: baidu-ext
+							  spec:
+							    hosts:
+							    - www.baidu.com
+							    ports:
+							    - number: 80
+							      name: http
+							      protocol: HTTP
+							    resolution: DNS
+							    location: MESH_EXTERNAL
+							  EOF
+							  
+							  ## 实际执行结果
+							  [root@k8s-master-22 istio]# kubectl apply -f - <<EOF
+							  > apiVersion: networking.istio.io/v1alpha3
+							  > kind: ServiceEntry
+							  > metadata:
+							  >   name: baidu-ext
+							  > spec:
+							  >   hosts:
+							  >   - www.baidu.com
+							  >   ports:
+							  >   - number: 80
+							  >     name: http
+							  >     protocol: HTTP
+							  >   resolution: DNS
+							  >   location: MESH_EXTERNAL
+							  > EOF
+							  serviceentry.networking.istio.io/baidu-ext created
+							  
+							  ## 查看ServiceEntry
+							  [root@k8s-master-22 istio]# kubectl get se
+							  NAME        HOSTS               LOCATION        RESOLUTION   AGE
+							  baidu-ext   ["www.baidu.com"]   MESH_EXTERNAL   DNS          13s
+							  ~~~
+							- ~~~shell
+							  kubectl apply -f - <<EOF
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: ServiceEntry
+							  metadata:
+							    name: httpbin-ext
+							  spec:
+							    hosts:
+							    - httpbin.org
+							    ports:
+							    - number: 80
+							      name: http
+							      protocol: HTTP
+							    resolution: DNS
+							    location: MESH_EXTERNAL
+							  EOF
+							  ~~~
+						- 从SOURCE_POD向外部的HTTP服务发出一个请求
+						  collapsed:: true
+							- ~~~shell
+							   kubectl exec -it $SOURCE_POD -c sleep -- curl http://www.baidu.com
+							   
+							   ## 实际执行结果
+							   [root@k8s-master-22 istio]#  kubectl exec -it $SOURCE_POD -c sleep -- curl http://www.baidu.com
+							  <!DOCTYPE html>
+							  <!--STATUS OK--><html> <head><meta http-equiv=content-type content=text/html;charset=utf-8><meta http-equiv=X-UA-Compatible content=IE=Edge><meta content=always name=referrer><link rel=stylesheet type=text/css href=http://s1.bdstatic.com/r/www/cache/bdorz/baidu.min.css><title>百度一下，你就知道</title></head> <body link=#0000cc> <div id=wrapper> <div id=head> <div class=head_wrapper> <div class=s_form> <div class=s_form_wrapper> <div id=lg> <img hidefocus=true src=//www.baidu.com/img/bd_logo1.png width=270 height=129> </div> <form id=form name=f action=//www.baidu.com/s class=fm> <input type=hidden name=bdorz_come value=1> <input type=hidden name=ie value=utf-8> <input type=hidden name=f value=8> <input type=hidden name=rsv_bp value=1> <input type=hidden name=rsv_idx value=1> <input type=hidden name=tn value=baidu><span class="bg s_ipt_wr"><input id=kw name=wd class=s_ipt value maxlength=255 autocomplete=off autofocus></span><span class="bg s_btn_wr"><input type=submit id=su value=百度一下 class="bg s_btn"></span> </form> </div> </div> <div id=u1> <a href=http://news.baidu.com name=tj_trnews class=mnav>新闻</a> <a href=http://www.hao123.com name=tj_trhao123 class=mnav>hao123</a> <a href=http://map.baidu.com name=tj_trmap class=mnav>地图</a> <a href=http://v.baidu.com name=tj_trvideo class=mnav>视频</a> <a href=http://tieba.baidu.com name=tj_trtieba class=mnav>贴吧</a> <noscript> <a href=http://www.baidu.com/bdorz/login.gif?login&amp;tpl=mn&amp;u=http%3A%2F%2Fwww.baidu.com%2f%3fbdorz_come%3d1 name=tj_login class=lb>登录</a> </noscript> <script>document.write('<a href="http://www.baidu.com/bdorz/login.gif?login&tpl=mn&u='+ encodeURIComponent(window.location.href+ (window.location.search === "" ? "?" : "&")+ "bdorz_come=1")+ '" name="tj_login" class="lb">登录</a>');</script> <a href=//www.baidu.com/more/ name=tj_briicon class=bri style="display: block;">更多产品</a> </div> </div> </div> <div id=ftCon> <div id=ftConw> <p id=lh> <a href=http://home.baidu.com>关于百度</a> <a href=http://ir.baidu.com>About Baidu</a> </p> <p id=cp>&copy;2017&nbsp;Baidu&nbsp;<a href=http://www.baidu.com/duty/>使用百度前必读</a>&nbsp; <a href=http://jianyi.baidu.com/ class=cp-feedback>意见反馈</a>&nbsp;京ICP证030173号&nbsp; <img src=//www.baidu.com/img/gs.gif> </p> </div> </div> </div> </body> </html>
+							  [root@k8s-master-22 istio]#
+							  ~~~
+							- ~~~shell
+							   kubectl exec -it $SOURCE_POD -c sleep -- curl http://httpbin.org/headers
+							   
+							   ## 实际执行结果
+							   [root@k8s-master-22 istio]#  kubectl exec -it $SOURCE_POD -c sleep -- curl http://httpbin.org/headers
+							  {
+							    "headers": {
+							      "Accept": "*/*",
+							      "Host": "httpbin.org",
+							      "User-Agent": "curl/7.81.0-DEV",
+							      "X-Amzn-Trace-Id": "Root=1-6267f350-20c03dab347bd8b54fdf4378",
+							      "X-B3-Sampled": "1",
+							      "X-B3-Spanid": "300e9ab35ac2f34a",
+							      "X-B3-Traceid": "3de09d1247786b34300e9ab35ac2f34a",
+							      "X-Envoy-Attempt-Count": "1",
+							      "X-Envoy-Decorator-Operation": "httpbin.org:80/*",
+							      "X-Envoy-Peer-Metadata": "ChkKDkFQUF9DT05UQUlORVJTEgcaBXNsZWVwChoKCkNMVVNURVJfSUQSDBoKS3ViZXJuZXRlcwoZCg1JU1RJT19WRVJTSU9OEggaBjEuMTIuNArEAQoGTEFCRUxTErkBKrYBCg4KA2FwcBIHGgVzbGVlcAohChFwb2QtdGVtcGxhdGUtaGFzaBIMGgo1NTc3NDc0NTVmCiQKGXNlY3VyaXR5LmlzdGlvLmlvL3Rsc01vZGUSBxoFaXN0aW8KKgofc2VydmljZS5pc3Rpby5pby9jYW5vbmljYWwtbmFtZRIHGgVzbGVlcAovCiNzZXJ2aWNlLmlzdGlvLmlvL2Nhbm9uaWNhbC1yZXZpc2lvbhIIGgZsYXRlc3QKGgoHTUVTSF9JRBIPGg1jbHVzdGVyLmxvY2FsCiAKBE5BTUUSGBoWc2xlZXAtNTU3NzQ3NDU1Zi1udzQ1aAoWCglOQU1FU1BBQ0USCRoHZGVmYXVsdApJCgVPV05FUhJAGj5rdWJlcm5ldGVzOi8vYXBpcy9hcHBzL3YxL25hbWVzcGFjZXMvZGVmYXVsdC9kZXBsb3ltZW50cy9zbGVlcAoXChFQTEFURk9STV9NRVRBREFUQRICKgAKGAoNV09SS0xPQURfTkFNRRIHGgVzbGVlcA==",
+							      "X-Envoy-Peer-Metadata-Id": "sidecar~10.122.158.52~sleep-557747455f-nw45h.default~default.svc.cluster.local"
+							    }
+							  }
+							  [root@k8s-master-22 istio]#
+							  ~~~
+						- 检查SOURCE_POD的sidecar代理日志
+						  collapsed:: true
+							- ~~~shell
+							  kubectl logs $SOURCE_POD -c istio-proxy | tail
+							  
+							  ## 实际执行结果
+							  [root@k8s-master-22 istio]# kubectl logs $SOURCE_POD -c istio-proxy | tail
+							  [2022-04-26T12:44:56.028Z] "- - -" 0 - - - "-" 785 4676 116 - "-" "-" "-" "-" "180.97.34.96:443" PassthroughCluster 10.122.158.52:42410 180.97.34.96:443 10.122.158.52:42408 - -
+							  [2022-04-26T12:44:56.278Z] "- - -" 0 - - - "-" 908 4986 80 - "-" "-" "-" "-" "36.25.253.87:443" PassthroughCluster 10.122.158.52:39498 36.25.253.87:443 10.122.158.52:39496 - -
+							  2022-04-26T12:47:30.333876Z	info	xdsproxy	connected to upstream XDS server: istiod.istio-system.svc:15012
+							  [2022-04-26T13:14:30.905Z] "- - -" 0 UH - - "-" 0 0 7 - "-" "-" "-" "-" "-" BlackHoleCluster - 180.97.34.94:443 10.122.158.52:54192 - -
+							  [2022-04-26T13:14:31.103Z] "- - -" 0 UH - - "-" 0 0 0 - "-" "-" "-" "-" "-" BlackHoleCluster - 36.25.253.224:443 10.122.158.52:60428 - -
+							  [2022-04-26T13:16:32.023Z] "HEAD / HTTP/1.1" 502 - direct_response - "-" 0 0 0 - "-" "curl/7.81.0-DEV" "cb171c15-848a-93d8-88d6-beeadcbb683f" "www.baidu.com" "-" - - 180.97.34.94:80 10.122.158.52:48708 - block_all
+							  [2022-04-26T13:16:34.207Z] "HEAD / HTTP/1.1" 502 - direct_response - "-" 0 0 0 - "-" "curl/7.81.0-DEV" "8798a7cc-6dd2-9fe1-b0e6-fc679906efc7" "www.tencent.com" "-" - - 36.25.253.224:80 10.122.158.52:56662 - block_all
+							  2022-04-26T13:18:45.676013Z	info	xdsproxy	connected to upstream XDS server: istiod.istio-system.svc:15012
+							  [2022-04-26T13:23:57.254Z] "GET / HTTP/1.1" 200 - via_upstream - "-" 0 2381 31 29 "-" "curl/7.81.0-DEV" "61841718-a1c3-97bc-bcc9-66b781b118df" "www.baidu.com" "180.97.34.96:80" outbound|80||www.baidu.com 10.122.158.52:52250 180.97.34.94:80 10.122.158.52:54480 - default
+							  [2022-04-26T13:26:08.804Z] "GET /headers HTTP/1.1" 200 - via_upstream - "-" 0 1200 742 742 "-" "curl/7.81.0-DEV" "934ddb65-6508-91ae-8e61-46ea5eb3c9f1" "httpbin.org" "3.226.124.170:80" outbound|80||httpbin.org 10.122.158.52:50958 34.197.247.180:80 10.122.158.52:48554 - default
+							  ~~~
 					- 访问外部的https服务
+						- ~~~shell
+						  ## 访问百度和腾讯
+						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSI https://www.baidu.com | grep  "HTTP/"; kubectl exec "$SOURCE_POD" -c sleep -- curl -sI https://www.tencent.com | grep "HTTP/"
+						   
+						  ## 实际执行结果
+						  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- curl -sSI https://www.baidu.com | grep  "HTTP/"; kubectl exec "$SOURCE_POD" -c sleep -- curl -sI https://www.tencent.com | grep "HTTP/"
+						  curl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.baidu.com:443
+						  command terminated with exit code 35
+						  command terminated with exit code 35
+						  ~~~
+						- 创建一个ServiceEntry，允许外部服务的访问。
+							- ~~~shell
+							  kubectl apply -f - <<EOF
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: ServiceEntry
+							  metadata:
+							    name: tencent-ext
+							  spec:
+							    hosts:
+							    - www.tencent.com
+							    ports:
+							    - number: 443
+							      name: https
+							      protocol: HTTPS
+							    resolution: DNS
+							    location: MESH_EXTERNAL
+							  EOF
+							  ~~~
+						- 从SOURCE_POD往外部HTTPS服务发送请求
+							- ~~~shell
+							  kubectl exec -it $SOURCE_POD -c sleep -- curl -I https://www.tencent.com | grep  "HTTP/"
+							  
+							  ## 实际执行结果
+							  [root@k8s-master-22 istio]# kubectl exec -it $SOURCE_POD -c sleep -- curl -I https://www.tencent.com | grep  "HTTP/"
+							  HTTP/2 200
+							  ~~~
+						- 检查SOURCE_POD的sidecar代理日志
+							- ~~~shell
+							  [root@k8s-master-22 istio]# kubectl logs $SOURCE_POD -c istio-proxy | tail
+							  [2022-04-26T12:44:56.278Z] "- - -" 0 - - - "-" 908 4986 80 - "-" "-" "-" "-" "36.25.253.87:443" PassthroughCluster 10.122.158.52:39498 36.25.253.87:443 10.122.158.52:39496 - -
+							  2022-04-26T12:47:30.333876Z	info	xdsproxy	connected to upstream XDS server: istiod.istio-system.svc:15012
+							  [2022-04-26T13:14:30.905Z] "- - -" 0 UH - - "-" 0 0 7 - "-" "-" "-" "-" "-" BlackHoleCluster - 180.97.34.94:443 10.122.158.52:54192 - -
+							  [2022-04-26T13:14:31.103Z] "- - -" 0 UH - - "-" 0 0 0 - "-" "-" "-" "-" "-" BlackHoleCluster - 36.25.253.224:443 10.122.158.52:60428 - -
+							  [2022-04-26T13:16:32.023Z] "HEAD / HTTP/1.1" 502 - direct_response - "-" 0 0 0 - "-" "curl/7.81.0-DEV" "cb171c15-848a-93d8-88d6-beeadcbb683f" "www.baidu.com" "-" - - 180.97.34.94:80 10.122.158.52:48708 - block_all
+							  [2022-04-26T13:16:34.207Z] "HEAD / HTTP/1.1" 502 - direct_response - "-" 0 0 0 - "-" "curl/7.81.0-DEV" "8798a7cc-6dd2-9fe1-b0e6-fc679906efc7" "www.tencent.com" "-" - - 36.25.253.224:80 10.122.158.52:56662 - block_all
+							  2022-04-26T13:18:45.676013Z	info	xdsproxy	connected to upstream XDS server: istiod.istio-system.svc:15012
+							  [2022-04-26T13:23:57.254Z] "GET / HTTP/1.1" 200 - via_upstream - "-" 0 2381 31 29 "-" "curl/7.81.0-DEV" "61841718-a1c3-97bc-bcc9-66b781b118df" "www.baidu.com" "180.97.34.96:80" outbound|80||www.baidu.com 10.122.158.52:52250 180.97.34.94:80 10.122.158.52:54480 - default
+							  [2022-04-26T13:26:08.804Z] "GET /headers HTTP/1.1" 200 - via_upstream - "-" 0 1200 742 742 "-" "curl/7.81.0-DEV" "934ddb65-6508-91ae-8e61-46ea5eb3c9f1" "httpbin.org" "3.226.124.170:80" outbound|80||httpbin.org 10.122.158.52:50958 34.197.247.180:80 10.122.158.52:48554 - default
+							  [2022-04-26T13:40:19.596Z] "- - -" 0 - - - "-" 908 4986 99 - "-" "-" "-" "-" "36.25.253.87:443" outbound|443||www.tencent.com 10.122.158.52:54278 36.25.253.87:443 10.122.158.52:54276 www.tencent.com -
+							  ~~~
 					- 管理到外部服务的流量
+						- 与集群内的请求相似，也可以为使用 ServiceEntry 配置访问的外部服务设置 Istio 路由规则。在本示例中，你将设置对 httpbin.org 服务访问的超时规则。
+						- 从SOURCE_POD向外部服务httpin.org的delay endpoint发送curl请求
+							- ~~~shell
+							  kubectl exec "$SOURCE_POD" -c sleep -- time curl -o /dev/null -sS -w "%{http_code}\n" http://httpbin.org/delay/5
+							  
+							  ## 实际执行结果
+							  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- time curl -o /dev/null -sS -w "%{http_code}\n" http://httpbin.org/delay/5
+							  200
+							  real	0m 5.62s
+							  user	0m 0.00s
+							  sys	0m 0.00s
+							  [root@k8s-master-22 istio]#
+							  ~~~
+						- 创建一个VirtualService，对外部服务设置超时时间
+							- ~~~shell
+							  kubectl apply -f - <<EOF
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: VirtualService
+							  metadata:
+							    name: httpbin-ext
+							  spec:
+							    hosts:
+							      - httpbin.org
+							    http:
+							    - timeout: 3s
+							      route:
+							        - destination:
+							            host: httpbin.org
+							          weight: 100
+							  EOF
+							  ~~~
+						- 重新发送curl请求
+							- ~~~shell
+							  kubectl exec "$SOURCE_POD" -c sleep -- time curl -o /dev/null -sS -w "%{http_code}\n" http://httpbin.org/delay/5
+							  
+							  ## 实际执行结果
+							  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- time curl -o /dev/null -sS -w "%{http_code}\n" http://httpbin.org/delay/5
+							  504
+							  real	0m 3.04s
+							  user	0m 0.00s
+							  sys	0m 0.00s
+							  ~~~
 					- 清理对外服务的受控访问
+						- ~~~shell
+						  kubectl delete serviceentry httpbin-ext baidu-ext tencent-ext
+						  kubectl delete virtualservice httpbin-ext baidu-ext tencent-ext --ignore-not-found=true
+						  
+						  ##实际执行结果
+						  [root@k8s-master-22 istio]# kubectl delete serviceentry httpbin-ext baidu-ext tencent-ext
+						  serviceentry.networking.istio.io "httpbin-ext" deleted
+						  serviceentry.networking.istio.io "baidu-ext" deleted
+						  serviceentry.networking.istio.io "tencent-ext" deleted
+						  
+						  [root@k8s-master-22 istio]# kubectl delete virtualservice httpbin-ext baidu-ext tencent-ext --ignore-not-found=true
+						  virtualservice.networking.istio.io "httpbin-ext" deleted
+						  ~~~
 				- 直接访问外部服务
+					- 如果要让特定范围的 ​​IP 完全绕过 Istio，则可以配置 Envoy sidecars 以防止它们拦截外部请求。要设置绕过 Istio，请更改 global.proxy.includeIPRanges 或 global.proxy.excludeIPRanges configuration option，并使用 kubectl apply 命令更新 istio-sidecar-injector 配置。也可以通过设置相应的注解）在pod上进行配置，例如traffic.sidecar.istio.io / includeOutboundIPRanges。istio-sidecar-injector 配置的更新，影响的是新部署应用的 pod。
+					- **特别注意：**
+						- 与 Envoy 转发流量到外部服务不同，后者使用 ALLOW_ANY 流量策略来让 Istio sidecar 代理将调用传递给未知服务， 该方法完全绕过了 sidecar，从而实质上禁用了指定 IP 的所有 Istio 功能。你不能像 ALLOW_ANY 方法那样为特定的目标增量添加 service entries。 因此，仅当出于性能或其他原因无法使用边车配置外部访问时，才建议使用此配置方法。
 					- 确定平台内部的IP范围
+						- ~~~shell
+						  kubectl describe pod kube-apiserver -n kube-system | grep 'service-cluster-ip-range'
+						  
+						  [root@k8s-master-22 istio]# kubectl describe pod kube-apiserver -n kube-system | grep 'service-cluster-ip-range'
+						        --service-cluster-ip-range=10.10.0.0/16
+						  ~~~
 					- 配置代理绕行
+						- 配置代理之前，先验证访问httpbin
+							- ~~~shell
+							  kubectl exec "$SOURCE_POD" -c sleep -- time curl -o /dev/null -sS -w "%{http_code}\n" http://httpbin.org/delay/5
+							  
+							  ## 实际执行结果
+							  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- time curl -o /dev/null -sS -w "%{http_code}\n" http://httpbin.org/delay/5
+							  502
+							  real	0m 0.04s
+							  user	0m 0.00s
+							  sys	0m 0.00s
+							  ~~~
+						- ~~~shell
+						  istioctl install --set profile=demo -y \
+						                     --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY \
+						                     --set values.global.proxy.includeIPRanges="10.0.0.0/16" 
+						                     
+						  ## 实际执行结果
+						  [root@k8s-master-22 istio]# istioctl install --set profile=demo -y \
+						  >                    --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY \
+						  >                    --set values.global.proxy.includeIPRanges="10.0.0.0/16" \
+						  >
+						  - Processing resources for Istio core.
+						  ✔ Istio core installed
+						  ✔ Istiod installed
+						  ✔ Ingress gateways installed
+						  ✔ Egress gateways installed
+						  ✔ Installation complete                                                                                                                                                        
+						  Making this installation the default for injection and validation.
+						  ~~~
 					- 访问外部服务
+						- **注意：要重新部署一下sleep**
+						- ~~~shell
+						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sS http://httpbin.org/headers
+						  
+						  ## 未重新部署sleep之前
+						  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- curl -sS http://httpbin.org/headers
+						  502
+						  real	0m 0.03s
+						  user	0m 0.00s
+						  sys	0m 0.00s
+						  
+						  ## 重新部署sleep
+						  [root@k8s-master-22 istio]# kubectl replace --force -f samples/sleep/sleep.yaml
+						  serviceaccount "sleep" deleted
+						  service "sleep" deleted
+						  deployment.apps "sleep" deleted
+						  serviceaccount/sleep replaced
+						  service/sleep replaced
+						  deployment.apps/sleep replaced
+						  
+						  ## 由于pod名称已经发生更改，需要重新给SOURCE_POD负值
+						  export SOURCE_POD=$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name})
+						  
+						  
+						  ## 访问外部服务
+						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sS http://httpbin.org/headers
+						  
+						  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- curl -sS http://httpbin.org/headers
+						  {
+						    "headers": {
+						      "Accept": "*/*",
+						      "Host": "httpbin.org",
+						      "User-Agent": "curl/7.81.0-DEV",
+						      "X-Amzn-Trace-Id": "Root=1-62680d78-3c542f8317e0873d4015e1b5"
+						    }
+						  }
+						  
+						  ~~~
 					- 清除对外部服务的直接访问
+						- ~~~shell
+						  istioctl install --set profile=demo -y
+						  
+						  ## 实际执行结果
+						  [root@k8s-master-22 istio]# istioctl install --set profile=demo -y
+						  ✔ Istio core installed
+						  ✔ Istiod installed
+						  ✔ Ingress gateways installed
+						  ✔ Egress gateways installed
+						  ✔ Installation complete                                                                                                                                                       
+						  Making this installation the default for injection and validation.
+						  
+						  ## 重新部署sleep
+						  [root@k8s-master-22 istio]# kubectl replace --force -f samples/sleep/sleep.yaml
+						  serviceaccount "sleep" deleted
+						  service "sleep" deleted
+						  deployment.apps "sleep" deleted
+						  serviceaccount/sleep replaced
+						  service/sleep replaced
+						  deployment.apps/sleep replaced
+						  
+						  ## 由于pod名称已经发生更改，需要重新给SOURCE_POD负值
+						  export SOURCE_POD=$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name})
+						  
+						  [root@k8s-master-22 istio]# export SOURCE_POD=$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name})
+						  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- curl -sS http://httpbin.org/headers
+						  {
+						    "headers": {
+						      "Accept": "*/*",
+						      "Host": "httpbin.org",
+						      "User-Agent": "curl/7.81.0-DEV",
+						      "X-Amzn-Trace-Id": "Root=1-62680e4c-3c44a57f5a7abd614b687a57",
+						      "X-B3-Sampled": "1",
+						      "X-B3-Spanid": "7312f3450e671791",
+						      "X-B3-Traceid": "ae068219b5d482137312f3450e671791",
+						      "X-Envoy-Attempt-Count": "1",
+						      "X-Envoy-Peer-Metadata": "ChkKDkFQUF9DT05UQUlORVJTEgcaBXNsZWVwChoKCkNMVVNURVJfSUQSDBoKS3ViZXJuZXRlcwoZCg1JU1RJT19WRVJTSU9OEggaBjEuMTIuNArEAQoGTEFCRUxTErkBKrYBCg4KA2FwcBIHGgVzbGVlcAohChFwb2QtdGVtcGxhdGUtaGFzaBIMGgo1NTc3NDc0NTVmCiQKGXNlY3VyaXR5LmlzdGlvLmlvL3Rsc01vZGUSBxoFaXN0aW8KKgofc2VydmljZS5pc3Rpby5pby9jYW5vbmljYWwtbmFtZRIHGgVzbGVlcAovCiNzZXJ2aWNlLmlzdGlvLmlvL2Nhbm9uaWNhbC1yZXZpc2lvbhIIGgZsYXRlc3QKGgoHTUVTSF9JRBIPGg1jbHVzdGVyLmxvY2FsCiAKBE5BTUUSGBoWc2xlZXAtNTU3NzQ3NDU1Zi1qNjI5ZwoWCglOQU1FU1BBQ0USCRoHZGVmYXVsdApJCgVPV05FUhJAGj5rdWJlcm5ldGVzOi8vYXBpcy9hcHBzL3YxL25hbWVzcGFjZXMvZGVmYXVsdC9kZXBsb3ltZW50cy9zbGVlcAoXChFQTEFURk9STV9NRVRBREFUQRICKgAKGAoNV09SS0xPQURfTkFNRRIHGgVzbGVlcA==",
+						      "X-Envoy-Peer-Metadata-Id": "sidecar~10.122.158.13~sleep-557747455f-j629g.default~default.svc.cluster.local"
+						    }
+						  }
+						  [root@k8s-master-22 istio]#
+						  ~~~
 				- 理解原理
+					- 在此任务中，您研究了从 Istio 网格调用外部服务的三种方法：
+						- 配置 Envoy 以允许访问任何外部服务。
+						- 使用 service entry 将一个可访问的外部服务注册到网格中。这是推荐的方法。
+						- 配置 Istio sidecar 以从其重新映射的 IP 表中排除外部 IP。
+					- 第一种方法通过 Istio sidecar 代理来引导流量，包括对网格内部未知服务的调用。使用这种方法时，你将无法监控对外部服务的访问或无法利用 Istio 的流量控制功能。 要轻松为特定的服务切换到第二种方法，只需为那些外部服务创建 service entry 即可。 此过程使你可以先访问任何外部服务，然后再根据需要决定是否启用控制访问、流量监控、流量控制等功能。
+					- 第二种方法可以让你使用 Istio 服务网格所有的功能区调用集群内或集群外的服务。 在此任务中，你学习了如何监控对外部服务的访问并设置对外部服务的调用的超时规则。
+					- 第三种方法绕过了 Istio Sidecar 代理，使你的服务可以直接访问任意的外部服务。 但是，以这种方式配置代理需要了解集群提供商相关知识和配置。 与第一种方法类似，你也将失去对外部服务访问的监控，并且无法将 Istio 功能应用于外部服务的流量。
 				- 安全说明
 				- 清理
+					- ~~~shell
+					  kubectl delete -f samples/sleep/sleep.yaml
+					  
+					  [root@k8s-master-22 istio]# kubectl delete -f samples/sleep/sleep.yaml
+					  serviceaccount "sleep" deleted
+					  service "sleep" deleted
+					  deployment.apps "sleep" deleted
+					  ~~~
+				- 总结
+					- ![image.png](../assets/image_1650988345252_0.png)
+					- ![image.png](../assets/image_1650988366684_0.png)
+					- ![image.png](../assets/image_1650988386986_0.png)
+					- ![image.png](../assets/image_1650988414624_0.png)
+				-
 	- 可观察性
 		- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/)
 		- 指标度量
