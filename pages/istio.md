@@ -6,7 +6,7 @@
 		  id:: 62638d0b-1d62-4986-bc05-43098be840e2
 			- [官方文档](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
 			- 前置准备
-				- 访问bookinfo
+				- 访问Bookinfo
 				  id:: 62638d0b-8892-4c54-b53c-439a6660ef62
 					- 查找istio-ingressgateway的NodePort端口：
 					  ~~~shell
@@ -608,15 +608,14 @@
 				- 安全说明
 				- 清理
 	- 可观察性
-	  collapsed:: true
 		- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/)
 		- 指标度量
 			- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/metrics/)
 			- 通过Prometheus查询度量指标
 			  id:: 6266ab50-b550-4424-b3b4-0a17d07be1a5
+			  collapsed:: true
 				- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/metrics/querying-metrics/)
 				- 开始之前
-				  collapsed:: true
 					- DONE 已经在k8s集群中安装了istio。
 					- DONE 安装 Prometheus Addon
 						- 安装istio的时候，已经安装了Kiali和其他组件
@@ -636,10 +635,8 @@
 						  prometheus   ClusterIP   10.10.189.192   <none>        9090/TCP   14d
 						  ~~~
 					- 向网格发送流量
-					  collapsed:: true
 						- ((62638d0b-8892-4c54-b53c-439a6660ef62))
 					- 打开Prometheus UI
-					  collapsed:: true
 						- ~~~shell
 						  ## 启动Prometheus代理
 						  istioctl dashboard prometheus --address 192.168.162.22
@@ -683,17 +680,54 @@
 					- 部署Bookinfo应用。
 				- 查看Istio Dashboard
 					- 验证prometheus服务正在集群中运行。
+						- ~~~shell
+						  ## 查看prometheus服务
+						  kubectl -n istio-system get svc prometheus
+						  
+						  ## 实际执行结果
+						  [root@k8s-master-22 deployment]#  kubectl -n istio-system get svc prometheus
+						  NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+						  prometheus   ClusterIP   10.10.189.192   <none>        9090/TCP   14d
+						  ~~~
 					- 验证Grafana服务正在集群中运行。
+						- ~~~shell
+						  ## 查看grafana服务
+						  kubectl -n istio-system get svc grafana
+						  
+						  ## 实际执行结果
+						  [root@k8s-master-22 deployment]# kubectl -n istio-system get svc grafana
+						  NAME      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+						  grafana   ClusterIP   10.10.194.35   <none>        3000/TCP   14d
+						  ~~~
 					- 通过Grafana UI打开Istio Dashboard。
+						- ~~~shell
+						  ## 官网提供的命令
+						  kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &
+						  
+						  ## 建议使用的命令
+						  istioctl dashboard grafana --address 192.168.162.22
+						  
+						  ## 实际执行结果
+						  [root@k8s-master-22 ~]# istioctl dashboard grafana --address 192.168.162.22
+						  http://192.168.162.22:3000
+						  Failed to open browser; open http://192.168.162.22:3000 in your browser.
+						  ~~~
+						- ![image.png](../assets/image_1650971236500_0.png)
 					- 发送流量到网格。
+						- ((62638d0b-8892-4c54-b53c-439a6660ef62))
 					- 可视化服务仪表盘。
+						- ![image.png](../assets/image_1650971864648_0.png)
 					- 可视化工作负载仪表盘。
+						- ![image.png](../assets/image_1650971784078_0.png)
 				- 关于Grafana插件
-		-
-	-
+					- Istio Dashboard 包括三个主要部分：
+						- 网格摘要视图：这部分提供网格的全局摘要视图，并显示网格中（HTTP/gRPC 和 TCP）的工作负载。
+						- 单独的服务视图：这部分提供关于网格中每个单独的（HTTP/gRPC 和 TCP）服务的请求和响应指标。这部分也提供关于该服务的客户端和服务工作负载的指标。
+						- 单独的工作负载视图：这部分提供关于网格中每个单独的（HTTP/gRPC 和 TCP）工作负载的请求和响应指标。这部分也提供关于该工作负载的入站工作负载和出站服务的指标。
+					- 有关如何创建，配置和编辑仪表盘的更多信息，请参见 [Grafana](https://grafana.com/docs/) 文档。
 - 概念
-  collapsed:: true
 	- [流量管理](https://istio.io/latest/zh/docs/concepts/traffic-management)
+	  collapsed:: true
 		- [故障注入](https://istio.io/latest/zh/docs/concepts/traffic-management/#fault-injection)
 		  id:: 6264e77a-3345-4ce0-a63f-2bae8b1149fb
 			- 描述
