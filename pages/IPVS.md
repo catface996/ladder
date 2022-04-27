@@ -1,0 +1,18 @@
+- 参考文档
+	- https://www.jianshu.com/p/765189fdd56c
+- 转发模式
+	- 直接修改数据包的mac地址 DR模式(Direct Routing)
+		- 特点：
+	- 修改请求数据包的目标IP，修改响应数据包的源IP NAT模式(Network Address Translation)
+		- 特点：
+	- IP报文上套IP报文  Tunnel模式
+		- 特点：
+- 负载均衡算法(IPVS调度算法)
+	- 轮询调度(Round-Robin Scheduling)
+	- 加权轮询调度(Weighted Round-Robin Scheduling)
+	- 最小连接调度(Least-Connection Scheduling)
+	- 加权最小连接调度(Weighted Least-Connection Scheduling)
+	- 基于局部性的最少连接(Locality-Based Least Connections Scheduling)
+	- 带复制的基于局部性最少连接(Locality-Based Least Connections with Replication Scheduling)
+	- 目标地址散列调度(Destination Hashing Scheduling)
+	- 源地址散列调度(Source Hashing Scheduling)

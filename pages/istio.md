@@ -611,6 +611,7 @@
 						  export SOURCE_POD=$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name})
 						  ~~~
 				- Envoy转发流量到外部服务
+				  collapsed:: true
 					- 注意：Istio 有一个安装选项， global.outboundTrafficPolicy.mode，它配置 sidecar 对外部服务（那些没有在 Istio 的内部服务注册中定义的服务）的处理方式。如果这个选项设置为 ALLOW_ANY，Istio 代理允许调用未知的服务。如果这个选项设置为 REGISTRY_ONLY，那么 Istio 代理会阻止任何没有在网格中定义的 HTTP 服务或 service entry 的主机。ALLOW_ANY 是默认值，不控制对外部服务的访问，方便你快速地评估 Istio。你可以稍后再配置对外部服务的访问 。
 					- 查看 meshConfig.outboundTrafficPolic.mode选项
 						- ~~~shell
@@ -642,7 +643,9 @@
 						  HTTP/2 200
 						  ~~~
 				- 控制对外部服务的访问
+				  collapsed:: true
 					- 更改默认的封锁策略
+					  collapsed:: true
 						- ~~~shell
 						  istioctl install <flags-you-used-to-install-Istio> \
 						                     --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY
@@ -669,6 +672,7 @@
 						  REGISTRY_ONLY
 						  ~~~
 					- 访问一个外部的http服务
+					  collapsed:: true
 						- ~~~shell
 						  ## 访问百度和腾讯
 						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSI http://www.baidu.com | grep  "HTTP/"; kubectl exec "$SOURCE_POD" -c sleep -- curl -sI http://www.tencent.com | grep "HTTP/"
@@ -793,6 +797,7 @@
 							  [2022-04-26T13:26:08.804Z] "GET /headers HTTP/1.1" 200 - via_upstream - "-" 0 1200 742 742 "-" "curl/7.81.0-DEV" "934ddb65-6508-91ae-8e61-46ea5eb3c9f1" "httpbin.org" "3.226.124.170:80" outbound|80||httpbin.org 10.122.158.52:50958 34.197.247.180:80 10.122.158.52:48554 - default
 							  ~~~
 					- 访问外部的https服务
+					  collapsed:: true
 						- ~~~shell
 						  ## 访问百度和腾讯
 						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSI https://www.baidu.com | grep  "HTTP/"; kubectl exec "$SOURCE_POD" -c sleep -- curl -sI https://www.tencent.com | grep "HTTP/"
@@ -844,6 +849,7 @@
 							  [2022-04-26T13:40:19.596Z] "- - -" 0 - - - "-" 908 4986 99 - "-" "-" "-" "-" "36.25.253.87:443" outbound|443||www.tencent.com 10.122.158.52:54278 36.25.253.87:443 10.122.158.52:54276 www.tencent.com -
 							  ~~~
 					- 管理到外部服务的流量
+					  collapsed:: true
 						- 与集群内的请求相似，也可以为使用 ServiceEntry 配置访问的外部服务设置 Istio 路由规则。在本示例中，你将设置对 httpbin.org 服务访问的超时规则。
 						- 从SOURCE_POD向外部服务httpin.org的delay endpoint发送curl请求
 							- ~~~shell
@@ -887,6 +893,7 @@
 							  sys	0m 0.00s
 							  ~~~
 					- 清理对外服务的受控访问
+					  collapsed:: true
 						- ~~~shell
 						  kubectl delete serviceentry httpbin-ext baidu-ext tencent-ext
 						  kubectl delete virtualservice httpbin-ext baidu-ext tencent-ext --ignore-not-found=true

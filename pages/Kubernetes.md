@@ -487,6 +487,7 @@
 					- Kubernetes 控制面会为所有命名空间设置一个不可变更的 标签 kubernetes.io/metadata.name，只要 NamespaceDefaultLabelName 这一 特性被启用。标签的值是名字空间的名称。
 			- 标签和选择算符
 			  id:: 62651b7d-b442-4f84-be47-244febb2f08b
+			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/labels/)
 				- 介绍
 					- 作用范围：附加到Kubernetes对象，例如Pods，Deployment等。
@@ -527,7 +528,7 @@
 							- in
 								- ~~~shell
 								  ## 选取cat和dog
-								  ubectl get pod -l "app in (cat,dog)"
+								  kubectl get pod -l "app in (cat,dog)"
 								  
 								  ## 实际执行结果
 								  [root@k8s-master-22 deployment]# kubectl get pod -l "app in (cat,dog)"
@@ -567,7 +568,17 @@
 								  [root@k8s-master-22 deployment]#
 								  
 								  ## 选取不存在env标签的pod
+								  kubectl get pod -l "! env"
 								  
+								  ## 实际执行结果
+								  [root@k8s-master-22 deployment]# kubectl get pod -l "! env"
+								  NAME                              READY   STATUS    RESTARTS       AGE
+								  details-v1-79f774bdb9-jd7tv       2/2     Running   26 (15h ago)   15d
+								  productpage-v1-6b746f74dc-slrjm   2/2     Running   26 (15h ago)   15d
+								  ratings-v1-b6994bb9-pnnss         2/2     Running   26 (15h ago)   15d
+								  reviews-v1-545db77b95-8xl8k       2/2     Running   26 (15h ago)   15d
+								  reviews-v2-7bf8c9648f-wklnd       2/2     Running   26 (15h ago)   15d
+								  reviews-v3-84779c7bbc-ckb87       2/2     Running   26 (15h ago)   15d
 								  
 								  ~~~
 						- 多条件&&
@@ -695,6 +706,7 @@
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/finalizers/)
 			- 字段选择器
 			  id:: 62651b7d-d25d-4ace-bdbd-ed29a6460b46
+			  collapsed:: true
 				- [官方文档](https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/field-selectors/)
 				-
 			- 属主与附属
