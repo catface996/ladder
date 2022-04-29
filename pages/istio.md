@@ -1055,10 +1055,13 @@
 				-
 			- Egress [[TLS]] Origination
 			- Egress Gateway
+			  id:: 626aae26-6fe9-44be-b502-3c899d6e4ddb
 				- 概念
+				  collapsed:: true
 					- 访问外部服务实际上直接通过sidecar调用外部服务。
 					- Istio 使用 Ingress and Egress gateways 配置运行在服务网格边缘的负载均衡。 Ingress gateway 允许您定义网格所有入站流量的入口。Egress gateway 是一个与 Ingress gateway 对称的概念，它定义了网格的出口。Egress gateway 允许您将 Istio 的功能（例如，监视和路由规则）应用于网格的出站流量。
 				- 使用场景
+				  collapsed:: true
 					- 设想一个对安全有严格要求的组织。要求服务网格所有的出站流量必须经过一组专用节点。专用节点运行在专门的机器上，与集群中运行应用程序的其他节点隔离。这些专用节点用于实施 egress 流量的策略，并且受到比其余节点更严密地监控。  **网络隔离**
 					- 另一个使用场景是集群中的应用节点没有公有 IP，所以在该节点上运行的网格 service 无法访问互联网。通过定义 egress gateway，将公有 IP 分配给 egress gateway 节点，用它引导所有的出站流量，可以使应用节点以受控的方式访问外部服务。  **减少公网IP消耗，方便在第三方配置IP白名单**
 				- 开始之前
@@ -1068,6 +1071,9 @@
 						- ~~~shell
 						  istioctl install --set profile=demo -y \
 						                     --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY
+						                     
+						  istioctl install --set profile=demo -y \
+						                     --set meshConfig.outboundTrafficPolicy.mode=ALLOW_ANY
 						  ~~~
 					- 部署sleep应用，作为发送请求的测试源。
 						- ~~~shell
@@ -1094,20 +1100,30 @@
 						  ## 或者
 						  kubectl logs -f --tail=20 -l istio=egressgateway -c istio-proxy -n istio-system 
 						  ~~~
+					- ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
+					- 可以尝试在ALLOW_ANY模式下访问
+						- ```shell
+						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - http://edition.cnn.com/politics
+						  ```
+						- ![image.png](../assets/image_1651209279368_0.png)
 				- 部署Istio egress gateway
+				  collapsed:: true
 					- 检查Istio egress gateway是否已部署
 						- ~~~shell
 						  kubectl get pod -l istio=egressgateway -n istio-system
 						  ~~~
 					- 如果未安装，可以使用以下命令安装istio-egressgateway
 						- ~~~shell
-						  istioctl install <flags-you-used-to-install-Istio> \
+						  istioctl install --set profile=demo -y \
+						                     --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY \
 						                     --set components.egressGateways[0].name=istio-egressgateway \
 						                     --set components.egressGateways[0].enabled=true
 						  ~~~
 				- 定义Egress gateway并引导HTTP流量
+				  collapsed:: true
 					- 首先创建一个ServiceEntry，允许流量直接访问一个外部服务。
-						- 发送 HTTPS 请求到 https://edition.cnn.com/politics , 排除干扰。
+					  collapsed:: true
+						- 发送 HTTP 请求到 http://edition.cnn.com/politics , 排除干扰。
 							- ~~~shell
 							  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - http://edition.cnn.com/politics
 							  
@@ -1118,7 +1134,9 @@
 							  server: envoy
 							  content-length: 0
 							  ~~~
-						- 为httpbin.org定义一个ServiceEntry
+							- ![image.png](../assets/image_1651209477280_0.png)
+							- ![image.png](../assets/image_1651213228362_0.png)
+						- 为edition.cnn.com定义一个ServiceEntry
 							- ~~~shell
 							  kubectl apply -f - <<EOF
 							  apiVersion: networking.istio.io/v1alpha3
@@ -1138,7 +1156,8 @@
 							    resolution: DNS
 							  EOF
 							  ~~~
-						- 发送 HTTPS 请求到 https://edition.cnn.com/politics，验证 ServiceEntry 是否已正确应用。
+						- 发送 HTTP 请求到 http://edition.cnn.com/politics，验证 ServiceEntry 是否已正确应用。
+						  collapsed:: true
 							- ~~~shell
 							  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - http://edition.cnn.com/politics
 							  
@@ -1184,8 +1203,9 @@
 							  vary: , Accept-Encoding
 							  content-length: 1236721
 							  ~~~
-						- 为edition.cnn.com端口80创建egressgateway，并未指向egressgateway的流量创建一个destination rule。
-						  collapsed:: true
+							- ![image.png](../assets/image_1651208963669_0.png){:height 411, :width 654}
+							- ![image.png](../assets/image_1651209527057_0.png)
+						- 为edition.cnn.com端口80创建egressgateway，并为指向egressgateway的流量创建一个destination rule。
 							- ~~~shell
 							  kubectl apply -f - <<EOF
 							  apiVersion: networking.istio.io/v1alpha3
@@ -1251,11 +1271,233 @@
 							  EOF
 							  
 							  ~~~
+						- 再次发送HTTP请求到 http://deition.cnn.com/politics
+							- **注意，需要replace sleep**
+							- ```shell
+							  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - http://edition.cnn.com/politics
+							  ```
+							- ![image.png](../assets/image_1651210042516_0.png){:height 409, :width 654}
+							- ![image.png](../assets/image_1651210116824_0.png){:height 344, :width 654}
 					- 清理HTTP gateway
+					  collapsed:: true
+						- ~~~shell
+						  kubectl delete gateway istio-egressgateway
+						  kubectl delete serviceentry cnn
+						  kubectl delete virtualservice direct-cnn-through-egress-gateway
+						  kubectl delete destinationrule egressgateway-for-cnn
+						  ~~~
 				- 定义Egress gateway 发起HTTPS请求
+					- 注意：需要在相应的ServiceEntry、EgressGateway和VirtualService中指定TLS协议的端口443。
+					- 环境检查
+						- ```shell
+						  ## http
+						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - http://edition.cnn.com/politics
+						  
+						  ## https
+						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - https://edition.cnn.com/politics
+						  ## 实际结果
+						  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - http://edition.cnn.com/politics
+						  HTTP/1.1 502 Bad Gateway
+						  date: Thu, 28 Apr 2022 16:37:25 GMT
+						  server: envoy
+						  content-length: 0
+						  ```
+						- ![image.png](../assets/image_1651210257634_0.png)
+					- 为edition.cnn.com定义ServiceEntry：
+						- ~~~shell
+						  kubectl apply -f - <<EOF
+						  apiVersion: networking.istio.io/v1alpha3
+						  kind: ServiceEntry
+						  metadata:
+						    name: cnn
+						  spec:
+						    hosts:
+						    - edition.cnn.com
+						    ports:
+						    - number: 443
+						      name: tls
+						      protocol: TLS
+						    resolution: DNS
+						  EOF
+						  ~~~
+					- 发送HTTPS请求到 https://edition.cnn.com/politics ，验证ServiceEntry是否生效
+						- 注意观察kiali，sleep的sidecar日志。
+						- 发送请求
+							- ~~~shell
+							  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - https://edition.cnn.com/politics
+							  ~~~
+						- 查看sleep日志
+							- ```shell
+							  kubectl logs -f --tail=20  $SOURCE_POD -c istio-proxy
+							  ```
+						- 查看Kiali中的流量展示
+						- ![image.png](../assets/image_1651210350486_0.png){:height 315, :width 685}
+					- 为edition.cnn.com 创建一个EgressGateway。除此之外还需要创建一个destination rule和一个virtual service，用来引导流量通过Egress Gateway，并通过EgressGateway与外部服务通信。
+						- **注意：有版本上的差异**
+						- 1.13
+						  collapsed:: true
+							- ~~~shell
+							  kubectl apply -f - <<EOF
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: Gateway
+							  metadata:
+							    name: istio-egressgateway
+							  spec:
+							    selector:
+							      istio: egressgateway
+							    servers:
+							    - port:
+							        number: 443
+							        name: tls
+							        protocol: TLS
+							      hosts:
+							      - edition.cnn.com
+							      tls:
+							        mode: PASSTHROUGH
+							  ---
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: DestinationRule
+							  metadata:
+							    name: egressgateway-for-cnn
+							  spec:
+							    host: istio-egressgateway.istio-system.svc.cluster.local
+							    subsets:
+							    - name: cnn
+							  ---
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: VirtualService
+							  metadata:
+							    name: direct-cnn-through-egress-gateway
+							  spec:
+							    hosts:
+							    - edition.cnn.com
+							    gateways:
+							    - mesh
+							    - istio-egressgateway
+							    tls:
+							    - match:
+							      - gateways:
+							        - mesh
+							        port: 443
+							        sni_hosts:
+							        - edition.cnn.com
+							      route:
+							      - destination:
+							          host: istio-egressgateway.istio-system.svc.cluster.local
+							          subset: cnn
+							          port:
+							            number: 443
+							    - match:
+							      - gateways:
+							        - istio-egressgateway
+							        port: 443
+							        sni_hosts:
+							        - edition.cnn.com
+							      route:
+							      - destination:
+							          host: edition.cnn.com
+							          port:
+							            number: 443
+							        weight: 100
+							  EOF
+							  ~~~
+						- 1.12
+						  collapsed:: true
+							- ~~~shell
+							  kubectl apply -f - <<EOF
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: Gateway
+							  metadata:
+							    name: istio-egressgateway
+							  spec:
+							    selector:
+							      istio: egressgateway
+							    servers:
+							    - port:
+							        number: 443
+							        name: tls
+							        protocol: TLS
+							      hosts:
+							      - edition.cnn.com
+							      tls:
+							        mode: PASSTHROUGH
+							  ---
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: DestinationRule
+							  metadata:
+							    name: egressgateway-for-cnn
+							  spec:
+							    host: istio-egressgateway.istio-system.svc.cluster.local
+							    subsets:
+							    - name: cnn
+							  ---
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: VirtualService
+							  metadata:
+							    name: direct-cnn-through-egress-gateway
+							  spec:
+							    hosts:
+							    - edition.cnn.com
+							    gateways:
+							    - mesh
+							    - istio-egressgateway
+							    tls:
+							    - match:
+							      - gateways:
+							        - mesh
+							        port: 443
+							        sniHosts:
+							        - edition.cnn.com
+							      route:
+							      - destination:
+							          host: istio-egressgateway.istio-system.svc.cluster.local
+							          subset: cnn
+							          port:
+							            number: 443
+							    - match:
+							      - gateways:
+							        - istio-egressgateway
+							        port: 443
+							        sniHosts:
+							        - edition.cnn.com
+							      route:
+							      - destination:
+							          host: edition.cnn.com
+							          port:
+							            number: 443
+							        weight: 100
+							  EOF
+							  ~~~
+					- 发送HTTPS请求到 https://deition.cnn.com/politics ，输出结果应该和之前一样。
+						- **repalce sleep**
+						- ~~~shell
+						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - https://edition.cnn.com/politics
+						  ~~~
+					- 查看Kiali中的流量展示
+						- ![image.png](../assets/image_1651210598666_0.png)
+						- ![image.png](../assets/image_1651210744995_0.png)
+					- 检查EgressGateway代理的日志。
+						- ~~~shell
+						  kubectl logs -l istio=egressgateway -n istio-system
+						  ## 或者
+						  kubectl logs -f --tail=20 -l istio=egressgateway -n istio-system
+						  ~~~
 					- 清理HTTPS gateway
+						- ~~~shell
+						  kubectl delete serviceentry cnn
+						  kubectl delete gateway istio-egressgateway
+						  kubectl delete virtualservice direct-cnn-through-egress-gateway
+						  kubectl delete destinationrule egressgateway-for-cnn
+						  ~~~
+				- 总结
+					- ![image.png](../assets/image_1651215102952_0.png)
+					-
 				- 其他安全注意事项
+				  collapsed:: true
+					- 注意，Istio 中定义的 egress Gateway 本身并没有为其所在的节点提供任何特殊处理。集群管理员或云提供商可以在专用节点上部署 egress gateway，并引入额外的安全措施，从而使这些节点比网格中的其他节点更安全。
+					- 另外要注意的是，Istio 无法强制 让所有出站流量都经过 egress gateway，Istio 只是通过 sidecar 代理实现了这种流向。攻击者只要绕过 sidecar 代理，就可以不经 egress gateway 直接与网格外的服务进行通信，从而避开了 Istio 的控制和监控。出于安全考虑，集群管理员和云供应商必须确保网格所有的出站流量都要经过 egress gateway。这需要通过 Istio 之外的机制来满足这一要求。例如，集群管理员可以配置防火墙，拒绝 egress gateway 以外的所有流量。Kubernetes 网络策略也能禁止所有不是从 egress gateway 发起的出站流量（下一节有一个这样的例子）。此外，集群管理员和云供应商还可以对网络进行限制，让运行应用的节点只能通过 gateway 来访问外部网络。要实现这一限制，可以只给 gateway Pod 分配公网 IP，并且可以配置 NAT 设备，丢弃来自 egress gateway pod 之外的所有流量。
 				- 应用Kubernetes网络策略
+				  collapsed:: true
 					- 清理网络策略
 				- 故障排除
 				- 清理
