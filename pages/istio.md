@@ -586,10 +586,10 @@
 				  ~~~
 				-
 		- Egress
-		  collapsed:: true
 			- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/egress/)
 			- 访问外部服务
 			  id:: 62678f97-a882-4d74-a432-bc4ccaef29bd
+			  collapsed:: true
 				- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/egress/egress-control/)
 				- 任务背景
 					- 由于默认情况下，来自 Istio-enable Pod 的所有出站流量都会重定向到其 Sidecar 代理，集群外部 URL 的可访问性取决于代理的配置。默认情况下，Istio 将 Envoy 代理配置为允许传递未知服务的请求。尽管这为入门 Istio 带来了方便，但是，通常情况下，配置更严格的控制是更可取的。
@@ -598,7 +598,7 @@
 						- 配置 service entry 以提供对外部服务的受控访问。
 						- 对于特定范围的IP，完全绕过Envoy代理。
 				- 开始之前
-					- k8s集群中完成Istio安装，并弃用Envoy的访问记录。
+					- k8s集群中完成Istio安装，并且启用Envoy的访问记录。
 					- 部署一个sleep示例应用，作为发送请求的测试源。
 						- 注意：**需要开启Istio注入**。
 						- 提醒：你可以使用任何安装了curl的pod作为测试源。
@@ -611,9 +611,9 @@
 						  export SOURCE_POD=$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name})
 						  ~~~
 				- Envoy转发流量到外部服务
-				  collapsed:: true
 					- 注意：Istio 有一个安装选项， global.outboundTrafficPolicy.mode，它配置 sidecar 对外部服务（那些没有在 Istio 的内部服务注册中定义的服务）的处理方式。如果这个选项设置为 ALLOW_ANY，Istio 代理允许调用未知的服务。如果这个选项设置为 REGISTRY_ONLY，那么 Istio 代理会阻止任何没有在网格中定义的 HTTP 服务或 service entry 的主机。ALLOW_ANY 是默认值，不控制对外部服务的访问，方便你快速地评估 Istio。你可以稍后再配置对外部服务的访问 。
 					- 查看 meshConfig.outboundTrafficPolic.mode选项
+					  id:: 6268dcb9-e9a9-419f-9047-6bc7574108b3
 						- ~~~shell
 						  ## 待执行的命令
 						  kubectl get istiooperator installed-state -n istio-system -o jsonpath='{.spec.meshConfig.outboundTrafficPolicy.mode}'
@@ -643,9 +643,7 @@
 						  HTTP/2 200
 						  ~~~
 				- 控制对外部服务的访问
-				  collapsed:: true
 					- 更改默认的封锁策略
-					  collapsed:: true
 						- ~~~shell
 						  istioctl install <flags-you-used-to-install-Istio> \
 						                     --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY
@@ -672,7 +670,6 @@
 						  REGISTRY_ONLY
 						  ~~~
 					- 访问一个外部的http服务
-					  collapsed:: true
 						- ~~~shell
 						  ## 访问百度和腾讯
 						  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSI http://www.baidu.com | grep  "HTTP/"; kubectl exec "$SOURCE_POD" -c sleep -- curl -sI http://www.tencent.com | grep "HTTP/"
@@ -746,7 +743,6 @@
 							  EOF
 							  ~~~
 						- 从SOURCE_POD向外部的HTTP服务发出一个请求
-						  collapsed:: true
 							- ~~~shell
 							   kubectl exec -it $SOURCE_POD -c sleep -- curl http://www.baidu.com
 							   
@@ -779,7 +775,6 @@
 							  [root@k8s-master-22 istio]#
 							  ~~~
 						- 检查SOURCE_POD的sidecar代理日志
-						  collapsed:: true
 							- ~~~shell
 							  kubectl logs $SOURCE_POD -c istio-proxy | tail
 							  
@@ -835,6 +830,7 @@
 							  HTTP/2 200
 							  ~~~
 						- 检查SOURCE_POD的sidecar代理日志
+						  id:: 6268dcb9-f311-4e41-8174-74ed99aaf103
 							- ~~~shell
 							  [root@k8s-master-22 istio]# kubectl logs $SOURCE_POD -c istio-proxy | tail
 							  [2022-04-26T12:44:56.278Z] "- - -" 0 - - - "-" 908 4986 80 - "-" "-" "-" "-" "36.25.253.87:443" PassthroughCluster 10.122.158.52:39498 36.25.253.87:443 10.122.158.52:39496 - -
@@ -908,6 +904,7 @@
 						  virtualservice.networking.istio.io "httpbin-ext" deleted
 						  ~~~
 				- 直接访问外部服务
+				  collapsed:: true
 					- 如果要让特定范围的 ​​IP 完全绕过 Istio，则可以配置 Envoy sidecars 以防止它们拦截外部请求。要设置绕过 Istio，请更改 global.proxy.includeIPRanges 或 global.proxy.excludeIPRanges configuration option，并使用 kubectl apply 命令更新 istio-sidecar-injector 配置。也可以通过设置相应的注解）在pod上进行配置，例如traffic.sidecar.istio.io / includeOutboundIPRanges。istio-sidecar-injector 配置的更新，影响的是新部署应用的 pod。
 					- **特别注意：**
 						- 与 Envoy 转发流量到外部服务不同，后者使用 ALLOW_ANY 流量策略来让 Istio sidecar 代理将调用传递给未知服务， 该方法完全绕过了 sidecar，从而实质上禁用了指定 IP 的所有 Istio 功能。你不能像 ALLOW_ANY 方法那样为特定的目标增量添加 service entries。 因此，仅当出于性能或其他原因无法使用边车配置外部访问时，才建议使用此配置方法。
@@ -934,7 +931,8 @@
 						  istioctl install --set profile=demo -y \
 						                     --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY \
 						                     --set values.global.proxy.includeIPRanges="10.0.0.0/16" 
-						                     
+						  
+						  
 						  ## 实际执行结果
 						  [root@k8s-master-22 istio]# istioctl install --set profile=demo -y \
 						  >                    --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY \
@@ -1031,6 +1029,7 @@
 						  [root@k8s-master-22 istio]#
 						  ~~~
 				- 理解原理
+				  collapsed:: true
 					- 在此任务中，您研究了从 Istio 网格调用外部服务的三种方法：
 						- 配置 Envoy 以允许访问任何外部服务。
 						- 使用 service entry 将一个可访问的外部服务注册到网格中。这是推荐的方法。
@@ -1054,6 +1053,214 @@
 					- ![image.png](../assets/image_1650988386986_0.png)
 					- ![image.png](../assets/image_1650988414624_0.png)
 				-
+			- Egress [[TLS]] Origination
+			- Egress Gateway
+				- 概念
+					- 访问外部服务实际上直接通过sidecar调用外部服务。
+					- Istio 使用 Ingress and Egress gateways 配置运行在服务网格边缘的负载均衡。 Ingress gateway 允许您定义网格所有入站流量的入口。Egress gateway 是一个与 Ingress gateway 对称的概念，它定义了网格的出口。Egress gateway 允许您将 Istio 的功能（例如，监视和路由规则）应用于网格的出站流量。
+				- 使用场景
+					- 设想一个对安全有严格要求的组织。要求服务网格所有的出站流量必须经过一组专用节点。专用节点运行在专门的机器上，与集群中运行应用程序的其他节点隔离。这些专用节点用于实施 egress 流量的策略，并且受到比其余节点更严密地监控。  **网络隔离**
+					- 另一个使用场景是集群中的应用节点没有公有 IP，所以在该节点上运行的网格 service 无法访问互联网。通过定义 egress gateway，将公有 IP 分配给 egress gateway 节点，用它引导所有的出站流量，可以使应用节点以受控的方式访问外部服务。  **减少公网IP消耗，方便在第三方配置IP白名单**
+				- 开始之前
+					- 集群中安装Istio。
+					- ((6268dcb9-e9a9-419f-9047-6bc7574108b3))
+						- 如果是ALLOW_ANY ，重新设置为 REGISTRY_ONLY
+						- ~~~shell
+						  istioctl install --set profile=demo -y \
+						                     --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY
+						  ~~~
+					- 部署sleep应用，作为发送请求的测试源。
+						- ~~~shell
+						  kubectl apply -f samples/sleep/sleep.yaml
+						  ~~~
+					- 为方便发送请求，创建SOURCE_POD环境变量保存sleep pod的名称。
+						- ~~~shell
+						  export SOURCE_POD=$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name})
+						  
+						  ## 实际执行结果
+						  [root@k8s-master-22 istio]# kubectl get pod -l istio=egressgateway -n istio-system
+						  NAME                                   READY   STATUS    RESTARTS       AGE
+						  istio-egressgateway-56f4569d45-gvj42   1/1     Running   15 (29h ago)   17d
+						  ~~~
+					- tail sleep pod 的 sidecar日志
+						- ((6268dcb9-f311-4e41-8174-74ed99aaf103))
+						- 或者
+						  ~~~shell
+						  kubectl logs -f --tail=20  $SOURCE_POD -c istio-proxy
+						  ~~~
+					- tail egressgateway的日志
+						- ~~~shell
+						  kubectl logs -f --tail=20  istio-egressgateway-56f4569d45-gvj42 -c istio-proxy -n=istio-system
+						  ## 或者
+						  kubectl logs -f --tail=20 -l istio=egressgateway -c istio-proxy -n istio-system 
+						  ~~~
+				- 部署Istio egress gateway
+					- 检查Istio egress gateway是否已部署
+						- ~~~shell
+						  kubectl get pod -l istio=egressgateway -n istio-system
+						  ~~~
+					- 如果未安装，可以使用以下命令安装istio-egressgateway
+						- ~~~shell
+						  istioctl install <flags-you-used-to-install-Istio> \
+						                     --set components.egressGateways[0].name=istio-egressgateway \
+						                     --set components.egressGateways[0].enabled=true
+						  ~~~
+				- 定义Egress gateway并引导HTTP流量
+					- 首先创建一个ServiceEntry，允许流量直接访问一个外部服务。
+						- 发送 HTTPS 请求到 https://edition.cnn.com/politics , 排除干扰。
+							- ~~~shell
+							  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - http://edition.cnn.com/politics
+							  
+							  ## 实际执行结果
+							  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - http://edition.cnn.com/politics
+							  HTTP/1.1 502 Bad Gateway
+							  date: Thu, 28 Apr 2022 13:45:29 GMT
+							  server: envoy
+							  content-length: 0
+							  ~~~
+						- 为httpbin.org定义一个ServiceEntry
+							- ~~~shell
+							  kubectl apply -f - <<EOF
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: ServiceEntry
+							  metadata:
+							    name: cnn
+							  spec:
+							    hosts:
+							    - edition.cnn.com
+							    ports:
+							    - number: 80
+							      name: http-port
+							      protocol: HTTP
+							    - number: 443
+							      name: https
+							      protocol: HTTPS
+							    resolution: DNS
+							  EOF
+							  ~~~
+						- 发送 HTTPS 请求到 https://edition.cnn.com/politics，验证 ServiceEntry 是否已正确应用。
+							- ~~~shell
+							  kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - http://edition.cnn.com/politics
+							  
+							  ## 执行结果
+							  [root@k8s-master-22 istio]# kubectl exec "$SOURCE_POD" -c sleep -- curl -sSL -o /dev/null -D - http://edition.cnn.com/politics
+							  HTTP/1.1 301 Moved Permanently
+							  server: envoy
+							  retry-after: 0
+							  content-length: 0
+							  cache-control: public, max-age=300
+							  location: https://edition.cnn.com/politics
+							  accept-ranges: bytes
+							  date: Thu, 28 Apr 2022 15:36:40 GMT
+							  via: 1.1 varnish
+							  set-cookie: countryCode=CN; Domain=.cnn.com; Path=/; SameSite=Lax
+							  set-cookie: stateCode=ZJ; Domain=.cnn.com; Path=/; SameSite=Lax
+							  set-cookie: geoData=hangzhou|ZJ|310000|CN|AS|800|broadband|30.280|120.170; Domain=.cnn.com; Path=/; SameSite=Lax
+							  x-served-by: cache-hnd18733-HND
+							  x-cache: HIT
+							  x-cache-hits: 0
+							  x-envoy-upstream-service-time: 214
+							  
+							  HTTP/2 200
+							  content-type: text/html; charset=utf-8
+							  x-servedbyhost: ::ffff:127.0.0.1
+							  access-control-allow-origin: *
+							  cache-control: max-age=60
+							  content-security-policy: default-src 'self' blob: https://*.cnn.com:* http://*.cnn.com:* *.cnn.io:* *.cnn.net:* *.turner.com:* *.turner.io:* *.ugdturner.com:* courageousstudio.com *.vgtf.net:*; script-src 'unsafe-eval' 'unsafe-inline' 'self' *; style-src 'unsafe-inline' 'self' blob: *; child-src 'self' blob: *; frame-src 'self' *; object-src 'self' *; img-src 'self' data: blob: *; media-src 'self' data: blob: *; font-src 'self' data: *; connect-src 'self' data: *; frame-ancestors 'self' https://*.cnn.com:* http://*.cnn.com:* https://*.cnn.io:* http://*.cnn.io:* *.turner.com:* https://www.google.com https://news.google.com https://www.google.co.uk https://amp-cnn-com.cdn.ampproject.org courageousstudio.com;
+							  x-content-type-options: nosniff
+							  x-xss-protection: 1; mode=block
+							  via: 1.1 varnish, 1.1 varnish
+							  accept-ranges: bytes
+							  date: Thu, 28 Apr 2022 15:36:41 GMT
+							  age: 4844
+							  set-cookie: countryCode=CN; Domain=.cnn.com; Path=/; SameSite=None; Secure
+							  set-cookie: stateCode=ZJ; Domain=.cnn.com; Path=/; SameSite=None; Secure
+							  set-cookie: geoData=hangzhou|ZJ|310000|CN|AS|800|broadband|30.280|120.170; Domain=.cnn.com; Path=/; SameSite=None; Secure
+							  set-cookie: FastAB=0=9110,1=8169,2=8430,3=3742,4=1197,5=5059,6=0201,7=7477,8=3770,9=7862; Domain=.cnn.com; Path=/; Expires=Sat Jul 01 2023 00:00:00 GMT; SameSite=Lax
+							  x-served-by: cache-iad-kjyo7100030-IAD, cache-nrt18329-NRT
+							  x-cache: HIT, MISS
+							  x-cache-hits: 1, 0
+							  x-timer: S1651160201.398955,VS0,VE576
+							  vary: , Accept-Encoding
+							  content-length: 1236721
+							  ~~~
+						- 为edition.cnn.com端口80创建egressgateway，并未指向egressgateway的流量创建一个destination rule。
+						  collapsed:: true
+							- ~~~shell
+							  kubectl apply -f - <<EOF
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: Gateway
+							  metadata:
+							    name: istio-egressgateway
+							  spec:
+							    selector:
+							      istio: egressgateway
+							    servers:
+							    - port:
+							        number: 80
+							        name: http
+							        protocol: HTTP
+							      hosts:
+							      - edition.cnn.com
+							  ---
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: DestinationRule
+							  metadata:
+							    name: egressgateway-for-cnn
+							  spec:
+							    host: istio-egressgateway.istio-system.svc.cluster.local
+							    subsets:
+							    - name: cnn
+							  EOF
+							  ~~~
+						- 定义一个VirtualService，将流量从sidecar引导只EgressGateway，再从EgressGateway引导只外部服务。
+							- ~~~shell
+							  kubectl apply -f - <<EOF
+							  apiVersion: networking.istio.io/v1alpha3
+							  kind: VirtualService
+							  metadata:
+							    name: direct-cnn-through-egress-gateway
+							  spec:
+							    hosts:
+							    - edition.cnn.com
+							    gateways:
+							    - istio-egressgateway
+							    - mesh
+							    http:
+							    - match:
+							      - gateways:
+							        - mesh
+							        port: 80
+							      route:
+							      - destination:
+							          host: istio-egressgateway.istio-system.svc.cluster.local
+							          subset: cnn
+							          port:
+							            number: 80
+							        weight: 100
+							    - match:
+							      - gateways:
+							        - istio-egressgateway
+							        port: 80
+							      route:
+							      - destination:
+							          host: edition.cnn.com
+							          port:
+							            number: 80
+							        weight: 100
+							  EOF
+							  
+							  ~~~
+					- 清理HTTP gateway
+				- 定义Egress gateway 发起HTTPS请求
+					- 清理HTTPS gateway
+				- 其他安全注意事项
+				- 应用Kubernetes网络策略
+					- 清理网络策略
+				- 故障排除
+				- 清理
+			-
+			-
 	- 可观察性
 		- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/)
 		- 指标度量
