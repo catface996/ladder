@@ -1,6 +1,6 @@
 [{:block/name "0基础入门kubernetes",
   :block/created-at 1650704712569,
-  :block/updated-at 1650767045710}
+  :block/updated-at 1651135439327}
  {:block/name "a",
   :block/created-at 1650634250013,
   :block/updated-at 1650634250013}
@@ -16,15 +16,42 @@
  {:block/name "apr 24th, 2022",
   :block/created-at 1650729637367,
   :block/updated-at 1650792786216}
+ {:block/name "apr 25th, 2022",
+  :block/created-at 1651039417151,
+  :block/updated-at 1651039417151}
+ {:block/name "apr 27th, 2022",
+  :block/created-at 1651039417168,
+  :block/updated-at 1651039417168}
+ {:block/name "apr 28th, 2022",
+  :block/created-at 1651076037339,
+  :block/updated-at 1651076037339}
+ {:block/name "apr 29th, 2022",
+  :block/created-at 1651161603243,
+  :block/updated-at 1651161647848}
+ {:block/name "apr 30th, 2022",
+  :block/created-at 1651250732585,
+  :block/updated-at 1651250732585}
  {:block/name "astar算法",
   :block/created-at 1650792214322,
   :block/updated-at 1650792226016}
  {:block/name "b",
   :block/created-at 1650634250014,
   :block/updated-at 1650634250014}
+ {:block/name "b+树",
+  :block/created-at 1651039416663,
+  :block/updated-at 1651039416663}
+ {:block/name "base",
+  :block/created-at 1651039416375,
+  :block/updated-at 1651039416375}
+ {:block/name "bgd",
+  :block/created-at 1651039414535,
+  :block/updated-at 1651039414535}
  {:block/name "c",
   :block/created-at 1650634250014,
   :block/updated-at 1650634250014}
+ {:block/name "calico网络",
+  :block/created-at 1651039416581,
+  :block/updated-at 1651039416581}
  {:block/name "cap",
   :block/created-at 1650700658258,
   :block/updated-at 1650701242247}
@@ -43,12 +70,18 @@
  {:block/name "docker",
   :block/created-at 1650703074581,
   :block/updated-at 1650703074581}
+ {:block/name "docker官方安装文档介绍和实战",
+  :block/created-at 1651039414660,
+  :block/updated-at 1651039414660}
  {:block/name "doing",
   :block/created-at 1650634250013,
   :block/updated-at 1650634250013}
  {:block/name "done",
   :block/created-at 1650634250014,
   :block/updated-at 1650634250014}
+ {:block/name "dubbo",
+  :block/created-at 1651223328138,
+  :block/updated-at 1651223328138}
  {:block/name "elasticsearch",
   :block/created-at 1650792685680,
   :block/updated-at 1650792694980}
@@ -58,9 +91,15 @@
  {:block/name "etcd",
   :block/created-at 1650700859450,
   :block/updated-at 1650704669193}
+ {:block/name "eureka",
+  :block/created-at 1651223202754,
+  :block/updated-at 1651223202754}
  {:block/name "favorites",
   :block/created-at 1650634250013,
   :block/updated-at 1650634250013}
+ {:block/name "flannel网络",
+  :block/created-at 1651039416580,
+  :block/updated-at 1651039416580}
  {:block/name "git分支管理规范",
   :block/created-at 1650792798067,
   :block/updated-at 1650792815632}
@@ -70,42 +109,105 @@
  {:block/name "iptables",
   :block/created-at 1650702876688,
   :block/updated-at 1650702969599}
+ {:block/name "ipvs",
+  :block/created-at 1651046046163,
+  :block/updated-at 1651046855461}
  {:block/name "istio",
   :block/created-at 1650633372729,
-  :block/updated-at 1650785956388}
+  :block/updated-at 1651297706528}
+ {:block/name "istio官方安装文档介绍和实战",
+  :block/created-at 1651039415285,
+  :block/updated-at 1651039415285}
  {:block/name "java规范",
   :block/created-at 1650792803773,
   :block/updated-at 1650792843582}
+ {:block/name "jmm",
+  :block/created-at 1651223406365,
+  :block/updated-at 1651223406365}
+ {:block/name "jvm",
+  :block/created-at 1651223399272,
+  :block/updated-at 1651223399272}
  {:block/name "k8s springcloud 优雅停机",
   :block/created-at 1650792418710,
   :block/updated-at 1650792480620}
  {:block/name "k8s+istio",
   :block/created-at 1650779327920,
-  :block/updated-at 1650781194262}
+  :block/updated-at 1651285032081}
  {:block/name "k8s+istio灰度实施方案",
   :block/created-at 1650792263919,
   :block/updated-at 1650792298507}
+ {:block/name "k8s官网快速体验k8s",
+  :block/created-at 1651039415366,
+  :block/updated-at 1651039415366}
+ {:block/name "kafka",
+  :block/created-at 1651222955650,
+  :block/updated-at 1651222955650}
  {:block/name "kubernetes",
   :block/created-at 1650595430448,
-  :block/updated-at 1650768610226}
+  :block/updated-at 1651043184696}
+ {:block/name "kubernetes service",
+  :block/created-at 1651223221321,
+  :block/updated-at 1651223221321}
  {:block/name "later",
   :block/created-at 1650634250013,
   :block/updated-at 1650634250013}
+ {:block/name "learn and share",
+  :block/created-at 1651039415822,
+  :block/updated-at 1651223008529}
  {:block/name "linux札记",
   :block/created-at 1650792520745,
   :block/updated-at 1650792525646}
  {:block/name "maxwell",
   :block/created-at 1650792600792,
   :block/updated-at 1650792603085}
+ {:block/name "mysql",
+  :block/created-at 1651222949066,
+  :block/updated-at 1651222949066}
+ {:block/name "nacos",
+  :block/created-at 1651223210485,
+  :block/updated-at 1651223210485}
+ {:block/name "netty",
+  :block/created-at 1651223441937,
+  :block/updated-at 1651223441937}
  {:block/name "nginx",
   :block/created-at 1650792639130,
   :block/updated-at 1650792646937}
  {:block/name "now",
   :block/created-at 1650634250014,
   :block/updated-at 1650634250014}
+ {:block/name "openfeign",
+  :block/created-at 1651223354110,
+  :block/updated-at 1651223354110}
+ {:block/name "paxos",
+  :block/created-at 1651066785322,
+  :block/updated-at 1651068409015}
+ {:block/name "pua",
+  :block/created-at 1651039415865,
+  :block/updated-at 1651039415865}
  {:block/name "rancher+k8s+istio实施灰度",
   :block/created-at 1650792724760,
   :block/updated-at 1650792737885}
+ {:block/name "readme",
+  :block/created-at 1651039414419,
+  :block/updated-at 1651039414419}
+ {:block/name "redis",
+  :block/created-at 1651222938019,
+  :block/updated-at 1651222938019}
+ {:block/name "rocketmq",
+  :block/created-at 1651223049355,
+  :block/updated-at 1651223049355}
+ {:block/name "seata",
+  :block/created-at 1651223285628,
+  :block/updated-at 1651223285628}
+ {:block/name "sgd",
+  :block/created-at 1651039415987,
+  :block/updated-at 1651039415987}
+ {:block/name "springcloud",
+  :block/created-at 1651223392466,
+  :block/updated-at 1651223392466}
+ {:block/name "tls",
+  :block/created-at 1651161643844,
+  :block/updated-at 1651161671250}
  {:block/name "todo",
   :block/created-at 1650634250014,
   :block/updated-at 1650634250014}
@@ -115,36 +217,90 @@
  {:block/name "waiting",
   :block/created-at 1650634250013,
   :block/updated-at 1650634250013}
+ {:block/name "zab",
+  :block/created-at 1651066770057,
+  :block/updated-at 1651116579823}
  {:block/name "zookeeper",
   :block/created-at 1650699969178,
-  :block/updated-at 1650699969178}
+  :block/updated-at 1651240647387}
+ {:block/name "一致性哈希",
+  :block/created-at 1651039416662,
+  :block/updated-at 1651039416662}
  {:block/name "从google maglev说起，如何造一个牛逼的负载均衡？",
   :block/created-at 1650790726950,
   :block/updated-at 1650790726950}
+ {:block/name "使用kubeadm安装简单集群实战",
+  :block/created-at 1651039415370,
+  :block/updated-at 1651039415370}
+ {:block/name "关于搭建团队",
+  :block/created-at 1651200178155,
+  :block/updated-at 1651201305573}
+ {:block/name "冒泡排序",
+  :block/created-at 1651039416644,
+  :block/updated-at 1651039416644}
+ {:block/name "分布式理论",
+  :block/created-at 1651039416376,
+  :block/updated-at 1651241161850}
+ {:block/name "分布式系统",
+  :block/created-at 1651039414549,
+  :block/updated-at 1651243207442}
  {:block/name "取消推文转发",
   :block/created-at 1650791969973,
   :block/updated-at 1650792162057}
+ {:block/name "后端技术",
+  :block/created-at 1651222923626,
+  :block/updated-at 1651223441938}
+ {:block/name "向上沟通",
+  :block/created-at 1651243602922,
+  :block/updated-at 1651243724311}
  {:block/name "向量钟",
   :block/created-at 1650735564807,
   :block/updated-at 1650736464418}
  {:block/name "基于docker搭建jenkins",
   :block/created-at 1650790763084,
   :block/updated-at 1650790795240}
+ {:block/name "堆排序",
+  :block/created-at 1651039416648,
+  :block/updated-at 1651039416648}
+ {:block/name "安装centos7",
+  :block/created-at 1651039416113,
+  :block/updated-at 1651039416113}
  {:block/name "安装k8s",
   :block/created-at 1650790289177,
   :block/updated-at 1650790302846}
+ {:block/name "安装kubernetes集群常见故障模拟",
+  :block/created-at 1651039415371,
+  :block/updated-at 1651039415371}
+ {:block/name "希尔排序",
+  :block/created-at 1651039416649,
+  :block/updated-at 1651039416649}
+ {:block/name "归并排序",
+  :block/created-at 1651039416648,
+  :block/updated-at 1651039416648}
  {:block/name "待攻克的知识点",
   :block/created-at 1650735549709,
-  :block/updated-at 1650765542043}
+  :block/updated-at 1651067058455}
+ {:block/name "快速排序",
+  :block/created-at 1651039416647,
+  :block/updated-at 1651039416647}
  {:block/name "技术规范",
   :block/created-at 1650792786215,
   :block/updated-at 1650792803774}
+ {:block/name "插入排序",
+  :block/created-at 1651039416645,
+  :block/updated-at 1651039416645}
  {:block/name "搭建kafka集群",
   :block/created-at 1650790489391,
   :block/updated-at 1650790574892}
+ {:block/name "比较排序",
+  :block/created-at 1651039416650,
+  :block/updated-at 1651039416650}
  {:block/name "算法集锦",
   :block/created-at 1650792208578,
   :block/updated-at 1650792214323}
+ {:block/name "系统之美",
+  :block/created-at 1651039416686,
+  :block/updated-at 1651039416686}
  {:block/name "红黑树",
   :block/created-at 1650533837672,
   :block/updated-at 1650533873024}
@@ -153,19 +309,40 @@
   :block/updated-at 1650792724761}
  {:block/name "职场那些事儿",
   :block/created-at 1650693306874,
-  :block/updated-at 1650790185926}
+  :block/updated-at 1651243602923}
+ {:block/name "计算机理论",
+  :block/created-at 1651039415817,
+  :block/updated-at 1651039415817}
+ {:block/name "读书笔记",
+  :block/created-at 1651039415820,
+  :block/updated-at 1651039415820}
  {:block/name "负载均衡",
   :block/created-at 1650790720427,
   :block/updated-at 1650790726970}
  {:block/name "跨域",
   :block/created-at 1650790837935,
   :block/updated-at 1650790850004}
+ {:block/name "进一步验证部署的k8s集群",
+  :block/created-at 1651039415370,
+  :block/updated-at 1651039415370}
+ {:block/name "选择排序",
+  :block/created-at 1651039416646,
+  :block/updated-at 1651039416646}
+ {:block/name "部署rancher-2",
+  :block/created-at 1651039416937,
+  :block/updated-at 1651039416937}
  {:block/name "部署rancher-2.5.12验证istio蓝绿灰度",
   :block/created-at 1650790440073,
   :block/updated-at 1650790450972}
+ {:block/name "部署rancher-2/5",
+  :block/created-at 1651039416938,
+  :block/updated-at 1651039416938}
+ {:block/name "部署rancher-2/5/12验证istio蓝绿灰度",
+  :block/created-at 1651039416936,
+  :block/updated-at 1651039416936}
+ {:block/name "集群内无法访问service的解决方案",
+  :block/created-at 1651039416124,
+  :block/updated-at 1651039416124}
  {:block/name "面试候选人的注意事项",
-  :block/created-at 1650790185924,
-  :block/updated-at 1650790194556}
- {:block/name "首先同步时间,这个在集群环境中非常重要",
-  :block/created-at 1650790624655, 
-  :block/updated-at 1650790624655}]
+  :block/created-at 1650790185924, 
+  :block/updated-at 1651200156663}]

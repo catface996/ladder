@@ -1,8 +1,8 @@
 - 任务
 	- 流量管理
+	  collapsed:: true
 		- [官方文档](https://istio.io/latest/docs/tasks/traffic-management/)
 		- 请求路由
-		  collapsed:: true
 		  id:: 62638d0b-1d62-4986-bc05-43098be840e2
 			- [官方文档](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
 			- 前置准备
@@ -1506,6 +1506,7 @@
 	- 可观察性
 		- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/)
 		- 指标度量
+		  collapsed:: true
 			- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/metrics/)
 			- 通过Prometheus查询度量指标
 			  id:: 6266ab50-b550-4424-b3b4-0a17d07be1a5
@@ -1621,7 +1622,12 @@
 						- 单独的服务视图：这部分提供关于网格中每个单独的（HTTP/gRPC 和 TCP）服务的请求和响应指标。这部分也提供关于该服务的客户端和服务工作负载的指标。
 						- 单独的工作负载视图：这部分提供关于网格中每个单独的（HTTP/gRPC 和 TCP）工作负载的请求和响应指标。这部分也提供关于该工作负载的入站工作负载和出站服务的指标。
 					- 有关如何创建，配置和编辑仪表盘的更多信息，请参见 [Grafana](https://grafana.com/docs/) 文档。
+		- [网络可视化](https://istio.io/latest/zh/docs/tasks/observability/kiali/)
+		  collapsed:: true
+			- ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
+			-
 - 概念
+  collapsed:: true
 	- [流量管理](https://istio.io/latest/zh/docs/concepts/traffic-management)
 	  collapsed:: true
 		- [故障注入](https://istio.io/latest/zh/docs/concepts/traffic-management/#fault-injection)
@@ -1644,4 +1650,3 @@
 		- 部署了istio的版本
 			- ![image.png](../assets/image_1650644695876_0.png)
 			-
--
