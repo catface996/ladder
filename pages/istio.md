@@ -1,8 +1,8 @@
 - 任务
 	- 流量管理
-	  collapsed:: true
 		- [官方文档](https://istio.io/latest/docs/tasks/traffic-management/)
 		- 请求路由
+		  collapsed:: true
 		  id:: 62638d0b-1d62-4986-bc05-43098be840e2
 			- [官方文档](https://istio.io/latest/docs/tasks/traffic-management/request-routing/)
 			- 前置准备
@@ -585,7 +585,451 @@
 				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
 				  ~~~
 				-
+		- 设置请求超时
+		  id:: 626d47b8-40d9-4c81-9b3c-fe5d54b19242
+			- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/request-timeouts/)
+			- 观察日志
+			- 观察 Kiali 流量面板
+				- ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
+			- 开始之前
+			  collapsed:: true
+				- 已经安装 Istio。
+				- 部署好示例应用程序 Bookinfo，并应用了默认目标规则。
+					- ```shell
+					  kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
+					  ```
+				- 初始化应用的路由版本 v1。
+					- ```shell
+					  kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+					  ```
+					- ![image.png](../assets/image_1651386616537_0.png)
+			- 实施请求超时
+				- 任务描述
+					- HTTP 请求超时可以用路由规则的 timeout 字段来指定。默认情况下，超时是禁用的，本人无中，会把 reviews 服务的超时设置为 1 秒。为了观察效果，需要在对 ratings 服务的调用上引入 2 秒的延迟。
+				- 任务步骤
+					- 将请求路由到 reviews 服务的 v2 版本，它会发起 ratings 服务的调用。
+						- ```shell
+						  kubectl apply -f - <<EOF
+						  apiVersion: networking.istio.io/v1alpha3
+						  kind: VirtualService
+						  metadata:
+						    name: reviews
+						  spec:
+						    hosts:
+						      - reviews
+						    http:
+						    - route:
+						      - destination:
+						          host: reviews
+						          subset: v2
+						  EOF
+						  ```
+						- ```shell
+						  ## 查看执行结果
+						  [root@k8s-master-22 istio]# kubectl get vs reviews -o json
+						  {
+						      "apiVersion": "networking.istio.io/v1beta1",
+						      "kind": "VirtualService",
+						      "metadata": {
+						          "annotations": {
+						              "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.istio.io/v1alpha3\",\"kind\":\"VirtualService\",\"metadata\":{\"annotations\":{},\"name\":\"reviews\",\"namespace\":\"default\"},\"spec\":{\"hosts\":[\"reviews\"],\"http\":[{\"route\":[{\"destination\":{\"host\":\"reviews\",\"subset\":\"v2\"}}]}]}}\n"
+						          },
+						          "creationTimestamp": "2022-05-01T06:28:24Z",
+						          "generation": 2,
+						          "name": "reviews",
+						          "namespace": "default",
+						          "resourceVersion": "369466",
+						          "uid": "c874e324-8277-43f0-9fff-766c9d1a527c"
+						      },
+						      "spec": {
+						          "hosts": [
+						              "reviews"
+						          ],
+						          "http": [
+						              {
+						                  "route": [
+						                      {
+						                          "destination": {
+						                              "host": "reviews",
+						                              "subset": "v2"
+						                          }
+						                      }
+						                  ]
+						              }
+						          ]
+						      }
+						  }
+						  ```
+						- ![image.png](../assets/image_1651386691335_0.png){:height 385, :width 654}
+						- ![image.png](../assets/image_1651386732408_0.png)
+					- 给对 ratings 服务的调用添加 2 秒的延时
+						- ```shell
+						  kubectl apply -f - <<EOF
+						  apiVersion: networking.istio.io/v1alpha3
+						  kind: VirtualService
+						  metadata:
+						    name: ratings
+						  spec:
+						    hosts:
+						    - ratings
+						    http:
+						    - fault:
+						        delay:
+						          percent: 100
+						          fixedDelay: 2s
+						      route:
+						      - destination:
+						          host: ratings
+						          subset: v1
+						  EOF
+						  ```
+						- ```shell
+						  ## 查看执行结果
+						  [root@k8s-master-22 istio]# kubectl get vs ratings -o json
+						  {
+						      "apiVersion": "networking.istio.io/v1beta1",
+						      "kind": "VirtualService",
+						      "metadata": {
+						          "annotations": {
+						              "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.istio.io/v1alpha3\",\"kind\":\"VirtualService\",\"metadata\":{\"annotations\":{},\"name\":\"ratings\",\"namespace\":\"default\"},\"spec\":{\"hosts\":[\"ratings\"],\"http\":[{\"fault\":{\"delay\":{\"fixedDelay\":\"2s\",\"percent\":100}},\"route\":[{\"destination\":{\"host\":\"ratings\",\"subset\":\"v1\"}}]}]}}\n"
+						          },
+						          "creationTimestamp": "2022-05-01T06:28:24Z",
+						          "generation": 2,
+						          "name": "ratings",
+						          "namespace": "default",
+						          "resourceVersion": "369661",
+						          "uid": "5fb5b48f-4ce0-4871-b9a7-0a6847eb0e59"
+						      },
+						      "spec": {
+						          "hosts": [
+						              "ratings"
+						          ],
+						          "http": [
+						              {
+						                  "fault": {
+						                      "delay": {
+						                          "fixedDelay": "2s",
+						                          "percent": 100
+						                      }
+						                  },
+						                  "route": [
+						                      {
+						                          "destination": {
+						                              "host": "ratings",
+						                              "subset": "v1"
+						                          }
+						                      }
+						                  ]
+						              }
+						          ]
+						      }
+						  }
+						  ```
+						- ![image.png](../assets/image_1651386980690_0.png){:height 374, :width 654}
+					- 在浏览器中打开 Bookinfo 的网址 http://192.168.162.22:31606/productpage
+						- 这是可以看到 Bookinfo 的页面会正常运行，但是会有 2 秒的延时。
+						- 观察浏览器的响应时间。
+							- ![image.png](../assets/image_1651387025799_0.png)
+						- 观察 Kiali 的流量监控中的响应时间。
+							- ![image.png](../assets/image_1651387150486_0.png)
+					- 现在给对 reviews 服务的调用增加一个半秒的请求超时
+						- ```shell
+						  kubectl apply -f - <<EOF
+						  apiVersion: networking.istio.io/v1alpha3
+						  kind: VirtualService
+						  metadata:
+						    name: reviews
+						  spec:
+						    hosts:
+						    - reviews
+						    http:
+						    - route:
+						      - destination:
+						          host: reviews
+						          subset: v2
+						      timeout: 0.5s
+						  EOF
+						  ```
+						- ```shell
+						  [root@k8s-master-22 istio]# kubectl get vs reviews -o json
+						  {
+						      "apiVersion": "networking.istio.io/v1beta1",
+						      "kind": "VirtualService",
+						      "metadata": {
+						          "annotations": {
+						              "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.istio.io/v1alpha3\",\"kind\":\"VirtualService\",\"metadata\":{\"annotations\":{},\"name\":\"reviews\",\"namespace\":\"default\"},\"spec\":{\"hosts\":[\"reviews\"],\"http\":[{\"route\":[{\"destination\":{\"host\":\"reviews\",\"subset\":\"v2\"}}],\"timeout\":\"0.5s\"}]}}\n"
+						          },
+						          "creationTimestamp": "2022-05-01T06:28:24Z",
+						          "generation": 3,
+						          "name": "reviews",
+						          "namespace": "default",
+						          "resourceVersion": "370431",
+						          "uid": "c874e324-8277-43f0-9fff-766c9d1a527c"
+						      },
+						      "spec": {
+						          "hosts": [
+						              "reviews"
+						          ],
+						          "http": [
+						              {
+						                  "route": [
+						                      {
+						                          "destination": {
+						                              "host": "reviews",
+						                              "subset": "v2"
+						                          }
+						                      }
+						                  ],
+						                  "timeout": "0.5s"
+						              }
+						          ]
+						      }
+						  }
+						  ```
+						- ![image.png](../assets/image_1651387245074_0.png)
+					- 刷新 Bookinfo 页面
+						- ![image.png](../assets/image_1651387341724_0.png)
+						- ![image.png](../assets/image_1651387446550_0.png)
+						- ![image.png](../assets/image_1651387497341_0.png)
+			- 回顾理解原理
+				- 本任务中，使用 Istio 为对 reviews 微服务的调用配置了半秒的请求超时。默认情况下请求超时是禁用的。reviews 服务在处理请求时会接着调用 ratings 服务，用 Istio 在对 ratings 的调用中注入了两秒钟的延迟，这样就让 reviews 服务要花费超过半秒的时间来完成调用，因此可以观察到超时。
+				- 可以观察到，Bookinfo 的页面（调用 reviews 服务来生成页面）没显示评论，而是显示了消息：Sorry, product reviews are currently unavailable for this book. 这就是它收到了来自 reviews 服务的超时错误信息。
+				- 如果看过故障注入任务，就会发现 productpage 微服务在调用 reviews 微服务时，还有它自己的应用级的超时（3 秒）设置。注意在本任务中使用 Istio 路由规则设置了半秒的超时。如果将超时设置为大于 3 秒（比如 4 秒），则超时将不会有任何影响，因为这两个超时的限制性更强。更多细节可以参考这里。
+				- 还有一点关于 Istio 中超时控制方面的补充说明，除了像本文一样在路由规则中进行超时设置之外，还可以进行请求一级的设置，只需在应用的对外请求中加入 x-envoy-upstream-rq-timeout-ms 请求头即可。在这个请求头中的超时设置单位是毫秒而不是秒。
+			- 清理
+				- ```shell
+				  kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+				  ```
+		- 熔断
+		  id:: 626d4866-06d3-4145-92c3-536ac71e5cdc
+			- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/circuit-breaking/)
+			- [[熔断、超时、限流和服务降级]]
+			- 观察日志
+			- 观察 Kiali 流量面板
+			- **注意，将客户端改成两副本，验证熔断发生在调用方还是被调用方。**
+			- 开始之前
+				- 已经安装好 Istio。
+				- 启动 httpbin 样例程序，和调用验证程序fortio
+					- ```shell
+					  kubectl apply -f samples/httpbin/httpbin.yaml
+					  kubectl apply -f samples/httpbin/sample-client/fortio-deploy.yaml
+					  ```
+					- 访问 httpbin 验证服务是否正常。
+					- ```shell
+					  ## Fortio pod 名称写入环境变量
+					  export FORTIO_POD=$(kubectl get pods -l app=fortio -o 'jsonpath={.items[0].metadata.name}')
+					  
+					  ## 发送请求到 httpbin
+					  kubectl exec "$FORTIO_POD" -c fortio -- /usr/bin/fortio curl -quiet http://httpbin:8000/get
+					  ```
+			- 配置熔断器
+				- 创建一个目标规则，在调用 httpbin 服务时引用熔断设置。
+					- 相关配置参考： https://istio.io/latest/zh/docs/reference/config/networking/destination-rule/
+					- ```shell
+					  kubectl apply -f - <<EOF
+					  apiVersion: networking.istio.io/v1alpha3
+					  kind: DestinationRule
+					  metadata:
+					    name: httpbin
+					  spec:
+					    host: httpbin
+					    trafficPolicy:
+					      connectionPool:
+					        tcp:
+					          maxConnections: 1
+					        http:
+					          http1MaxPendingRequests: 1
+					          maxRequestsPerConnection: 1
+					      outlierDetection:
+					        consecutive5xxErrors: 1
+					        interval: 1s
+					        baseEjectionTime: 3m
+					        maxEjectionPercent: 100
+					  EOF
+					  ```
+					- ![image.png](../assets/image_1651389893587_0.png)
+					- ![image.png](../assets/image_1651389948962_0.png)
+					- ![image.png](../assets/image_1651390046680_0.png)
+					- ![image.png](../assets/image_1651390111633_0.png)
+					- ```shell
+					  kubectl get destinationrule httpbin -o yaml
+					  
+					  ## 实际执行结果
+					  [root@k8s-master-22 istio]# kubectl get destinationrule httpbin -o yaml
+					  apiVersion: networking.istio.io/v1beta1
+					  kind: DestinationRule
+					  metadata:
+					    annotations:
+					      kubectl.kubernetes.io/last-applied-configuration: |
+					        {"apiVersion":"networking.istio.io/v1alpha3","kind":"DestinationRule","metadata":{"annotations":{},"name":"httpbin","namespace":"default"},"spec":{"host":"httpbin","trafficPolicy":{"connectionPool":{"http":{"http1MaxPendingRequests":1,"maxRequestsPerConnection":1},"tcp":{"maxConnections":1}},"outlierDetection":{"baseEjectionTime":"3m","consecutive5xxErrors":1,"interval":"1s","maxEjectionPercent":100}}}}
+					    creationTimestamp: "2022-05-01T07:06:02Z"
+					    generation: 1
+					    name: httpbin
+					    namespace: default
+					    resourceVersion: "373457"
+					    uid: c08a0ce2-1e32-4a56-a939-5fe64319dc83
+					  spec:
+					    host: httpbin
+					    trafficPolicy:
+					      connectionPool:
+					        http:
+					          http1MaxPendingRequests: 1
+					          maxRequestsPerConnection: 1
+					        tcp:
+					          maxConnections: 1
+					      outlierDetection:
+					        baseEjectionTime: 3m
+					        consecutive5xxErrors: 1
+					        interval: 1s
+					        maxEjectionPercent: 100
+					  ```
+			- 增加一个客户端
+				- 创建客户端程序以发送流量到 httpbin 服务。这是一个名为 Fortio 的负载测试客户端，它可以控制连接数、并发数及发送 HTTP 请求的延迟。通过 Fortio 能够有效的触发前面在 DestinationRule 中设置的熔断策略。
+				- 部署 Fortio
+					- ```shell
+					  kubectl apply -f samples/httpbin/sample-client/fortio-deploy.yaml
+					  ```
+				- 登入客户端 Pod 并使用 Fortio 工具调用 httpbin 服务。 -curl 参数表明发送一调用
+					- ```shell
+					  ## Fortio pod 名称写入环境变量
+					  export FORTIO_POD=$(kubectl get pods -l app=fortio -o 'jsonpath={.items[0].metadata.name}')
+					  
+					  ## 发送请求到 httpbin
+					  kubectl exec "$FORTIO_POD" -c fortio -- /usr/bin/fortio curl -quiet http://httpbin:8000/get
+					  ```
+					- ```shell
+					  [root@k8s-master-22 istio]# kubectl exec "$FORTIO_POD" -c fortio -- /usr/bin/fortio curl -quiet http://httpbin:8000/get
+					  HTTP/1.1 200 OK
+					  server: envoy
+					  date: Sun, 01 May 2022 07:06:37 GMT
+					  content-type: application/json
+					  content-length: 594
+					  access-control-allow-origin: *
+					  access-control-allow-credentials: true
+					  x-envoy-upstream-service-time: 11
+					  
+					  {
+					    "args": {},
+					    "headers": {
+					      "Host": "httpbin:8000",
+					      "User-Agent": "fortio.org/fortio-1.17.1",
+					      "X-B3-Parentspanid": "d861adb4976b247c",
+					      "X-B3-Sampled": "1",
+					      "X-B3-Spanid": "7ffacb2a78bae025",
+					      "X-B3-Traceid": "863e0cafcbfd1d23d861adb4976b247c",
+					      "X-Envoy-Attempt-Count": "1",
+					      "X-Forwarded-Client-Cert": "By=spiffe://cluster.local/ns/default/sa/httpbin;Hash=7018eb01d9bcdb00fe3a959e8089af029d84ff79baf45874f3f82e293fb3dfcf;Subject=\"\";URI=spiffe://cluster.local/ns/default/sa/default"
+					    },
+					    "origin": "127.0.0.6",
+					    "url": "http://httpbin:8000/get"
+					  }
+					  ```
+			- 触发熔断
+				- 发送并发数为 2 的连接（-c 2），请求 20 次（-n 20）
+					- ```shell
+					  kubectl exec "$FORTIO_POD" -c fortio -- /usr/bin/fortio load -c 2 -qps 0 -n 20 -loglevel Warning http://httpbin:8000/get
+					  ```
+					- ```shell
+					  ## 执行结果
+					  [root@k8s-master-22 istio]# kubectl exec "$FORTIO_POD" -c fortio -- /usr/bin/fortio load -c 2 -qps 0 -n 20 -loglevel Warning http://httpbin:8000/get
+					  07:08:59 I logger.go:127> Log level is now 3 Warning (was 2 Info)
+					  Fortio 1.17.1 running at 0 queries per second, 2->2 procs, for 20 calls: http://httpbin:8000/get
+					  Starting at max qps with 2 thread(s) [gomax 2] for exactly 20 calls (10 per thread + 0)
+					  07:08:59 W http_client.go:806> [0] Non ok http code 503 (HTTP/1.1 503)
+					  07:08:59 W http_client.go:806> [1] Non ok http code 503 (HTTP/1.1 503)
+					  07:08:59 W http_client.go:806> [0] Non ok http code 503 (HTTP/1.1 503)
+					  07:08:59 W http_client.go:806> [0] Non ok http code 503 (HTTP/1.1 503)
+					  07:08:59 W http_client.go:806> [1] Non ok http code 503 (HTTP/1.1 503)
+					  Ended after 78.824577ms : 20 calls. qps=253.73
+					  Aggregated Function Time : count 20 avg 0.0071720148 +/- 0.006819 min 0.000503002 max 0.029940748 sum 0.143440296
+					  # range, mid point, percentile, count
+					  >= 0.000503002 <= 0.001 , 0.000751501 , 5.00, 1
+					  > 0.001 <= 0.002 , 0.0015 , 15.00, 2
+					  > 0.002 <= 0.003 , 0.0025 , 20.00, 1
+					  > 0.003 <= 0.004 , 0.0035 , 30.00, 2
+					  > 0.004 <= 0.005 , 0.0045 , 50.00, 4
+					  > 0.005 <= 0.006 , 0.0055 , 55.00, 1
+					  > 0.006 <= 0.007 , 0.0065 , 80.00, 5
+					  > 0.012 <= 0.014 , 0.013 , 90.00, 2
+					  > 0.018 <= 0.02 , 0.019 , 95.00, 1
+					  > 0.025 <= 0.0299407 , 0.0274704 , 100.00, 1
+					  # target 50% 0.005
+					  # target 75% 0.0068
+					  # target 90% 0.014
+					  # target 99% 0.0289526
+					  # target 99.9% 0.0298419
+					  Sockets used: 7 (for perfect keepalive, would be 2)
+					  Jitter: false
+					  Code 200 : 15 (75.0 %)
+					  Code 503 : 5 (25.0 %)
+					  Response Header Sizes : count 20 avg 172.65 +/- 99.68 min 0 max 231 sum 3453
+					  Response Body/Total Sizes : count 20 avg 678.4 +/- 252.5 min 241 max 825 sum 13568
+					  All done 20 calls (plus 0 warmup) 7.172 ms avg, 253.7 qps
+					  ```
+				- 并发连接数提高到 3 个
+					- ```shell
+					  kubectl exec "$FORTIO_POD" -c fortio -- /usr/bin/fortio load -c 3 -qps 0 -n 30 -loglevel Warning http://httpbin:8000/get
+					  ```
+					- ```shell
+					  [root@k8s-master-22 istio]# kubectl exec "$FORTIO_POD" -c fortio -- /usr/bin/fortio load -c 3 -qps 0 -n 30 -loglevel Warning http://httpbin:8000/get
+					  07:15:41 I logger.go:127> Log level is now 3 Warning (was 2 Info)
+					  Fortio 1.17.1 running at 0 queries per second, 2->2 procs, for 30 calls: http://httpbin:8000/get
+					  Starting at max qps with 3 thread(s) [gomax 2] for exactly 30 calls (10 per thread + 0)
+					  07:15:41 W http_client.go:806> [0] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [2] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [2] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [2] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [2] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [2] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [2] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [0] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [2] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [2] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [2] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [2] Non ok http code 503 (HTTP/1.1 503)
+					  07:15:41 W http_client.go:806> [1] Non ok http code 503 (HTTP/1.1 503)
+					  Ended after 49.01623ms : 30 calls. qps=612.04
+					  Aggregated Function Time : count 30 avg 0.0035842102 +/- 0.002389 min 0.00043694 max 0.007486939 sum 0.107526306
+					  # range, mid point, percentile, count
+					  >= 0.00043694 <= 0.001 , 0.00071847 , 26.67, 8
+					  > 0.001 <= 0.002 , 0.0015 , 36.67, 3
+					  > 0.002 <= 0.003 , 0.0025 , 43.33, 2
+					  > 0.003 <= 0.004 , 0.0035 , 53.33, 3
+					  > 0.004 <= 0.005 , 0.0045 , 63.33, 3
+					  > 0.005 <= 0.006 , 0.0055 , 80.00, 5
+					  > 0.006 <= 0.007 , 0.0065 , 90.00, 3
+					  > 0.007 <= 0.00748694 , 0.00724347 , 100.00, 3
+					  # target 50% 0.00366667
+					  # target 75% 0.0057
+					  # target 90% 0.007
+					  # target 99% 0.00743825
+					  # target 99.9% 0.00748207
+					  Sockets used: 15 (for perfect keepalive, would be 3)
+					  Jitter: false
+					  Code 200 : 17 (56.7 %)
+					  Code 503 : 13 (43.3 %)
+					  Response Header Sizes : count 30 avg 130.33333 +/- 114 min 0 max 230 sum 3910
+					  Response Body/Total Sizes : count 30 avg 571.36667 +/- 288.9 min 241 max 824 sum 17141
+					  All done 30 calls (plus 0 warmup) 3.584 ms avg, 612.0 qps
+					  ```
+					- ![image.png](../assets/image_1651389397092_0.png)
+				- 查询 istio-proxy 状态以了解更多熔断详情
+					- ```shell
+					  kubectl exec "$FORTIO_POD" -c istio-proxy -- pilot-agent request GET stats | grep httpbin | grep pending
+					  ```
+					- ```shell
+					  [root@k8s-master-22 istio]# kubectl exec "$FORTIO_POD" -c istio-proxy -- pilot-agent request GET stats | grep httpbin | grep pending
+					  cluster.outbound|8000||httpbin.default.svc.cluster.local.circuit_breakers.default.remaining_pending: 1
+					  cluster.outbound|8000||httpbin.default.svc.cluster.local.circuit_breakers.default.rq_pending_open: 0
+					  cluster.outbound|8000||httpbin.default.svc.cluster.local.circuit_breakers.high.rq_pending_open: 0
+					  cluster.outbound|8000||httpbin.default.svc.cluster.local.upstream_rq_pending_active: 0
+					  cluster.outbound|8000||httpbin.default.svc.cluster.local.upstream_rq_pending_failure_eject: 0
+					  cluster.outbound|8000||httpbin.default.svc.cluster.local.upstream_rq_pending_overflow: 24
+					  cluster.outbound|8000||httpbin.default.svc.cluster.local.upstream_rq_pending_total: 28
+					  ```
+					- **upstream_rq_pending_overflow：24**，意味着有 24 个调用被标记 为熔断。
 		- Egress
+		  collapsed:: true
 			- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/egress/)
 			- 访问外部服务
 			  id:: 62678f97-a882-4d74-a432-bc4ccaef29bd
@@ -1065,6 +1509,7 @@
 					- 设想一个对安全有严格要求的组织。要求服务网格所有的出站流量必须经过一组专用节点。专用节点运行在专门的机器上，与集群中运行应用程序的其他节点隔离。这些专用节点用于实施 egress 流量的策略，并且受到比其余节点更严密地监控。  **网络隔离**
 					- 另一个使用场景是集群中的应用节点没有公有 IP，所以在该节点上运行的网格 service 无法访问互联网。通过定义 egress gateway，将公有 IP 分配给 egress gateway 节点，用它引导所有的出站流量，可以使应用节点以受控的方式访问外部服务。  **减少公网IP消耗，方便在第三方配置IP白名单**
 				- 开始之前
+				  collapsed:: true
 					- 集群中安装Istio。
 					- ((6268dcb9-e9a9-419f-9047-6bc7574108b3))
 						- 如果是ALLOW_ANY ，重新设置为 REGISTRY_ONLY
@@ -1503,6 +1948,7 @@
 				- 清理
 			-
 			-
+		-
 	- 可观察性
 		- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/)
 		- 指标度量
