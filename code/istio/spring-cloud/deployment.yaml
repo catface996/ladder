@@ -112,7 +112,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: monkey-dp
+  name: monkey-dp-gray
   annotations:
     author: catface996
 spec:
@@ -149,7 +149,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: monkey-dp
+  name: monkey-dp-prod
   annotations:
     author: catface996
 spec:
