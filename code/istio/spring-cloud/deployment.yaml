@@ -19,6 +19,7 @@ spec:
       containers:
         - name: cat-ct-gray
           image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -56,6 +57,7 @@ spec:
       containers:
         - name: cat-ct-prod
           image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -93,6 +95,7 @@ spec:
       containers:
         - name: dog-ct
           image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -130,6 +133,7 @@ spec:
       containers:
         - name: monkey-ct-gray
           image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9001
               protocol: TCP
@@ -167,6 +171,7 @@ spec:
       containers:
         - name: monkey-ct-prod
           image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
               protocol: TCP
