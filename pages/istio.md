@@ -587,6 +587,7 @@
 				-
 		- 设置请求超时
 		  id:: 626d47b8-40d9-4c81-9b3c-fe5d54b19242
+		  collapsed:: true
 			- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/request-timeouts/)
 			- 观察日志
 			- 观察 Kiali 流量面板
@@ -802,6 +803,7 @@
 				  ```
 		- 熔断
 		  id:: 626d4866-06d3-4145-92c3-536ac71e5cdc
+		  collapsed:: true
 			- [官方文档](https://istio.io/latest/zh/docs/tasks/traffic-management/circuit-breaking/)
 			- [[熔断、超时、限流和服务降级]]
 			- 观察日志

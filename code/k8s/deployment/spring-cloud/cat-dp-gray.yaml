@@ -9,7 +9,7 @@ spec:
     matchLabels:
       app: cat
       env: gray
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -22,3 +22,15 @@ spec:
           ports:
             - containerPort: 9001
               protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=cat --server.port=80 --env=gray --next=false --service.url=http://dog-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
