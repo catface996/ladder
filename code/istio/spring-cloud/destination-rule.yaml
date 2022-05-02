@@ -35,9 +35,9 @@ spec:
 kind: DestinationRule
 apiVersion: networking.istio.io/v1alpha3
 metadata:
-  name: dog-dr
+  name: monkey-dr
 spec:
-  host: dog-svc
+  host: monkey-svc
   subsets:
     - name: prod
       labels:
