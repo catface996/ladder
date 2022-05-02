@@ -1734,6 +1734,7 @@
 						  kubectl delete destinationrule egressgateway-for-cnn
 						  ~~~
 				- 定义Egress gateway 发起HTTPS请求
+				  collapsed:: true
 					- 注意：需要在相应的ServiceEntry、EgressGateway和VirtualService中指定TLS协议的端口443。
 					- 环境检查
 						- ```shell
@@ -2071,6 +2072,7 @@
 						- 单独的工作负载视图：这部分提供关于网格中每个单独的（HTTP/gRPC 和 TCP）工作负载的请求和响应指标。这部分也提供关于该工作负载的入站工作负载和出站服务的指标。
 					- 有关如何创建，配置和编辑仪表盘的更多信息，请参见 [Grafana](https://grafana.com/docs/) 文档。
 		- [网络可视化](https://istio.io/latest/zh/docs/tasks/observability/kiali/)
+		  id:: 626cccc7-3488-4c99-9d8e-bd12a11b96c6
 		  collapsed:: true
 			- ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
 			-

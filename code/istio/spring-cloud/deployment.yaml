@@ -1,0 +1,184 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cat-dp-gray
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: cat
+      env: gray
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cat
+        env: gray
+    spec:
+      containers:
+        - name: cat-ct-gray
+          image: catface996/spring-cloud-istio-demo:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=cat --server.port=8080 --env=gray --next=true --service.url=http://monkey-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cat-dp-prod
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: cat
+      env: prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cat
+        env: prod
+    spec:
+      containers:
+        - name: cat-ct-prod
+          image: catface996/spring-cloud-istio-demo:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=cat --server.port=8080 --env=gray --next=true --service.url=http://dog-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dog-dp
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: dog
+      env: prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dog
+        env: prod
+    spec:
+      containers:
+        - name: dog-ct
+          image: catface996/spring-cloud-istio-demo:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=cat --server.port=8080 --env=gray --next=true --service.url=http://monkey-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monkey-dp
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: monkey
+      env: gray
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: monkey
+        env: gray
+    spec:
+      containers:
+        - name: monkey-ct-gray
+          image: catface996/spring-cloud-istio-demo:latest
+          ports:
+            - containerPort: 9001
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=cat --server.port=8080 --env=gray --next=false --service.url=http://dog-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monkey-dp
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: monkey
+      env: gray
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: monkey
+        env: gray
+    spec:
+      containers:
+        - name: monkey-ct-prod
+          image: catface996/spring-cloud-istio-demo:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=cat --server.port=8080 --env=gray --next=false --service.url=http://dog-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
