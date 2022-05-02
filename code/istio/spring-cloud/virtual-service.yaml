@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: cat-vs
+spec:
+  hosts:
+  - "cat.catface996.com"
+  gateways:
+  - cat-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /sayHello
+    route:
+    - destination:
+        port:
+          number: 80
+        host: cat-svc
