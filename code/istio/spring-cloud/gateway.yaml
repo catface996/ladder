@@ -12,4 +12,3 @@ spec:
         - 'cat.catface996.com'
   selector:
     istio: ingressgateway
-status: {}

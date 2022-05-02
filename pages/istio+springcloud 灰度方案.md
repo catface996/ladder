@@ -168,7 +168,10 @@
 	- 部署 Deploymnet，并验证是否部署成功。
 	- 部署 Service，并验证部署是否成功。
 	- 绑定 cat-svc 到 istio-ingressgateway。
+		- 部署 gateway
+		- 部署 cat-vs
 	- 本地配置 hosts，域名映射到 istio-ingressgate 所在主机 IP。
+		-
 	- 通过域名访问 cat-svc 的 sayHello 接口。
 	- 配置 cat、dog、monkey 的 Destination Rule 和 Virtual 再访问 cat-prod、cat-gray。
 	- 删除 cat-gray deploymnet后，访问 cat-gray。
