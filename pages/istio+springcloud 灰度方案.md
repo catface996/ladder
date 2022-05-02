@@ -189,8 +189,28 @@
 			- ![image.png](../assets/image_1651476142241_0.png)
 	- 配置 cat、dog、monkey 的 Destination Rule 和 Virtual 再访问 http://cat.catface996.com/sayHello
 		- 部署 DestinationRule。
+			- ![image.png](../assets/image_1651476549235_0.png)
+			- ![image.png](../assets/image_1651476576071_0.png)
 		- 部署 VirtualService，cat-vs 会被覆盖成最新配置。
 	- 删除 cat-gray deploymnet后，访问 cat-gray。
+	-
+	- 模拟 prod 环境访问
+		- ```shell
+		  curl -H "env:prod" http://cat.catface996.com:31606/sayHello
+		  
+		  watch -n 1 curl  -H "env:prod" -o /dev/null -s -w %{http_code} http://cat.catface996.com:31606/sayHello
+		  ```
+		- ![image.png](../assets/image_1651476934159_0.png)
+	- 模拟 gray 环境访问
+		- ```shell
+		  curl -H "env:gray" http://cat.catface996.com:31606/sayHello
+		  
+		  watch -n 1 curl  -H "env:prod" -o /dev/null -s -w %{http_code} http://cat.catface996.com:31606/sayHello
+		  ```
+	- 模拟默认环境访问
+		- ```shell
+		  curl -H http://cat.catface996.com:31606/sayHello
+		  ```
 	- 分布式追踪
 		- 概述 https://istio.io/latest/zh/docs/tasks/observability/distributed-tracing/overview/
 	- Istio 最佳实践。

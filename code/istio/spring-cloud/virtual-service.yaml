@@ -22,8 +22,6 @@ spec:
     - headers:
         env:
           exact: prod
-    - uri:
-        exact: /sayHello
     route:
     - destination:
         subset: prod
