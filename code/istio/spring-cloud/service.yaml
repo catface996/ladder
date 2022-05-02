@@ -16,10 +16,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: monkey-svc
+  name: dog-svc
 spec:
   selector:
-    app: monkey
+    app: dog
   internalTrafficPolicy: Cluster
   ports:
     - protocol: TCP
@@ -30,10 +30,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: dog-svc
+  name: monkey-svc
 spec:
   selector:
-    app: dog
+    app: monkey
   internalTrafficPolicy: Cluster
   ports:
     - protocol: TCP
