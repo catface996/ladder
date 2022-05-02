@@ -27,7 +27,7 @@ spec:
         version: prod
     - name: gray
       labels:
-        version: gray
+        version: prod
     - name: default
       labels:
         version: prod
