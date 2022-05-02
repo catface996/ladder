@@ -8,11 +8,92 @@ spec:
   gateways:
   - cat-gateway
   http:
+  ## gray 路由规则
   - match:
+    - headers:
+        env:
+          exact: gray
+    route:
+    - destination:
+        subset: gray
+        host: cat-svc
+  ## prod 路由规则
+  - match:
+    - headers:
+        env:
+          exact: prod
     - uri:
         exact: /sayHello
     route:
     - destination:
-        port:
-          number: 80
+        subset: prod
         host: cat-svc
+  ## 默认 路由规则
+  - route:
+    - destination:
+        host: cat-svc
+        subset: default
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: dog-vs
+spec:
+  hosts:
+  - "dog-svc"
+  http:
+  ## gray 路由规则
+  - match:
+    - headers:
+        env:
+          exact: gray
+    route:
+    - destination:
+        subset: gray
+        host: dog-svc
+  ## prod 路由规则
+  - match:
+    - headers:
+        env:
+          exact: prod
+    route:
+    - destination:
+        subset: prod
+        host: dog-svc
+  ## 默认路由规则      
+  - route:
+    - destination:
+        host: dog-svc
+        subset: default
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: monkey-vs
+spec:
+  hosts:
+  - "monkey-svc"
+  http:
+  ## gray 路由规则
+  - match:
+    - headers:
+        env:
+          exact: gray
+    route:
+    - destination:
+        subset: gray
+        host: monkey-svc
+  ## prod 路由规则
+  - match:
+    - headers:
+        env:
+          exact: prod
+    route:
+    - destination:
+        subset: prod
+        host: monkey-svc
+  ## 默认路由规则      
+  - route:
+    - destination:
+        host: monkey-svc
+        subset: default

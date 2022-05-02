@@ -166,14 +166,30 @@
 - 实施步骤
 	- ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))方便查看 pod 日志和 Istio 配置。
 	- 部署 Deploymnet，并验证是否部署成功。
+		- ```yaml
+		  ```
 	- 部署 Service，并验证部署是否成功。
+		- ```yaml
+		  ```
 	- 绑定 cat-svc 到 istio-ingressgateway。
 		- 部署 gateway
+			- ```yaml
+			  ```
 		- 部署 cat-vs
+			- ```yaml
+			  ```
 	- 本地配置 hosts，域名映射到 istio-ingressgate 所在主机 IP。
+		- ![image.png](../assets/image_1651475170677_0.png)
+		- ![image.png](../assets/image_1651475223671_0.png)
+		- 访问 sayHello 接口
+			- ```shell
+			  watch -n 1 curl -o /dev/null -s -w %{http_code} http://cat.catface996.com:31606/sayHello
+			  ```
+		- 查看 Kiali 面板的流量分布
+			- ![image.png](../assets/image_1651474802791_0.png)
 		-
-	- 通过域名访问 cat-svc 的 sayHello 接口。
-	- 配置 cat、dog、monkey 的 Destination Rule 和 Virtual 再访问 cat-prod、cat-gray。
+	- 配置 cat、dog、monkey 的 Destination Rule 和 Virtual 再访问 http://cat.catface996.com/sayHello
+	-
 	- 删除 cat-gray deploymnet后，访问 cat-gray。
 	- 分布式追踪
 		- 概述 https://istio.io/latest/zh/docs/tasks/observability/distributed-tracing/overview/

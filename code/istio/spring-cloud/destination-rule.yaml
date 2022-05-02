@@ -1,0 +1,50 @@
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: cat-dr
+spec:
+  host: cat-svc
+  subsets:
+    - name: prod
+      labels:
+        version: prod
+    - name: gray
+      labels:
+        version: gray
+    - name: default
+      labels:
+        version: prod
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: dog-dr
+spec:
+  host: dog-svc
+  subsets:
+    - name: prod
+      labels:
+        version: prod
+    - name: gray
+      labels:
+        version: gray
+    - name: default
+      labels:
+        version: prod
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: dog-dr
+spec:
+  host: dog-svc
+  subsets:
+    - name: prod
+      labels:
+        version: prod
+    - name: gray
+      labels:
+        version: gray
+    - name: default
+      labels:
+        version: prod
