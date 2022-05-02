@@ -186,10 +186,10 @@
 			  watch -n 1 curl -o /dev/null -s -w %{http_code} http://cat.catface996.com:31606/sayHello
 			  ```
 		- 查看 Kiali 面板的流量分布
-			- ![image.png](../assets/image_1651474802791_0.png)
-		-
+			- ![image.png](../assets/image_1651476142241_0.png)
 	- 配置 cat、dog、monkey 的 Destination Rule 和 Virtual 再访问 http://cat.catface996.com/sayHello
-	-
+		- 部署 DestinationRule。
+		- 部署 VirtualService，cat-vs 会被覆盖成最新配置。
 	- 删除 cat-gray deploymnet后，访问 cat-gray。
 	- 分布式追踪
 		- 概述 https://istio.io/latest/zh/docs/tasks/observability/distributed-tracing/overview/
