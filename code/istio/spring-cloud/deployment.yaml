@@ -8,13 +8,13 @@ spec:
   selector:
     matchLabels:
       app: cat
-      env: gray
+      version: gray
   replicas: 1
   template:
     metadata:
       labels:
         app: cat
-        env: gray
+        version: gray
     spec:
       containers:
         - name: cat-ct-gray
@@ -46,13 +46,13 @@ spec:
   selector:
     matchLabels:
       app: cat
-      env: prod
+      version: prod
   replicas: 1
   template:
     metadata:
       labels:
         app: cat
-        env: prod
+        version: prod
     spec:
       containers:
         - name: cat-ct-prod
@@ -84,13 +84,13 @@ spec:
   selector:
     matchLabels:
       app: dog
-      env: prod
+      version: prod
   replicas: 1
   template:
     metadata:
       labels:
         app: dog
-        env: prod
+        version: prod
     spec:
       containers:
         - name: dog-ct
@@ -122,13 +122,13 @@ spec:
   selector:
     matchLabels:
       app: monkey
-      env: gray
+      version: gray
   replicas: 1
   template:
     metadata:
       labels:
         app: monkey
-        env: gray
+        version: gray
     spec:
       containers:
         - name: monkey-ct-gray
@@ -160,13 +160,13 @@ spec:
   selector:
     matchLabels:
       app: monkey
-      env: gray
+      version: prod
   replicas: 1
   template:
     metadata:
       labels:
         app: monkey
-        env: gray
+        version: prod
     spec:
       containers:
         - name: monkey-ct-prod
