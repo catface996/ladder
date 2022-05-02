@@ -15,8 +15,8 @@ spec:
           exact: gray
     route:
     - destination:
-        subset: gray
         host: cat-svc
+        subset: gray
   ## prod 路由规则
   - match:
     - headers:
@@ -24,13 +24,13 @@ spec:
           exact: prod
     route:
     - destination:
-        subset: prod
         host: cat-svc
+        subset: prod
   ## 默认 路由规则
   - route:
     - destination:
         host: cat-svc
-        subset: default
+        subset: prod
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -41,14 +41,14 @@ spec:
   - "dog-svc"
   http:
   ## gray 路由规则
-  - match:
-    - headers:
-        env:
-          exact: gray
-    route:
-    - destination:
-        subset: gray
-        host: dog-svc
+  # - match:
+  #   - headers:
+  #       env:
+  #         exact: gray
+  #   route:
+  #   - destination:
+  #       host: dog-svc
+  #       subset: gray
   ## prod 路由规则
   - match:
     - headers:
@@ -56,13 +56,13 @@ spec:
           exact: prod
     route:
     - destination:
-        subset: prod
         host: dog-svc
+        subset: prod
   ## 默认路由规则      
   - route:
     - destination:
         host: dog-svc
-        subset: default
+        subset: prod
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -79,8 +79,8 @@ spec:
           exact: gray
     route:
     - destination:
-        subset: gray
         host: monkey-svc
+        subset: gray
   ## prod 路由规则
   - match:
     - headers:
@@ -88,10 +88,10 @@ spec:
           exact: prod
     route:
     - destination:
-        subset: prod
         host: monkey-svc
+        subset: prod
   ## 默认路由规则      
   - route:
     - destination:
         host: monkey-svc
-        subset: default
+        subset: prod

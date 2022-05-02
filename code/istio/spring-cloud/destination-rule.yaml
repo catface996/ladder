@@ -11,9 +11,6 @@ spec:
     - name: gray
       labels:
         version: gray
-    - name: default
-      labels:
-        version: prod
 ---
 kind: DestinationRule
 apiVersion: networking.istio.io/v1alpha3
@@ -27,10 +24,7 @@ spec:
         version: prod
     - name: gray
       labels:
-        version: prod
-    - name: default
-      labels:
-        version: prod
+        version: gray
 ---
 kind: DestinationRule
 apiVersion: networking.istio.io/v1alpha3
@@ -45,6 +39,3 @@ spec:
     - name: gray
       labels:
         version: gray
-    - name: default
-      labels:
-        version: prod
