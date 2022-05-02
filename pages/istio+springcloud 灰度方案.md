@@ -11,8 +11,10 @@
 			- gray
 	- 应用的代代码介绍
 		- 源码地址
+		  collapsed:: true
 			- https://github.com/catface996/istio-demo-app
 		- 源码介绍
+		  collapsed:: true
 			- DemoController
 			  collapsed:: true
 				- ```java
@@ -80,6 +82,7 @@
 				  }
 				  ```
 			- DemoApi
+			  collapsed:: true
 				- ```java
 				  package com.example.istio.api;
 				  
@@ -104,7 +107,18 @@
 				      String sayHello();
 				  }
 				  ```
-		- deployment 配置介绍
+			- application.properties
+			  collapsed:: true
+				- ```properties
+				  spring.application.name=cat
+				  server.port=9001
+				  next=false
+				  env=prod
+				  service.url=http://localhost:9002
+				  spring.sleuth.baggage.remote-fields=env
+				  ```
+		- Deployment 配置介绍
+		  collapsed:: true
 			- ```yaml
 			  apiVersion: apps/v1
 			  kind: Deployment
@@ -143,6 +157,10 @@
 			                cpu: "200m"
 			                memory: "1024Mi"
 			  ```
+		- Service 配置介绍
+		- Destination Rule 配置介绍
+		- Virtual Service 配置介绍
+		- Gateway 配置介绍
 	- 调用链路
 		- ![image.png](../assets/image_1651462949155_0.png)
 - 实施步骤
