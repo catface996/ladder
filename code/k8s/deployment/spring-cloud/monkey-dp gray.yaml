@@ -19,14 +19,14 @@ spec:
         tier: frontend
     spec:
       containers:
-        - name: monkey-ct
+        - name: monkey-ct-gray
           image: catface996/spring-cloud-istio-demo:latest
           ports:
             - containerPort: 9001
               protocol: TCP
           env:
           - name: SPRING_OPTS
-            value: --spring.application.name=cat --server.port=80 --env=gray --next=false --service.url=http://dog-svc
+            value: --spring.application.name=cat --server.port=8080 --env=gray --next=false --service.url=http://dog-svc
           - name: JAVA_OPTS
             value: -Xmx512M -Xms512M
           resources:
