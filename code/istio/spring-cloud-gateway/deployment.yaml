@@ -24,6 +24,8 @@ spec:
             - containerPort: 8080
               protocol: TCP
           env:
+          - name: SPRING_OPTS
+            value: --spring.cloud.gateway.routes[0].id=cat-svc --spring.cloud.gateway.routes[0].uri=http://cat-svc --spring.cloud.gateway.routes[0].predicates[0]=Path=/cat/{segment} --spring.cloud.gateway.routes[0].filters[0]=StripPrefix=1
           - name: JAVA_OPTS
             value: -Xmx512M -Xms512M
           resources:

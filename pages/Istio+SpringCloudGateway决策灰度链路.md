@@ -44,6 +44,7 @@
 		  
 		  kubectl apply -f biz-gateway-vs-bind-gateway.yaml
 		  ```
+		- ![image.png](../assets/image_1651557271942_0.png)
 	- 配置本地 hosts，通过 curl 访问 http://gateway.catface996.com:31606/cat/sayHello
 		- 为什么要访问 /cat/sayHello   /cat 是用来在 spring cloud gateway 中做服务路由的前缀。
 		- ![image.png](../assets/image_1651556731059_0.png)
