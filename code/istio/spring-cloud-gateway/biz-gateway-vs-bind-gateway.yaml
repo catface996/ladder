@@ -1,0 +1,29 @@
+kind: Gateway
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: biz-gateway
+spec:
+  servers:
+    - port:
+        number: 80
+        protocol: HTTP
+        name: http
+      hosts:
+        - 'gateway.catface996.com'
+  selector:
+    istio: ingressgateway
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: cat-vs
+spec:
+  hosts:
+  - "gateway.catface996.com"
+  gateways:
+  - biz-gateway
+  http:
+  ## 默认路由到 cat-svc
+  - route:
+    - destination:
+        host: biz-gateway-svc

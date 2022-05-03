@@ -1,0 +1,55 @@
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: biz-gateway-dr
+spec:
+  host: biz-gateway-svc
+  subsets:
+    - name: prod
+      labels:
+        version: prod
+    - name: gray
+      labels:
+        version: gray
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: cat-dr
+spec:
+  host: cat-svc
+  subsets:
+    - name: prod
+      labels:
+        version: prod
+    - name: gray
+      labels:
+        version: gray
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: dog-dr
+spec:
+  host: dog-svc
+  subsets:
+    - name: prod
+      labels:
+        version: prod
+    - name: gray
+      labels:
+        version: gray
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: monkey-dr
+spec:
+  host: monkey-svc
+  subsets:
+    - name: prod
+      labels:
+        version: prod
+    - name: gray
+      labels:
+        version: gray

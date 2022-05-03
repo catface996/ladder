@@ -1,0 +1,129 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: biz-gateway-vs
+spec:
+  hosts:
+  - "gateway.catface996.com"
+  gateways:
+  - biz-gateway
+  http:
+  ## gray 路由规则
+  - match:
+    - headers:
+        env:
+          exact: gray
+    route:
+    - destination:
+        host: cat-svc
+        subset: gray
+  ## prod 路由规则
+  - match:
+    - headers:
+        env:
+          exact: prod
+    route:
+    - destination:
+        host: cat-svc
+        subset: prod
+  ## 默认 路由规则
+  - route:
+    - destination:
+        host: cat-svc
+        subset: prod
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: cat-vs
+spec:
+  hosts:
+  - "cat-svc"
+  http:
+  ## gray 路由规则
+  - match:
+    - headers:
+        env:
+          exact: gray
+    route:
+    - destination:
+        host: cat-svc
+        subset: gray
+  ## prod 路由规则
+  - match:
+    - headers:
+        env:
+          exact: prod
+    route:
+    - destination:
+        host: cat-svc
+        subset: prod
+  ## 默认 路由规则
+  - route:
+    - destination:
+        host: cat-svc
+        subset: prod
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: dog-vs
+spec:
+  hosts:
+  - "dog-svc"
+  http:
+  ## gray 路由规则
+  # - match:
+  #   - headers:
+  #       env:
+  #         exact: gray
+  #   route:
+  #   - destination:
+  #       host: dog-svc
+  #       subset: gray
+  ## prod 路由规则
+  - match:
+    - headers:
+        env:
+          exact: prod
+    route:
+    - destination:
+        host: dog-svc
+        subset: prod
+  ## 默认路由规则      
+  - route:
+    - destination:
+        host: dog-svc
+        subset: prod
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: monkey-vs
+spec:
+  hosts:
+  - "monkey-svc"
+  http:
+  ## gray 路由规则
+  - match:
+    - headers:
+        env:
+          exact: gray
+    route:
+    - destination:
+        host: monkey-svc
+        subset: gray
+  ## prod 路由规则
+  - match:
+    - headers:
+        env:
+          exact: prod
+    route:
+    - destination:
+        host: monkey-svc
+        subset: prod
+  ## 默认路由规则      
+  - route:
+    - destination:
+        host: monkey-svc
+        subset: prod

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dog-dp
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: dog
+      version: prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dog
+        version: prod
+    spec:
+      containers:
+        - name: dog-ct
+          image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=dog --server.port=8080 --env=prod --next=true --service.url=http://monkey-svc --spring.sleuth.baggage.remote-fields=xxx
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"

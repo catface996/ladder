@@ -1,0 +1,59 @@
+## 业务网关 Service，使用 Spring Cloud Gateway 实现
+apiVersion: v1
+kind: Service
+metadata:
+  name: biz-gateway-svc
+spec:
+  selector:
+    app: biz-gateway
+  internalTrafficPolicy: Cluster
+  ports:
+    - protocol: TCP
+      name: http-port
+      port: 80
+      targetPort: 8080
+---
+## cat-svc 
+apiVersion: v1
+kind: Service
+metadata:
+  name: cat-svc
+spec:
+  selector:
+    app: cat
+  internalTrafficPolicy: Cluster
+  ports:
+    - protocol: TCP
+      name: http-port
+      port: 80
+      targetPort: 8080
+---
+## dog-svc 
+apiVersion: v1
+kind: Service
+metadata:
+  name: dog-svc
+spec:
+  selector:
+    app: dog
+  internalTrafficPolicy: Cluster
+  ports:
+    - protocol: TCP
+      name: http-port
+      port: 80
+      targetPort: 8080
+---
+## monkey-svc 
+apiVersion: v1
+kind: Service
+metadata:
+  name: monkey-svc
+spec:
+  selector:
+    app: monkey
+  internalTrafficPolicy: Cluster
+  ports:
+    - protocol: TCP
+      name: http-port
+      port: 80
+      targetPort: 8080

@@ -1,0 +1,225 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biz-gateway-dp-prod
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: biz-gateway
+      version: prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: biz-gateway
+        version: prod
+    spec:
+      containers:
+        - name: biz-gateway-ct-prod
+          image: catface996/spring-cloud-gateway-istio:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cat-dp-gray
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: cat
+      version: gray
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cat
+        version: gray
+    spec:
+      containers:
+        - name: cat-ct-gray
+          image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=cat --server.port=8080 --env=gray --next=true --service.url=http://dog-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cat-dp-prod
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: cat
+      version: prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cat
+        version: prod
+    spec:
+      containers:
+        - name: cat-ct-prod
+          image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=cat --server.port=8080 --env=prod --next=true --service.url=http://dog-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dog-dp
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: dog
+      version: prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dog
+        version: prod
+    spec:
+      containers:
+        - name: dog-ct
+          image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=dog --server.port=8080 --env=prod --next=true --service.url=http://monkey-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monkey-dp-gray
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: monkey
+      version: gray
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: monkey
+        version: gray
+    spec:
+      containers:
+        - name: monkey-ct-gray
+          image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9001
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=monkey --server.port=8080 --env=gray --next=false --service.url=http://xxx-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monkey-dp-prod
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: monkey
+      version: prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: monkey
+        version: prod
+    spec:
+      containers:
+        - name: monkey-ct-prod
+          image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=monkey --server.port=8080 --env=prod --next=false --service.url=http://xxx-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"
