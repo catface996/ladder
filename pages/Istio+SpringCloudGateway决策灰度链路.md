@@ -47,12 +47,25 @@
 		- ![image.png](../assets/image_1651557271942_0.png)
 	- 配置本地 hosts，通过 curl 访问 http://gateway.catface996.com:31606/cat/sayHello
 		- 为什么要访问 /cat/sayHello   /cat 是用来在 spring cloud gateway 中做服务路由的前缀。
-		- ![image.png](../assets/image_1651556731059_0.png)
+		- ![image.png](../assets/image_1651556731059_0.png){:height 438, :width 716}
 		- ![image.png](../assets/image_1651556764657_0.png)
 		- ```shell
 		  curl http://gateway.catface996.com:31606/cat/sayHello
+		  
+		  ## 每秒访问一次
+		  watch -n 1 curl -o /dev/null -s -w %{http_code} http://gateway.catface996.com:31606/cat/sayHello
 		  ```
+		- ![image.png](../assets/image_1651558309624_0.png)
+		- ![image.png](../assets/image_1651558341175_0.png)
 	- 部署 Destination Rule
+		- ```shell
+		  ## 进入 ladder/code/istio/spring-cloud-gateway 后执行以下命令
+		  
+		  kubectl apply -f destination-rule.yaml
+		  ```
+		- ![image.png](../assets/image_1651558434463_0.png){:height 240, :width 716}
+		- ![image.png](../assets/image_1651558458742_0.png)
 	- 部署 Virtual Service
+		-
 	- 针对不同的用户做灰度验证
 	- 修改用户所属环境再验证

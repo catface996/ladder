@@ -8,24 +8,6 @@ spec:
   gateways:
   - biz-gateway
   http:
-  ## gray 路由规则
-  - match:
-    - headers:
-        env:
-          exact: gray
-    route:
-    - destination:
-        host: cat-svc
-        subset: gray
-  ## prod 路由规则
-  - match:
-    - headers:
-        env:
-          exact: prod
-    route:
-    - destination:
-        host: cat-svc
-        subset: prod
   ## 默认 路由规则
   - route:
     - destination:
