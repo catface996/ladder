@@ -66,6 +66,12 @@
 		- ![image.png](../assets/image_1651558434463_0.png){:height 240, :width 716}
 		- ![image.png](../assets/image_1651558458742_0.png)
 	- 部署 Virtual Service
-		-
+		- ```shell
+		  ## 进入 ladder/code/istio/spring-cloud-gateway 后执行以下命令
+		  
+		  kubectl apply -f virtual-service.yaml
+		  ```
+		- ![image.png](../assets/image_1651558652715_0.png){:height 266, :width 716}
+		- ![image.png](../assets/image_1651558716229_0.png)
 	- 针对不同的用户做灰度验证
 	- 修改用户所属环境再验证

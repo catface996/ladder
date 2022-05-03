@@ -11,7 +11,7 @@ spec:
   ## 默认 路由规则
   - route:
     - destination:
-        host: cat-svc
+        host: biz-gateway-svc
         subset: prod
 ---
 apiVersion: networking.istio.io/v1alpha3
