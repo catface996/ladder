@@ -36,15 +36,15 @@ spec:
           lifecycle:
             postStart:
               httpGet:
-                host: dog-svc
+                host: "dog-svc"
                 port: 80
-                path: /sayHello
+                path: "/sayHello"
                 scheme: HTTP
             preStop:
               httpGet:
-                host: dog-svc
+                host: "dog-svc"
                 port: 80
-                path: /sayHello
+                path: "/sayHello"
                 scheme: HTTP
 ---
 apiVersion: apps/v1
