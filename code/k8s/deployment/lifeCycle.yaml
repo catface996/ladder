@@ -33,16 +33,21 @@ spec:
             limits:
               cpu: "200m"
               memory: "1024Mi"
-          volumeMounts:
-            - name: log
-              mountPath: /usr/local/log.log
-              readOnly: false
           securityContext:
-            privileged: true
+            privileged: true 
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/sh", "-c", "echo $(date) 'written by postStart' >> /usr/local/log.log"]
+                command: ["/bin/sh", "-c", "echo $(date) 'written by postStart' >> /usr/local/log/out.log && sleep 2s"]
             preStop:
               exec:
-                command: ["/bin/sh", "-c", "echo $(date) 'written by preStop' >> /usr/local/log.log && sleep 20s"]        
+                command: ["/bin/sh", "-c", "echo $(date) 'written by preStop' >> /usr/local/log/out.log && sleep 2s"]
+          volumeMounts:
+            - name: log-volume
+              mountPath: /usr/local/log/
+              readOnly: false
+      volumes:
+      - name: log-volume
+        hostPath:
+          path: /usr/local/log/
+          type: DirectoryOrCreate
