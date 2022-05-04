@@ -43,7 +43,7 @@ spec:
     fault:
       delay:
         percentage:
-          value: 1
+          value: 100
         fixedDelay: 5s
   ## prod 路由规则
   - match:
