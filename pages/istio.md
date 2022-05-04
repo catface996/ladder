@@ -25,14 +25,22 @@
 					- 通过浏览器请求 /productpage   完整地址： http://192.168.162.22:31606/productpage
 				- 打开kiali面板
 				  id:: 62638d0b-abac-4fa7-bb9a-8d08efa0a4f6
-					- ~~~shell
+					- ```shell
+					  istioctl dashboard kiali --address 192.168.162.22
+					  ```
+					- ```shell
+					  # 实际执行结果
+					  [root@k8s-master-22 ~]# istioctl dashboard kiali --address 192.168.162.22
+					  http://192.168.162.22:20001/kiali
+					  Failed to open browser; open http://192.168.162.22:20001/kiali in your browser.
+					  ell
 					  istioctl dashboard kiali --address 192.168.162.22
 					  
 					  # 实际执行结果
 					  [root@k8s-master-22 ~]# istioctl dashboard kiali --address 192.168.162.22
 					  http://192.168.162.22:20001/kiali
 					  Failed to open browser; open http://192.168.162.22:20001/kiali in your browser.
-					  ~~~
+					  ```
 			- 应用目标规则
 				- id:: 62638d0b-25b9-4026-8323-d21e1daf5501
 				  ~~~shell

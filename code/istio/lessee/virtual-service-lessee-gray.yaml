@@ -1,0 +1,96 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: biz-gateway-vs
+spec:
+  hosts:
+  - "gateway.catface996.com"
+  gateways:
+  - biz-gateway
+  http:
+  ## 默认 路由规则
+  - route:
+    - destination:
+        host: biz-gateway-svc
+        subset: default
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: cat-vs
+spec:
+  hosts:
+  - "cat-svc"
+  http:
+  ## L1-prod 路由规则
+  - match:
+    - headers:
+        lessee:
+          exact: L1
+        env:
+          exact: prod
+    route:
+    - destination:
+        host: cat-svc
+        subset: L1-prod
+  ## L1-prod 路由规则
+  - match:
+    - headers:
+        lessee:
+          exact: L1
+        env:
+          exact: gray
+    route:
+    - destination:
+        host: cat-svc
+        subset: L1-gray
+  ## prod 路由规则
+  - match:
+    - headers:
+        lessee:
+          exact: L2
+    route:
+    - destination:
+        host: cat-svc
+        subset: L2
+    fault:
+      delay:
+        percentage:
+          value: 100
+        fixedDelay: 5s
+  ## prod 路由规则
+  - match:
+    - headers:
+        lessee:
+          exact: L3
+    route:
+    - destination:
+        host: cat-svc
+        subset: L3
+  ## 默认 路由规则
+  - route:
+    - destination:
+        host: cat-svc
+        subset: L3
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: dog-vs
+spec:
+  hosts:
+  - "dog-svc"
+  http:
+  - match:
+    - headers:
+        lessee:
+          exact: L1
+    route:
+    - destination:
+        host: dog-svc
+        subset: L1
+  ## 默认路由规则      
+  - route:
+    - destination:
+        host: dog-svc
+        subset: default

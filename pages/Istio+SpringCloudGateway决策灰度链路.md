@@ -27,7 +27,7 @@
 - 实施步骤及验证
 	- ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
 	- 打开jaejer 面板
-	  collapsed:: true
+	  id:: 6270bfa9-1172-4762-91d1-3013d8da52ac
 		- [官方文档](https://istio.io/latest/zh/docs/tasks/observability/distributed-tracing/jaeger/)
 		- ```shell
 		  istioctl dashboard jaeger --address 192.168.162.22
