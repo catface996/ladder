@@ -40,7 +40,7 @@ spec:
                 host: dog-svc
                 port: 80
                 path: /sayHello
-                schema: http
+                scheme: http
               
 
 
