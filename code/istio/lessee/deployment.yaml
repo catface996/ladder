@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
         - name: cat-ct-l1
-          image: catface996/spring-cloud-istio-demo:latest
+          image: catface996/spring-cloud-istio-demo:lessee
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -94,7 +94,7 @@ spec:
     spec:
       containers:
         - name: cat-ct-l2
-          image: catface996/spring-cloud-istio-demo:latest
+          image: catface996/spring-cloud-istio-demo:lessee
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -132,7 +132,7 @@ spec:
     spec:
       containers:
         - name: cat-ct-l3
-          image: catface996/spring-cloud-istio-demo:latest
+          image: catface996/spring-cloud-istio-demo:lessee
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -170,7 +170,7 @@ spec:
     spec:
       containers:
         - name: dog-ct-l1
-          image: catface996/spring-cloud-istio-demo:latest
+          image: catface996/spring-cloud-istio-demo:lessee
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -208,7 +208,7 @@ spec:
     spec:
       containers:
         - name: dog-ct-default
-          image: catface996/spring-cloud-istio-demo:latest
+          image: catface996/spring-cloud-istio-demo:lessee
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
