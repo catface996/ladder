@@ -81,7 +81,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cat-dp-l1-gray
+  name: cat-dp-l1-prod
   annotations:
     author: catface996
 spec:
