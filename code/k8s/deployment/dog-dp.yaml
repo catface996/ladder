@@ -27,7 +27,7 @@ spec:
               protocol: TCP
           env:
           - name: SPRING_OPTS
-            value: --spring.application.name=cat --server.port=8080 --env=gray --next=true --service.url=http://monkey-svc
+            value: --spring.application.name=cat --server.port=8080 --env=gray --next=false --service.url=http://monkey-svc
           - name: JAVA_OPTS
             value: -Xmx512M -Xms512M
           resources:

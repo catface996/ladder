@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cat-dp-gray
+  name: cat-dp-life-cycle
   annotations:
     author: catface996
 spec:
   selector:
     matchLabels:
       app: cat
-      env: gray
   replicas: 1
   template:
     metadata:
       labels:
         app: cat
-        env: gray
     spec:
       containers:
-        - name: cat-ct-gray
+        - name: cat-ct
           image: catface996/spring-cloud-istio-demo:latest
           imagePullPolicy: IfNotPresent
           ports:
@@ -25,7 +23,7 @@ spec:
               protocol: TCP
           env:
           - name: SPRING_OPTS
-            value: --spring.application.name=cat --server.port=8080 --env=gray --next=true --service.url=http://monkey-svc
+            value: --spring.application.name=cat --server.port=8080 --env=prod --next=true --service.url=http://dog-svc
           - name: JAVA_OPTS
             value: -Xmx512M -Xms512M
           resources:
@@ -42,7 +40,55 @@ spec:
                 port: 80
                 path: /sayHello
                 scheme: HTTP
-              
-
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dog-dp-life-cycle
+  annotations:
+    author: catface996
+spec:
+  selector:
+    matchLabels:
+      app: dog
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dog
+    spec:
+      containers:
+        - name: dog-ct
+          image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: SPRING_OPTS
+            value: --spring.application.name=dog --server.port=8080 --env=prod --next=false --service.url=http://xxx-svc
+          - name: JAVA_OPTS
+            value: -Xmx512M -Xms512M
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "200m"
+              memory: "1024Mi"         
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dog-svc
+spec:
+  selector:
+    app: dog
+  internalTrafficPolicy: Cluster
+  ports:
+    - protocol: TCP
+      name: http-port
+      port: 80
+      targetPort: 8080
 
 
