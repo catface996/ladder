@@ -1,0 +1,41 @@
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: biz-gateway-dr
+spec:
+  host: biz-gateway-svc
+  subsets:
+    - name: default
+      labels:
+        version: default
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: cat-dr
+spec:
+  host: cat-svc
+  subsets:
+    - name: L1
+      labels:
+        version: L1
+    - name: L2
+      labels:
+        version: L2
+    - name: L3
+      labels:
+        version: L3
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: dog-dr
+spec:
+  host: dog-svc
+  subsets:
+    - name: L1
+      labels:
+        version: L1
+    - name: default
+      labels:
+        version: default

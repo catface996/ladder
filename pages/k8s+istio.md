@@ -43,10 +43,15 @@
 	  CLOCK: [2022-04-30 Sat 22:27:57]--[2022-05-02 Mon 11:27:33] =>  36:59:36
 	  :END:
 	- DONE 20- [[Istio+SpringCloud 灰度方案]]
-	- NOW 21-[[Istio+SpringCloudGateway决策灰度链路]]
+	- DONE 21-[[Istio+SpringCloudGateway决策灰度链路]]
 	  :LOGBOOK:
 	  CLOCK: [2022-05-03 Tue 12:31:35]
-	  CLOCK: [2022-05-03 Tue 12:31:39]
+	  CLOCK: [2022-05-03 Tue 12:31:39]--[2022-05-04 Wed 10:19:00] =>  21:47:21
+	  :END:
+	- NOW 22-[[多租户的不同流量策略]]
+	  :LOGBOOK:
+	  CLOCK: [2022-05-04 Wed 10:19:06]
+	  CLOCK: [2022-05-04 Wed 10:19:07]
 	  :END:
 	-
 -
