@@ -33,11 +33,12 @@ spec:
             limits:
               cpu: "200m"
               memory: "1024Mi"
+          securityContext:
+            privileged: true
           lifecycle:
             postStart:
               exec:
                 command: ["/bin/sh", "-c", "echo $(date) 'written by postStart' >> /usr/local/log.log"]
             preStop:
               exec:
-                command: ["/bin/sh", "-c", "echo $(date) 'written by preStop' >> /usr/local/log.log && sleep 20s"]
-
+                command: ["/bin/sh", "-c", "echo $(date) 'written by preStop' >> /usr/local/log.log && sleep 20s"]        
