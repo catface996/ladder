@@ -33,6 +33,10 @@ spec:
             limits:
               cpu: "200m"
               memory: "1024Mi"
+          volumeMounts:
+            - name: log
+              mountPath: /usr/local/log.log
+              readOnly: false
           securityContext:
             privileged: true
           lifecycle:

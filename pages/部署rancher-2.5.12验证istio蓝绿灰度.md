@@ -31,35 +31,35 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoController {
 
-  @Value("${spring.application.name}")
-  private String appName;
+@Value("${spring.application.name}")
+private String appName;
 
-  @Value("${next}")
-  private Boolean next;
+@Value("${next}")
+private Boolean next;
 
-  @Value("${env}")
-  private String env;
+@Value("${env}")
+private String env;
 
-  private DemoApi demoApi;
+private DemoApi demoApi;
 
-  @ResponseBody
-  @GetMapping(value = "/sayHello")
-  public String sayHello(HttpServletRequest request) {
-      String headerEnv = request.getHeader("env");
-      String headerInfo = "header env(" + headerEnv + ")";
-      String current = headerInfo + ", I'm " + appName + "(" + env + ")";
-      log.info(current);
-      String response = "";
-      if (next) {
-          response = demoApi.sayHello();
-      }
-      return current + " --> " + response;
-  }
+@ResponseBody
+@GetMapping(value = "/sayHello")
+public String sayHello(HttpServletRequest request) {
+    String headerEnv = request.getHeader("env");
+    String headerInfo = "header env(" + headerEnv + ")";
+    String current = headerInfo + ", I'm " + appName + "(" + env + ")";
+    log.info(current);
+    String response = "";
+    if (next) {
+        response = demoApi.sayHello();
+    }
+    return current + " --> " + response;
+}
 
-  @Autowired
-  public void setDemoApi(DemoApi demoApi) {
-      this.demoApi = demoApi;
-  }
+@Autowired
+public void setDemoApi(DemoApi demoApi) {
+    this.demoApi = demoApi;
+}
 }
 ~~~
 ## DemoApi代码
@@ -79,13 +79,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(url = "${service.url}", name = "demoApi", fallbackFactory = DemoApiFallback.class)
 public interface DemoApi {
 
-  /**
-   * 打招呼接口
-   *
-   * @return 打招呼的回应
-   */
-  @GetMapping(value = "/sayHello")
-  String sayHello();
+/**
+ * 打招呼接口
+ *
+ * @return 打招呼的回应
+ */
+@GetMapping(value = "/sayHello")
+String sayHello();
 }
 
 ~~~
@@ -145,115 +145,115 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
 annotations:
-  deployment.kubernetes.io/revision: "3"
-  field.cattle.io/creatorId: user-qsffg
-  field.cattle.io/publicEndpoints: "null"
+deployment.kubernetes.io/revision: "3"
+field.cattle.io/creatorId: user-qsffg
+field.cattle.io/publicEndpoints: "null"
 creationTimestamp: "2022-02-24T14:13:12Z"
 generation: 5
 labels:
-  cattle.io/creator: norman
-  workload.user.cattle.io/workloadselector: deployment-default-cat-gray
+cattle.io/creator: norman
+workload.user.cattle.io/workloadselector: deployment-default-cat-gray
 managedFields:
 - apiVersion: apps/v1
-  fieldsType: FieldsV1
-  fieldsV1:
-    f:metadata:
-      f:annotations:
+fieldsType: FieldsV1
+fieldsV1:
+  f:metadata:
+    f:annotations:
+      .: {}
+      f:field.cattle.io/creatorId: {}
+      f:field.cattle.io/publicEndpoints: {}
+    f:labels:
+      .: {}
+      f:cattle.io/creator: {}
+      f:workload.user.cattle.io/workloadselector: {}
+  f:spec:
+    f:progressDeadlineSeconds: {}
+    f:replicas: {}
+    f:revisionHistoryLimit: {}
+    f:selector: {}
+    f:strategy:
+      f:rollingUpdate:
         .: {}
-        f:field.cattle.io/creatorId: {}
-        f:field.cattle.io/publicEndpoints: {}
-      f:labels:
-        .: {}
-        f:cattle.io/creator: {}
-        f:workload.user.cattle.io/workloadselector: {}
-    f:spec:
-      f:progressDeadlineSeconds: {}
-      f:replicas: {}
-      f:revisionHistoryLimit: {}
-      f:selector: {}
-      f:strategy:
-        f:rollingUpdate:
+        f:maxSurge: {}
+        f:maxUnavailable: {}
+      f:type: {}
+    f:template:
+      f:metadata:
+        f:annotations:
           .: {}
-          f:maxSurge: {}
-          f:maxUnavailable: {}
-        f:type: {}
-      f:template:
-        f:metadata:
-          f:annotations:
+          f:cattle.io/timestamp: {}
+          f:field.cattle.io/ports: {}
+        f:labels:
+          .: {}
+          f:app: {}
+          f:env: {}
+          f:workload.user.cattle.io/workloadselector: {}
+      f:spec:
+        f:containers:
+          k:{"name":"cat-gray"}:
             .: {}
-            f:cattle.io/timestamp: {}
-            f:field.cattle.io/ports: {}
-          f:labels:
-            .: {}
-            f:app: {}
-            f:env: {}
-            f:workload.user.cattle.io/workloadselector: {}
-        f:spec:
-          f:containers:
-            k:{"name":"cat-gray"}:
+            f:env:
               .: {}
-              f:env:
+              k:{"name":"SPRING_OPTS"}:
                 .: {}
-                k:{"name":"SPRING_OPTS"}:
-                  .: {}
-                  f:name: {}
-                  f:value: {}
-              f:image: {}
-              f:imagePullPolicy: {}
-              f:name: {}
-              f:resources: {}
-              f:securityContext:
-                .: {}
-                f:allowPrivilegeEscalation: {}
-                f:capabilities: {}
-                f:privileged: {}
-                f:readOnlyRootFilesystem: {}
-                f:runAsNonRoot: {}
-              f:stdin: {}
-              f:terminationMessagePath: {}
-              f:terminationMessagePolicy: {}
-              f:tty: {}
-          f:dnsPolicy: {}
-          f:restartPolicy: {}
-          f:schedulerName: {}
-          f:securityContext: {}
-          f:terminationGracePeriodSeconds: {}
-  manager: rancher
-  operation: Update
-  time: "2022-02-24T14:59:57Z"
+                f:name: {}
+                f:value: {}
+            f:image: {}
+            f:imagePullPolicy: {}
+            f:name: {}
+            f:resources: {}
+            f:securityContext:
+              .: {}
+              f:allowPrivilegeEscalation: {}
+              f:capabilities: {}
+              f:privileged: {}
+              f:readOnlyRootFilesystem: {}
+              f:runAsNonRoot: {}
+            f:stdin: {}
+            f:terminationMessagePath: {}
+            f:terminationMessagePolicy: {}
+            f:tty: {}
+        f:dnsPolicy: {}
+        f:restartPolicy: {}
+        f:schedulerName: {}
+        f:securityContext: {}
+        f:terminationGracePeriodSeconds: {}
+manager: rancher
+operation: Update
+time: "2022-02-24T14:59:57Z"
 - apiVersion: apps/v1
-  fieldsType: FieldsV1
-  fieldsV1:
-    f:metadata:
-      f:annotations:
-        f:deployment.kubernetes.io/revision: {}
-    f:status:
-      f:availableReplicas: {}
-      f:conditions:
+fieldsType: FieldsV1
+fieldsV1:
+  f:metadata:
+    f:annotations:
+      f:deployment.kubernetes.io/revision: {}
+  f:status:
+    f:availableReplicas: {}
+    f:conditions:
+      .: {}
+      k:{"type":"Available"}:
         .: {}
-        k:{"type":"Available"}:
-          .: {}
-          f:lastTransitionTime: {}
-          f:lastUpdateTime: {}
-          f:message: {}
-          f:reason: {}
-          f:status: {}
-          f:type: {}
-        k:{"type":"Progressing"}:
-          .: {}
-          f:lastTransitionTime: {}
-          f:lastUpdateTime: {}
-          f:message: {}
-          f:reason: {}
-          f:status: {}
-          f:type: {}
-      f:observedGeneration: {}
-      f:readyReplicas: {}
-      f:replicas: {}
-      f:updatedReplicas: {}
-  manager: kube-controller-manager
-  operation: Update
-  time: "2022-02-24T15:06:27Z"
+        f:lastTransitionTime: {}
+        f:lastUpdateTime: {}
+        f:message: {}
+        f:reason: {}
+        f:status: {}
+        f:type: {}
+      k:{"type":"Progressing"}:
+        .: {}
+        f:lastTransitionTime: {}
+        f:lastUpdateTime: {}
+        f:message: {}
+        f:reason: {}
+        f:status: {}
+        f:type: {}
+    f:observedGeneration: {}
+    f:readyReplicas: {}
+    f:replicas: {}
+    f:updatedReplicas: {}
+manager: kube-controller-manager
+operation: Update
+time: "2022-02-24T15:06:27Z"
 name: cat-gray
 namespace: default
 resourceVersion: "19617"
@@ -263,63 +263,63 @@ progressDeadlineSeconds: 600
 replicas: 1
 revisionHistoryLimit: 10
 selector:
-  matchLabels:
-    workload.user.cattle.io/workloadselector: deployment-default-cat-gray
+matchLabels:
+  workload.user.cattle.io/workloadselector: deployment-default-cat-gray
 strategy:
-  rollingUpdate:
-    maxSurge: 1
-    maxUnavailable: 0
-  type: RollingUpdate
+rollingUpdate:
+  maxSurge: 1
+  maxUnavailable: 0
+type: RollingUpdate
 template:
-  metadata:
-    annotations:
-      cattle.io/timestamp: "2022-02-24T15:06:13Z"
-      field.cattle.io/ports: '[[]]'
-    creationTimestamp: null
-    labels:
-      app: cat
-      env: gray
-      workload.user.cattle.io/workloadselector: deployment-default-cat-gray
-  spec:
-    containers:
-    - env:
-      - name: SPRING_OPTS
-        value: --spring.application.name=cat --server.port=80 --env=gray --next=true
-          --service.url=http://dog-svc
-      image: zlyxzq/istio-demo-service-istio:latest
-      imagePullPolicy: Always
-      name: cat-gray
-      resources: {}
-      securityContext:
-        allowPrivilegeEscalation: false
-        capabilities: {}
-        privileged: false
-        readOnlyRootFilesystem: false
-        runAsNonRoot: false
-      stdin: true
-      terminationMessagePath: /dev/termination-log
-      terminationMessagePolicy: File
-      tty: true
-    dnsPolicy: ClusterFirst
-    restartPolicy: Always
-    schedulerName: default-scheduler
-    securityContext: {}
-    terminationGracePeriodSeconds: 30
+metadata:
+  annotations:
+    cattle.io/timestamp: "2022-02-24T15:06:13Z"
+    field.cattle.io/ports: '[[]]'
+  creationTimestamp: null
+  labels:
+    app: cat
+    env: gray
+    workload.user.cattle.io/workloadselector: deployment-default-cat-gray
+spec:
+  containers:
+  - env:
+    - name: SPRING_OPTS
+      value: --spring.application.name=cat --server.port=80 --env=gray --next=true
+        --service.url=http://dog-svc
+    image: zlyxzq/istio-demo-service-istio:latest
+    imagePullPolicy: Always
+    name: cat-gray
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities: {}
+      privileged: false
+      readOnlyRootFilesystem: false
+      runAsNonRoot: false
+    stdin: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    tty: true
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  terminationGracePeriodSeconds: 30
 status:
 availableReplicas: 1
 conditions:
 - lastTransitionTime: "2022-02-24T14:13:44Z"
-  lastUpdateTime: "2022-02-24T14:13:44Z"
-  message: Deployment has minimum availability.
-  reason: MinimumReplicasAvailable
-  status: "True"
-  type: Available
+lastUpdateTime: "2022-02-24T14:13:44Z"
+message: Deployment has minimum availability.
+reason: MinimumReplicasAvailable
+status: "True"
+type: Available
 - lastTransitionTime: "2022-02-24T14:13:12Z"
-  lastUpdateTime: "2022-02-24T15:06:27Z"
-  message: ReplicaSet "cat-gray-858bf79f4d" has successfully progressed.
-  reason: NewReplicaSetAvailable
-  status: "True"
-  type: Progressing
+lastUpdateTime: "2022-02-24T15:06:27Z"
+message: ReplicaSet "cat-gray-858bf79f4d" has successfully progressed.
+reason: NewReplicaSetAvailable
+status: "True"
+type: Progressing
 observedGeneration: 5
 readyReplicas: 1
 replicas: 1
@@ -336,49 +336,49 @@ apiVersion: v1
 kind: Service
 metadata:
 annotations:
-  field.cattle.io/creatorId: user-qsffg
-  field.cattle.io/ipAddresses: "null"
-  field.cattle.io/targetDnsRecordIds: "null"
-  field.cattle.io/targetWorkloadIds: "null"
+field.cattle.io/creatorId: user-qsffg
+field.cattle.io/ipAddresses: "null"
+field.cattle.io/targetDnsRecordIds: "null"
+field.cattle.io/targetWorkloadIds: "null"
 creationTimestamp: "2022-02-24T13:54:10Z"
 labels:
-  cattle.io/creator: norman
+cattle.io/creator: norman
 managedFields:
 - apiVersion: v1
-  fieldsType: FieldsV1
-  fieldsV1:
-    f:metadata:
-      f:annotations:
+fieldsType: FieldsV1
+fieldsV1:
+  f:metadata:
+    f:annotations:
+      .: {}
+      f:field.cattle.io/creatorId: {}
+      f:field.cattle.io/ipAddresses: {}
+      f:field.cattle.io/targetDnsRecordIds: {}
+      f:field.cattle.io/targetWorkloadIds: {}
+    f:labels:
+      .: {}
+      f:cattle.io/creator: {}
+  f:spec:
+    f:ports:
+      .: {}
+      k:{"port":80,"protocol":"TCP"}:
         .: {}
-        f:field.cattle.io/creatorId: {}
-        f:field.cattle.io/ipAddresses: {}
-        f:field.cattle.io/targetDnsRecordIds: {}
-        f:field.cattle.io/targetWorkloadIds: {}
-      f:labels:
+        f:name: {}
+        f:port: {}
+        f:protocol: {}
+        f:targetPort: {}
+    f:selector:
+      .: {}
+      f:app: {}
+    f:sessionAffinity: {}
+    f:sessionAffinityConfig:
+      .: {}
+      f:clientIP:
         .: {}
-        f:cattle.io/creator: {}
-    f:spec:
-      f:ports:
-        .: {}
-        k:{"port":80,"protocol":"TCP"}:
-          .: {}
-          f:name: {}
-          f:port: {}
-          f:protocol: {}
-          f:targetPort: {}
-      f:selector:
-        .: {}
-        f:app: {}
-      f:sessionAffinity: {}
-      f:sessionAffinityConfig:
-        .: {}
-        f:clientIP:
-          .: {}
-          f:timeoutSeconds: {}
-      f:type: {}
-  manager: rancher
-  operation: Update
-  time: "2022-02-24T13:54:10Z"
+        f:timeoutSeconds: {}
+    f:type: {}
+manager: rancher
+operation: Update
+time: "2022-02-24T13:54:10Z"
 name: cat-svc
 namespace: default
 resourceVersion: "5750"
@@ -389,15 +389,15 @@ clusterIPs:
 - 10.43.107.197
 ports:
 - name: http
-  port: 80
-  protocol: TCP
-  targetPort: 80
+port: 80
+protocol: TCP
+targetPort: 80
 selector:
-  app: cat
+app: cat
 sessionAffinity: ClientIP
 sessionAffinityConfig:
-  clientIP:
-    timeoutSeconds: 10800
+clientIP:
+  timeoutSeconds: 10800
 type: ClusterIP
 status:
 loadBalancer: {}
@@ -413,46 +413,46 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
 annotations:
-  field.cattle.io/creatorId: user-qsffg
+field.cattle.io/creatorId: user-qsffg
 creationTimestamp: "2022-02-24T14:49:13Z"
 generation: 3
 labels:
-  cattle.io/creator: norman
+cattle.io/creator: norman
 managedFields:
 - apiVersion: networking.istio.io/v1alpha3
-  fieldsType: FieldsV1
-  fieldsV1:
-    f:metadata:
-      f:annotations:
-        .: {}
-        f:field.cattle.io/creatorId: {}
-      f:labels:
-        .: {}
-        f:cattle.io/creator: {}
-    f:spec:
+fieldsType: FieldsV1
+fieldsV1:
+  f:metadata:
+    f:annotations:
       .: {}
-      f:selector:
-        .: {}
-        f:istio: {}
-      f:servers: {}
-  manager: rancher
-  operation: Update
-  time: "2022-02-24T14:49:13Z"
+      f:field.cattle.io/creatorId: {}
+    f:labels:
+      .: {}
+      f:cattle.io/creator: {}
+  f:spec:
+    .: {}
+    f:selector:
+      .: {}
+      f:istio: {}
+    f:servers: {}
+manager: rancher
+operation: Update
+time: "2022-02-24T14:49:13Z"
 name: cat-gateway
 namespace: default
 resourceVersion: "21898"
 uid: 7d14592c-ca55-4a5c-b47d-8bc3da04567d
 spec:
 selector:
-  istio: ingressgateway
+istio: ingressgateway
 servers:
 - hosts:
-  - cat.catface.com
-  ## 需配置具体的域名,或者*
-  port:
-    name: http
-    number: 80
-    protocol: HTTP
+- cat.catface.com
+## 需配置具体的域名,或者*
+port:
+  name: http
+  number: 80
+  protocol: HTTP
 ~~~
 ### 配置目标规则
 
@@ -465,36 +465,36 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
 annotations:
-  field.cattle.io/creatorId: user-qsffg
+field.cattle.io/creatorId: user-qsffg
 creationTimestamp: "2022-02-24T15:03:04Z"
 generation: 3
 labels:
-  cattle.io/creator: norman
+cattle.io/creator: norman
 managedFields:
 - apiVersion: networking.istio.io/v1alpha3
-  fieldsType: FieldsV1
-  fieldsV1:
-    f:metadata:
-      f:annotations:
-        .: {}
-        f:field.cattle.io/creatorId: {}
-      f:labels:
-        .: {}
-        f:cattle.io/creator: {}
-    f:spec:
+fieldsType: FieldsV1
+fieldsV1:
+  f:metadata:
+    f:annotations:
       .: {}
-      f:host: {}
-  manager: rancher
-  operation: Update
-  time: "2022-02-24T15:03:04Z"
+      f:field.cattle.io/creatorId: {}
+    f:labels:
+      .: {}
+      f:cattle.io/creator: {}
+  f:spec:
+    .: {}
+    f:host: {}
+manager: rancher
+operation: Update
+time: "2022-02-24T15:03:04Z"
 - apiVersion: networking.istio.io/v1alpha3
-  fieldsType: FieldsV1
-  fieldsV1:
-    f:spec:
-      f:subsets: {}
-  manager: Mozilla
-  operation: Update
-  time: "2022-02-24T15:03:27Z"
+fieldsType: FieldsV1
+fieldsV1:
+  f:spec:
+    f:subsets: {}
+manager: Mozilla
+operation: Update
+time: "2022-02-24T15:03:27Z"
 name: dog-rule
 namespace: default
 resourceVersion: "20355"
@@ -503,14 +503,14 @@ spec:
 host: dog-svc
 subsets:
 - labels:
-    env: prod
-  name: prod
+  env: prod
+name: prod
 - labels:
-    env: gray
-  name: gray
+  env: gray
+name: gray
 - labels:
-    env: daily
-  name: daily
+  env: daily
+name: daily
 
 ~~~
 ### 配置虚拟服务
@@ -524,37 +524,37 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
 annotations:
-  field.cattle.io/creatorId: user-qsffg
+field.cattle.io/creatorId: user-qsffg
 creationTimestamp: "2022-02-24T13:55:25Z"
 generation: 11
 labels:
-  cattle.io/creator: norman
+cattle.io/creator: norman
 managedFields:
 - apiVersion: networking.istio.io/v1alpha3
-  fieldsType: FieldsV1
-  fieldsV1:
-    f:metadata:
-      f:annotations:
-        .: {}
-        f:field.cattle.io/creatorId: {}
-      f:labels:
-        .: {}
-        f:cattle.io/creator: {}
-    f:spec:
+fieldsType: FieldsV1
+fieldsV1:
+  f:metadata:
+    f:annotations:
       .: {}
-      f:gateways: {}
-      f:http: {}
-  manager: rancher
-  operation: Update
-  time: "2022-02-24T14:53:16Z"
+      f:field.cattle.io/creatorId: {}
+    f:labels:
+      .: {}
+      f:cattle.io/creator: {}
+  f:spec:
+    .: {}
+    f:gateways: {}
+    f:http: {}
+manager: rancher
+operation: Update
+time: "2022-02-24T14:53:16Z"
 - apiVersion: networking.istio.io/v1alpha3
-  fieldsType: FieldsV1
-  fieldsV1:
-    f:spec:
-      f:hosts: {}
-  manager: Mozilla
-  operation: Update
-  time: "2022-02-24T14:54:50Z"
+fieldsType: FieldsV1
+fieldsV1:
+  f:spec:
+    f:hosts: {}
+manager: Mozilla
+operation: Update
+time: "2022-02-24T14:54:50Z"
 name: cat-vs
 namespace: default
 resourceVersion: "17279"
@@ -566,34 +566,34 @@ hosts:
 - cat.catface.com
 http:
 - match:
-  - headers:
-      env:
-        exact: gray
-  route:
-  - destination:
-      host: cat-svc
-      port:
-        number: 80
-      subset: gray
-    weight: 100
+- headers:
+    env:
+      exact: gray
+route:
+- destination:
+    host: cat-svc
+    port:
+      number: 80
+    subset: gray
+  weight: 100
 - match:
-  - headers:
-      env:
-        exact: prod
-  route:
-  - destination:
-      host: cat-svc
-      port:
-        number: 80
-      subset: prod
-    weight: 100
+- headers:
+    env:
+      exact: prod
+route:
+- destination:
+    host: cat-svc
+    port:
+      number: 80
+    subset: prod
+  weight: 100
 - route:
-  - destination:
-      host: cat-svc
-      port:
-        number: 80
-      subset: prod
-    weight: 100
+- destination:
+    host: cat-svc
+    port:
+      number: 80
+    subset: prod
+  weight: 100
 
 ~~~
 ### 通过k8s的Ingress对istio的gatewayIngress对外暴露
@@ -609,40 +609,40 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
 annotations:
-  field.cattle.io/creatorId: user-qsffg
-  field.cattle.io/ingressState: '{"Y2F0LmNhdGZhY2UuY29tL2lzdGlvLXN5c3RlbS9jYXQuY2F0ZmFjZS5jb20vL2h0dHAy":""}'
-  field.cattle.io/publicEndpoints: '[{"addresses":["192.168.162.102"],"port":80,"protocol":"HTTP","serviceName":"istio-system:istio-ingressgateway","ingressName":"istio-system:cat.catface.com","hostname":"cat.catface.com","allNodes":true}]'
+field.cattle.io/creatorId: user-qsffg
+field.cattle.io/ingressState: '{"Y2F0LmNhdGZhY2UuY29tL2lzdGlvLXN5c3RlbS9jYXQuY2F0ZmFjZS5jb20vL2h0dHAy":""}'
+field.cattle.io/publicEndpoints: '[{"addresses":["192.168.162.102"],"port":80,"protocol":"HTTP","serviceName":"istio-system:istio-ingressgateway","ingressName":"istio-system:cat.catface.com","hostname":"cat.catface.com","allNodes":true}]'
 creationTimestamp: "2022-02-24T13:51:03Z"
 generation: 3
 labels:
-  cattle.io/creator: norman
+cattle.io/creator: norman
 managedFields:
 - apiVersion: networking.k8s.io/v1
-  fieldsType: FieldsV1
-  fieldsV1:
-    f:status:
-      f:loadBalancer:
-        f:ingress: {}
-  manager: nginx-ingress-controller
-  operation: Update
-  time: "2022-02-24T13:51:11Z"
+fieldsType: FieldsV1
+fieldsV1:
+  f:status:
+    f:loadBalancer:
+      f:ingress: {}
+manager: nginx-ingress-controller
+operation: Update
+time: "2022-02-24T13:51:11Z"
 - apiVersion: extensions/v1beta1
-  fieldsType: FieldsV1
-  fieldsV1:
-    f:metadata:
-      f:annotations:
-        .: {}
-        f:field.cattle.io/creatorId: {}
-        f:field.cattle.io/ingressState: {}
-        f:field.cattle.io/publicEndpoints: {}
-      f:labels:
-        .: {}
-        f:cattle.io/creator: {}
-    f:spec:
-      f:rules: {}
-  manager: rancher
-  operation: Update
-  time: "2022-02-24T13:51:11Z"
+fieldsType: FieldsV1
+fieldsV1:
+  f:metadata:
+    f:annotations:
+      .: {}
+      f:field.cattle.io/creatorId: {}
+      f:field.cattle.io/ingressState: {}
+      f:field.cattle.io/publicEndpoints: {}
+    f:labels:
+      .: {}
+      f:cattle.io/creator: {}
+  f:spec:
+    f:rules: {}
+manager: rancher
+operation: Update
+time: "2022-02-24T13:51:11Z"
 name: cat.catface.com
 namespace: istio-system
 resourceVersion: "14631"
@@ -650,18 +650,18 @@ uid: 67a8092c-f05c-4099-8f1c-0a5a52696082
 spec:
 rules:
 - host: cat.catface.com
-  http:
-    paths:
-    - backend:
-        serviceName: istio-ingressgateway
-        servicePort: http2
-      pathType: ImplementationSpecific
+http:
+  paths:
+  - backend:
+      serviceName: istio-ingressgateway
+      servicePort: http2
+    pathType: ImplementationSpecific
 status:
 loadBalancer:
-  ingress:
-  - ip: 192.168.162.102
-  - ip: 192.168.162.103
-  - ip: 192.168.162.104
+ingress:
+- ip: 192.168.162.102
+- ip: 192.168.162.103
+- ip: 192.168.162.104
 
 ~~~
 ## 对不同版本做认证
@@ -755,3 +755,4 @@ postman --> cat --> dog
 
 
 ![image-20220301174018582](https://tva1.sinaimg.cn/large/e6c9d24egy1gzuiso3j5gj20pn0pmwg4.jpg)
+-
