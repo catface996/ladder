@@ -35,23 +35,11 @@ spec:
               memory: "1024Mi"
           lifecycle:
             postStart:
-              httpGet:
-                httpHeaders:
-                  - name: Host
-                    value: dog-svc
-                host: "dog-svc"
-                port: 80
-                path: "/sayHello"
-                scheme: HTTP
+              exec:
+                command: ["/bin/sh", "-c", "echo $(date) 'written by postStart' >> /usr/local/log.log"]
             preStop:
-              httpGet:
-                httpHeaders:
-                  - name: Host
-                    value: dog-svc
-                host: "dog-svc"
-                port: 80
-                path: "/sayHello"
-                scheme: HTTP
+              exec:
+                command: ["/bin/sh", "-c", "echo $(date) 'written by preStop' >> /usr/local/log.log && sleep 20s"]
 ---
 apiVersion: apps/v1
 kind: Deployment
