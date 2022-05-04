@@ -24,6 +24,19 @@
 	  :END:
 - 任务
 	-
+- 小技巧
+	- kubectl 命令补全
+		- ```shell
+		  yum -y install bash-completion
+		  
+		  chmod +x /usr/share/bash-completion/bash_completion
+		  
+		  /usr/share/bash-completion/bash_completion
+		  
+		  source /usr/share/bash-completion/bash_completion
+		  
+		  source <(kubectl completion bash)
+		  ```
 -
 -
 -
