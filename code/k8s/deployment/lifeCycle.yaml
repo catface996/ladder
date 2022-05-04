@@ -34,6 +34,12 @@ spec:
               cpu: "200m"
               memory: "1024Mi"
           lifecycle:
+            postStart:
+              httpGet:
+                host: dog-svc
+                port: 80
+                path: /sayHello
+                scheme: HTTP
             preStop:
               httpGet:
                 host: dog-svc
