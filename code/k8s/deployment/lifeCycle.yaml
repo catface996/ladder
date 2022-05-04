@@ -19,6 +19,7 @@ spec:
       containers:
         - name: cat-ct-gray
           image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
               protocol: TCP

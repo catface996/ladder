@@ -21,6 +21,7 @@ spec:
       containers:
         - name: dog-ct
           image: catface996/spring-cloud-istio-demo:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
               protocol: TCP
