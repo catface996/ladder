@@ -49,7 +49,7 @@ spec:
             periodSeconds: 2
             timeoutSeconds: 1
             failureThreshold: 3
-            successThreshold: 2
+            successThreshold: 1
           volumeMounts:
             - name: log-volume
               mountPath: /usr/local/log/
