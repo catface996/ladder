@@ -40,6 +40,16 @@ spec:
             preStop:
               exec:
                 command: ["/bin/sh", "-c", "echo $(date) 'privileged written by preStop' >> /usr/local/log/out.log && sleep 2s"]
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /sayHello
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 2
+            timeoutSeconds: 1
+            failureThreshold: 3
+            successThreshold: 2
           volumeMounts:
             - name: log-volume
               mountPath: /usr/local/log/
