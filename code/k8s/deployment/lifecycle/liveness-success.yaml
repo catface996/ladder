@@ -36,10 +36,10 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/sh", "-c", "echo $(date) 'privileged written by postStart' >> /usr/local/log/out.log && sleep 2s"]
+                command: ["/bin/sh", "-c", "echo $(date) 'liveness-success written by postStart' >> /usr/local/log/out.log && sleep 2s"]
             preStop:
               exec:
-                command: ["/bin/sh", "-c", "echo $(date) 'privileged written by preStop' >> /usr/local/log/out.log && sleep 2s"]
+                command: ["/bin/sh", "-c", "echo $(date) 'liveness-success written by preStop' >> /usr/local/log/out.log && sleep 2s"]
           livenessProbe:
             httpGet:
               port: 8080
