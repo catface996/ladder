@@ -37,11 +37,13 @@
 	- 实施代码介绍
 		- 代码地址： https://github.com/catface996/k8s-istio
 		- Consumer 代码
+		  collapsed:: true
 			- v1 版本
 				- 调用 v1 版本的 provider，返回结果是字符串
 			- v2 版本
 				- 调用 v2 版本的 provider，返回结果是 json 对象
 		- Provider 代码
+		  collapsed:: true
 			- v1 版本
 				- v1 版本仅提供  /v1/order/create 接口
 			- v2 版本
@@ -49,15 +51,19 @@
 		- Deployment 配置
 		- Service 配置
 		- istio-gateway 配置
+		  collapsed:: true
 			- istio-gateway 绑定 consumer-vs
 		- Destination Rule 配置
+		  collapsed:: true
 			- 只需设定 provider 的路由规则
 		- Virtual Service 配置
+		  collapsed:: true
 			- 只需设定 provider 的虚拟服务
 	- 流量观察
 		- ((62638d0b-abac-4fa7-bb9a-8d08efa0a4f6))
 		- ((6270bfa9-1172-4762-91d1-3013d8da52ac))
 	- 部署 v1 版本并验证
+	  collapsed:: true
 		- 配置 hosts
 			- ```shell
 			  192.168.162.22 consumer.catface996.com
@@ -66,6 +72,7 @@
 		- 调用 v1 版本的提交订单，查看返回结果
 			- ![image.png](../assets/image_1651829925091_0.png)
 	- 错误的示范-未配置流量规则
+	  collapsed:: true
 		- 部署 Provider v2，同时存在 v1 和 v2 的 Provider 版本
 			- ![image.png](../assets/image_1651830221220_0.png)
 		- Consumer 早于 Provider 升级到 v2 版本
@@ -130,7 +137,9 @@
 	- 错误的示范-已配置流量规则
 		- 还原到 v1 版本
 		- 在 v1 版本的基础上，未部署 Provider  v2 版本，部署了 Consumer 的 v2 版本
+		  collapsed:: true
 			- ![image.png](../assets/image_1651831812147_0.png)
 		- 在 v1 和 v2 全部部署的基础上，未下线 Consumer 的 v1 版本，下线 Provider 的 v1 版本
+		  collapsed:: true
 			- ![image.png](../assets/image_1651831916696_0.png)
 -
