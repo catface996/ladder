@@ -9,7 +9,7 @@ spec:
   ## v1 路由规则
   - match:
     - uri:
-        prefix: v1
+        prefix: /v1
     route:
     - destination:
         host: provider-svc
@@ -17,7 +17,7 @@ spec:
   ## v2 路由规则
   - match:
     - uri:
-        prefix: v2
+        prefix: /v2
     route:
     - destination:
         host: provider-svc
