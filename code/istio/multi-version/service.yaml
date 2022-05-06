@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: provider-svc
+spec:
+  selector:
+    app: provider
+  internalTrafficPolicy: Cluster
+  ports:
+    - protocol: TCP
+      name: http-port
+      port: 80
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: consumer-svc
+spec:
+  selector:
+    app: consumer
+  internalTrafficPolicy: Cluster
+  ports:
+    - protocol: TCP
+      name: http-port
+      port: 80
+      targetPort: 8080
