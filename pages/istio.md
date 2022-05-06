@@ -1066,7 +1066,7 @@
 						  ~~~
 				- Envoy转发流量到外部服务
 					- 注意：Istio 有一个安装选项， global.outboundTrafficPolicy.mode，它配置 sidecar 对外部服务（那些没有在 Istio 的内部服务注册中定义的服务）的处理方式。如果这个选项设置为 ALLOW_ANY，Istio 代理允许调用未知的服务。如果这个选项设置为 REGISTRY_ONLY，那么 Istio 代理会阻止任何没有在网格中定义的 HTTP 服务或 service entry 的主机。ALLOW_ANY 是默认值，不控制对外部服务的访问，方便你快速地评估 Istio。你可以稍后再配置对外部服务的访问 。
-					- 查看 meshConfig.outboundTrafficPolic.mode选项
+					- **查看 meshConfig.outboundTrafficPolic.mode选项**
 					  id:: 6268dcb9-e9a9-419f-9047-6bc7574108b3
 						- ~~~shell
 						  ## 待执行的命令
