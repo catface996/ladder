@@ -38,12 +38,4 @@
 		  
 		  source <(kubectl completion bash)
 		  ```
-- **一个好问题，胜过 十个好答案**
-	- 期望达到的效果：加速学习的效率和准确度。
-	- 问题列表：
-		- NOW 1-lifecycle 中的 [[postStart 和 preStop]] 何时被调用以及何时会失效？
-		  :LOGBOOK:
-		  CLOCK: [2022-05-05 Thu 13:16:51]
-		  CLOCK: [2022-05-05 Thu 13:16:53]
-		  :END:
 -
