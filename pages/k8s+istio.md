@@ -69,5 +69,4 @@
 	  CLOCK: [2022-05-08 Sun 18:27:30]--[2022-05-09 Mon 14:28:01] =>  20:00:31
 	  :END:
 	- TODO 25-[[在阿里云 k8s 集群部署 bookfinfo 并公网 HTTPS 访问]]
-	- TODO 26-[[基于阿里云 Kubernetes 集群启用 Istio]]
-	- TODO 27-[[基于阿里云k8s+istio，https 访问部署的 bookinfo]]
+	- TODO 26-[[阿里云 k8s 集群启用 Istio 并验证流量策略]]

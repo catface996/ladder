@@ -48,6 +48,7 @@
 		- ![image.png](../assets/image_1652079267732_0.png){:height 354, :width 685}
 		- 点击确认，返回解析列表页，等待解析生效，等待生效的过程中，可以打开浏览器去访问该域名
 	- **PS：视频中的配置是有问题的，主机记录写错了，应该是 k8s**
+	  collapsed:: true
 		- 错误的示范
 		- ![image.png](../assets/image_1652089806208_0.png)
 	- 浏览器访问配置的域名解析 http://k8s.catface996.com
