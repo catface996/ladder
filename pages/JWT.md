@@ -1,0 +1,3 @@
+- 官网 https://jwt.io/
+- JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties.
+- JSON Web token 是一种开放的、行业标准的 RFC 7519方法，用于在两方之间安全地表示声明。

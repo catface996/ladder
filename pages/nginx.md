@@ -1,3 +1,5 @@
+- 官方简述
+	- Nginx [ engine x ]是一个 HTTP 和反向代理服务器、一个邮件代理服务器和一个通用的 TCP/UDP 代理服务器，最初由 Igor Sysoev 编写。很长一段时间以来，它一直在包括 Yandex、 Mail.Ru、 VK 和 Rambler 在内的许多俄罗斯网站上运行。根据 Netcraft 的数据，nginx 在2022年4月为21.79% 的旅客提供服务。以下是一些成功的案例: Dropbox，Netflix，Wordpress.com，FastMail.FM。
 - ## 下载安装包
   
   http://nginx.org/en/download.html
@@ -77,11 +79,11 @@ root      10537   1470  0 05:06 pts/0    00:00:00 grep --color=auto nginx
 <head>
 <title>Welcome to nginx!</title>
 <style>
-  body {
-      width: 35em;
-      margin: 0 auto;
-      font-family: Tahoma, Verdana, Arial, sans-serif;
-  }
+body {
+    width: 35em;
+    margin: 0 auto;
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+}
 </style>
 </head>
 <body>
