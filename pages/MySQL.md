@@ -2,7 +2,8 @@
 	- [MySQL Server 5.7 Reference Manual](https://dev.mysql.com/doc/refman/5.7/en/)
 	  collapsed:: true
 		- ![image.png](../assets/image_1652197673224_0.png)
-	- [2 安装和升级 MySQL](https://dev.mysql.com/doc/refman/5.7/en/installing.html)
+	- [[2 安装和升级 MySQL]]
+	  collapsed:: true
 		- 2.1 [通用安装指南](https://dev.mysql.com/doc/refman/5.7/en/general-installation-issues.html)
 			- 2.1.1 [支持的平台](https://dev.mysql.com/doc/refman/5.7/en/platform-support.html)
 			  collapsed:: true
@@ -133,7 +134,8 @@
 		- 2.11 Upgrading MySQL
 		- 2.12 Downgrading MySQL
 		- 2.13 Perl Installation Notes
-	- [5 服务器管理](https://dev.mysql.com/doc/refman/5.7/en/server-administration.html)
+	- [[5 服务器管理]]
+	  collapsed:: true
 		- [5.1 MySQL 服务器](https://dev.mysql.com/doc/refman/5.7/en/mysqld-server.html)
 			- [5.1.7服务器系统变量](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html)
 				- basedir
@@ -175,11 +177,16 @@
 		- 5.6 MySQL Server Loadable Functions
 		- 5.7 Running Multiple MySQL Instances on One Machine
 		- 5.8 Debugging MySQL
-	- [[The InnoDB Storage Engine]]
+	- [[14 InnoDB 存储引擎]]
 - [数据结构可视化工具](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
 - 概念
+  collapsed:: true
 	- 搜索树 又称 排序树
+	  collapsed:: true
+		- 基于比较的排序和查找
+		- 如何实现比较器
 	- 有序表
+	  collapsed:: true
 		- 有序表的接口
 		  collapsed:: true
 			- ```java
@@ -263,11 +270,25 @@
 		- 查询获得
 			- 链表节点中的指向下一个节点的指针，即要访问的数据的地址作为数据存储在某个位置
 - 查询场景
+  collapsed:: true
 	- 等值查询 = ，in
 	- 非等值 !=，not in
 	- 范文查询 between，>，>=，<，<=
 	- 模糊匹配 like
+- 常见业务场景
+  collapsed:: true
+	- 频繁插入数据，且插入的数据不同。
+	- 频繁的对同一张表进行读取，且读取的数据不相同。
+	- 频繁的对同一张表的同一行数据进行读取。
+	- 按照时间排序的分页查询。
+	- 不带 where 条件的 SQL 查询。
+	- 订阅 binLog，触发查询，同步到 es。
+- 问题
+  collapsed:: true
+	- 读写分离的主从数据库，即使硬件配置相同，主从的MySQL 的系统配置是否一致？
+	-
 - 扩展
+  collapsed:: true
 	- [[MySQL军规]]
--
+	- [[阿里云 RDS MySQL]]
 -

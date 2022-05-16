@@ -1,0 +1,4 @@
+- SHOW ENGINES;
+- SELECT * FROM INFORMATION_SCHEMA.ENGINES;
+- ![image.png](../assets/image_1652422254346_0.png)
+-
