@@ -1,3 +1,15 @@
 - 官网 https://jwt.io/
 - JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties.
 - JSON Web token 是一种开放的、行业标准的 RFC 7519方法，用于在两方之间安全地表示声明。
+- 后端提供给前段的接口规范
+	- 最小化原则，只返回给前段必要的字段
+	- 不暴露代表用户身份的不变信息，例如：userId
+	- 代表用户身份的可变信息需要有时效性，例如：token 的过期时间为 2 小时
+- 使用 [[OpenSSL]]生成 RSA 证书
+	-
+- 参考文档：
+	- https://baobao555.tech/archives/40
+-
+- auth0： https://auth0.com/
+-
+-
