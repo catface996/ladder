@@ -1,4 +1,2 @@
-title:: 14.4 InnoDB架构
-
 - ![image.png](../assets/image_1652425137399_0.png)
 -
