@@ -1,9 +1,289 @@
-[{:block/name " istio+springcloud 灰度方案",
+[{:block/name " 14.3 innodb multi-versioning",
+  :block/created-at 1653042474749,
+  :block/updated-at 1653042474749}
+ {:block/name " 14.5 innodb 内存结构",
+  :block/created-at 1653042473666,
+  :block/updated-at 1653042473666}
+ {:block/name " istio+springcloud 灰度方案",
   :block/created-at 1651462115608,
   :block/updated-at 1651462115608}
  {:block/name "0基础入门kubernetes",
   :block/created-at 1650704712569,
   :block/updated-at 1651728287565}
+ {:block/name "13.1.18.5 外键约束",
+  :block/created-at 1653042473636,
+  :block/updated-at 1653042473636}
+ {:block/name "13.7.5.36 show table status 语句",
+  :block/created-at 1653042474388,
+  :block/updated-at 1653042474388}
+ {:block/name "14",
+  :block/created-at 1653042473710,
+  :block/updated-at 1653042473710}
+ {:block/name "14 innodb 存储引擎",
+  :block/created-at 1653042473668,
+  :block/updated-at 1653284899946}
+ {:block/name "14.1 innodb 简介",
+  :block/created-at 1653042473662,
+  :block/updated-at 1653043116078}
+ {:block/name "14.1 introduction to innodb",
+  :block/created-at 1653042474747,
+  :block/updated-at 1653042474747}
+ {:block/name "14.1.1 使用 innodb 表的好处",
+  :block/created-at 1653042473704,
+  :block/updated-at 1653042473704}
+ {:block/name "14.1.2 innodb tables 的最佳实践",
+  :block/created-at 1653042473847,
+  :block/updated-at 1653043389201}
+ {:block/name "14.1.3验证 innodb 是默认存储引擎",
+  :block/created-at 1653042473706,
+  :block/updated-at 1653042473706}
+ {:block/name "14.1.4与 innodb 进行测试和基准测试",
+  :block/created-at 1653042473707,
+  :block/updated-at 1653042473707}
+ {:block/name "14.1.5关闭 innodb",
+  :block/created-at 1653042473708,
+  :block/updated-at 1653042473708}
+ {:block/name "14.10 查询 innodb _ buffer _ pool _ stats 表",
+  :block/created-at 1653042474137,
+  :block/updated-at 1653042474137}
+ {:block/name "14.11  innodb 行格式",
+  :block/created-at 1653042473794,
+  :block/updated-at 1653042473794}
+ {:block/name "14.11 innodb 行格式",
+  :block/created-at 1653042474385,
+  :block/updated-at 1653042474385}
+ {:block/name "14.13.1 在线 ddl 操作",
+  :block/created-at 1653042473792,
+  :block/updated-at 1653042473792}
+ {:block/name "14.14  innodb data-at-rest 加密",
+  :block/created-at 1653042473792,
+  :block/updated-at 1653042473792}
+ {:block/name
+  "14.16.2 innodb information _ schema transaction and locking information",
+  :block/created-at 1653042473979,
+  :block/updated-at 1653042473979}
+ {:block/name "14.16.3 nnodb information_schema 系统表",
+  :block/created-at 1653042474389,
+  :block/updated-at 1653042474389}
+ {:block/name "14.17  innodb 与 mysql 性能模式的集成",
+  :block/created-at 1653042473795,
+  :block/updated-at 1653042473795}
+ {:block/name "14.19.2  innodb 恢复",
+  :block/created-at 1653042473786,
+  :block/updated-at 1653042473786}
+ {:block/name "14.2 innodb 和 acid 模型",
+  :block/created-at 1653042473981,
+  :block/updated-at 1653042473981}
+ {:block/name "14.3 innodb 多版本控制",
+  :block/created-at 1653042474027,
+  :block/updated-at 1653042474027}
+ {:block/name "14.4 innodb架构",
+  :block/created-at 1653042474052,
+  :block/updated-at 1653042474052}
+ {:block/name "14.5 innodb 内存结构",
+  :block/created-at 1653042646811,
+  :block/updated-at 1653042827110}
+ {:block/name "14.5.1 缓冲池",
+  :block/created-at 1653042473787,
+  :block/updated-at 1653042473787}
+ {:block/name "14.5.2 更改缓冲池",
+  :block/created-at 1653042474201,
+  :block/updated-at 1653042474201}
+ {:block/name "14.5.3 自适应 hash 索引",
+  :block/created-at 1653042474246,
+  :block/updated-at 1653042474246}
+ {:block/name "14.5.3 自适应哈希索引",
+  :block/created-at 1653042473790,
+  :block/updated-at 1653042473790}
+ {:block/name "14.5.4 日志缓冲",
+  :block/created-at 1653042474276,
+  :block/updated-at 1653042474276}
+ {:block/name "14.6 innodb 磁盘结构",
+  :block/created-at 1653042473668,
+  :block/updated-at 1653281193838}
+ {:block/name "14.6.1 table",
+  :block/created-at 1653042474299,
+  :block/updated-at 1653042474299}
+ {:block/name "14.6.1 表",
+  :block/created-at 1653281164343,
+  :block/updated-at 1653281164343}
+ {:block/name "14.6.1.1 创建 innodb 表",
+  :block/created-at 1653042474332,
+  :block/updated-at 1653042474332}
+ {:block/name "14.6.1.2 外部创建表",
+  :block/created-at 1653042474333,
+  :block/updated-at 1653042474333}
+ {:block/name "14.6.1.3 导入 innodb 表",
+  :block/created-at 1653042474333,
+  :block/updated-at 1653042474333}
+ {:block/name "14.6.1.4  移动或复制 innodb 表",
+  :block/created-at 1653042474384,
+  :block/updated-at 1653042474384}
+ {:block/name "14.6.1.4 移动或复制 innodb 表",
+  :block/created-at 1653042474335,
+  :block/updated-at 1653042474335}
+ {:block/name "14.6.1.5 将表从 myisam转为 innodb",
+  :block/created-at 1653042474336,
+  :block/updated-at 1653042474336}
+ {:block/name "14.6.1.6  innodb 中的 auto_increment 处理",
+  :block/created-at 1653042474387,
+  :block/updated-at 1653042474387}
+ {:block/name "14.6.1.6 innodb 的 auto_increment 处理",
+  :block/created-at 1653042474337,
+  :block/updated-at 1653042474337}
+ {:block/name "14.6.2 索引",
+  :block/created-at 1653042474300,
+  :block/updated-at 1653042474300}
+ {:block/name "14.6.2.1 聚集索引和二级索引",
+  :block/created-at 1653042473789,
+  :block/updated-at 1653042473789}
+ {:block/name "14.6.2.2 innodb 索引的物理结构",
+  :block/created-at 1653279289834,
+  :block/updated-at 1653279432185}
+ {:block/name "14.6.2.3 排序索引构建",
+  :block/created-at 1653279412982,
+  :block/updated-at 1653279412982}
+ {:block/name "14.6.3 表空间",
+  :block/created-at 1653042474538,
+  :block/updated-at 1653281178294}
+ {:block/name "14.6.3.2  file-per-table 表空间",
+  :block/created-at 1653042474444,
+  :block/updated-at 1653042474444}
+ {:block/name "14.6.3.2 每表文件表空间",
+  :block/created-at 1653042473793,
+  :block/updated-at 1653042473793}
+ {:block/name "14.6.4 innodb数据字典",
+  :block/created-at 1653042474301,
+  :block/updated-at 1653042474301}
+ {:block/name "14.6.5 双写缓冲区",
+  :block/created-at 1653042473977,
+  :block/updated-at 1653042473977}
+ {:block/name "14.6.6 撤销日志",
+  :block/created-at 1653042474304,
+  :block/updated-at 1653042474304}
+ {:block/name "14.6.6 重做日志",
+  :block/created-at 1653042474303,
+  :block/updated-at 1653042474303}
+ {:block/name "14.7 innodb 锁和事务模型",
+  :block/created-at 1653284899946,
+  :block/updated-at 1653284931637}
+ {:block/name "14.7.2 事务处理模型",
+  :block/created-at 1653284931636,
+  :block/updated-at 1653306533758}
+ {:block/name "14.7.2.1 事务隔离级别",
+  :block/created-at 1653042473978,
+  :block/updated-at 1653369906081}
+ {:block/name "14.8.1 innodb 启动配置",
+  :block/created-at 1653279329392,
+  :block/updated-at 1653279329392}
+ {:block/name "14.8.12 为索引页配置合并阈值",
+  :block/created-at 1653279432184,
+  :block/updated-at 1653279432184}
+ {:block/name "14.8.3.1 配置 innodb 缓冲池大小",
+  :block/created-at 1653042474566,
+  :block/updated-at 1653042474566}
+ {:block/name "14.8.3.2 配置多个缓冲池实例",
+  :block/created-at 1653042474131,
+  :block/updated-at 1653042474131}
+ {:block/name "14.8.3.3 使缓冲池具有抗扫描性",
+  :block/created-at 1653042474136,
+  :block/updated-at 1653042474136}
+ {:block/name "14.8.3.4 配置 innodb 缓冲池预取(read-ahead)",
+  :block/created-at 1653042474133,
+  :block/updated-at 1653042474133}
+ {:block/name "14.8.3.5 配置缓冲池冲洗",
+  :block/created-at 1653042474134,
+  :block/updated-at 1653042474134}
+ {:block/name "14.8.3.6 保存和还原缓冲池状态",
+  :block/created-at 1653042474134,
+  :block/updated-at 1653042474134}
+ {:block/name "14.9 innodb 表和页面压缩",
+  :block/created-at 1653042473791,
+  :block/updated-at 1653042473791}
+ {:block/name "14/1",
+  :block/created-at 1653042473800,
+  :block/updated-at 1653042473800}
+ {:block/name "14/1 innodb 简介",
+  :block/created-at 1653042473710,
+  :block/updated-at 1653042473710}
+ {:block/name "14/1 introduction to innodb",
+  :block/created-at 1653042473743,
+  :block/updated-at 1653042473743}
+ {:block/name "14/1/3验证 innodb 是默认存储引擎",
+  :block/created-at 1653042473878,
+  :block/updated-at 1653042473878}
+ {:block/name "14/1/4与 innodb 进行测试和基准测试",
+  :block/created-at 1653042473911,
+  :block/updated-at 1653042473911}
+ {:block/name "14/1/5关闭 innodb",
+  :block/created-at 1653042473936,
+  :block/updated-at 1653042473936}
+ {:block/name "14/5",
+  :block/created-at 1653042474139,
+  :block/updated-at 1653042474139}
+ {:block/name "14/5 innodb 内存结构",
+  :block/created-at 1653042474072,
+  :block/updated-at 1653042474072}
+ {:block/name "14/5/1 缓冲池",
+  :block/created-at 1653042474138,
+  :block/updated-at 1653042474138}
+ {:block/name "14/6",
+  :block/created-at 1653042474339,
+  :block/updated-at 1653042474339}
+ {:block/name "14/6 innodb 磁盘结构",
+  :block/created-at 1653042474304,
+  :block/updated-at 1653042474304}
+ {:block/name "14/6/1",
+  :block/created-at 1653042474393,
+  :block/updated-at 1653042474393}
+ {:block/name "14/6/1 table",
+  :block/created-at 1653042474337,
+  :block/updated-at 1653042474337}
+ {:block/name "14/6/1/1 创建 innodb 表",
+  :block/created-at 1653042474392,
+  :block/updated-at 1653042474392}
+ {:block/name "14/6/1/2 外部创建表",
+  :block/created-at 1653042474446,
+  :block/updated-at 1653042474446}
+ {:block/name "14/6/1/3 导入 innodb 表",
+  :block/created-at 1653042474484,
+  :block/updated-at 1653042474484}
+ {:block/name "14/6/2",
+  :block/created-at 1653042474515,
+  :block/updated-at 1653042474515}
+ {:block/name "14/8",
+  :block/created-at 1653042474568,
+  :block/updated-at 1653042474568}
+ {:block/name "14/8/3",
+  :block/created-at 1653042474569,
+  :block/updated-at 1653042474569}
+ {:block/name "14/8/3/2 配置多个缓冲池实例",
+  :block/created-at 1653042474566,
+  :block/updated-at 1653042474566}
+ {:block/name "2",
+  :block/created-at 1653042474593,
+  :block/updated-at 1653042474593}
+ {:block/name "2 安装和升级 mysql",
+  :block/created-at 1653042475800,
+  :block/updated-at 1653042475800}
+ {:block/name "2/5 installing mysql on linux",
+  :block/created-at 1653042474592,
+  :block/updated-at 1653042474592}
+ {:block/name "5 服务器管理",
+  :block/created-at 1653042475803,
+  :block/updated-at 1653042475803}
+ {:block/name "5.1.8.1 系统变量特权",
+  :block/created-at 1653042474199,
+  :block/updated-at 1653042474199}
+ {:block/name "8.3.8 节 b-tree 和哈希索引的比较",
+  :block/created-at 1653042474244,
+  :block/updated-at 1653042474244}
+ {:block/name "8.5 优化 innodb 表",
+  :block/created-at 1653042473796,
+  :block/updated-at 1653042473796}
+ {:block/name "8.5.4  优化 innodb 重做日志",
+  :block/created-at 1653042474275,
+  :block/updated-at 1653042474275}
  {:block/name "a",
   :block/created-at 1650634250013,
   :block/updated-at 1650634250013}
@@ -28,15 +308,9 @@
  {:block/name "apr 27th, 2022",
   :block/created-at 1651039417168,
   :block/updated-at 1651039417168}
- {:block/name "apr 28th, 2022",
-  :block/created-at 1651076037339,
-  :block/updated-at 1651076037339}
  {:block/name "apr 29th, 2022",
   :block/created-at 1651161603243,
   :block/updated-at 1651161647848}
- {:block/name "apr 30th, 2022",
-  :block/created-at 1651250732585,
-  :block/updated-at 1651250732585}
  {:block/name "astar算法",
   :block/created-at 1650792214322,
   :block/updated-at 1650792226016}
@@ -52,6 +326,9 @@
  {:block/name "bgd",
   :block/created-at 1651039414535,
   :block/updated-at 1651039414535}
+ {:block/name "b树",
+  :block/created-at 1653042475807,
+  :block/updated-at 1653042475807}
  {:block/name "c",
   :block/created-at 1650634250014,
   :block/updated-at 1650634250014}
@@ -64,6 +341,12 @@
  {:block/name "card",
   :block/created-at 1650634250013,
   :block/updated-at 1650634250013}
+ {:block/name "chapter 14 the innodb storage engine",
+  :block/created-at 1653042474751,
+  :block/updated-at 1653042474751}
+ {:block/name "cidr",
+  :block/created-at 1653042477900,
+  :block/updated-at 1653042477900}
  {:block/name "containerd",
   :block/created-at 1650703083015,
   :block/updated-at 1650703083015}
@@ -100,6 +383,9 @@
  {:block/name "eureka",
   :block/created-at 1651223202754,
   :block/updated-at 1651223202754}
+ {:block/name "f5",
+  :block/created-at 1653042477425,
+  :block/updated-at 1653042477425}
  {:block/name "favorites",
   :block/created-at 1650634250013,
   :block/updated-at 1650634250013}
@@ -109,6 +395,9 @@
  {:block/name "git分支管理规范",
   :block/created-at 1650792798067,
   :block/updated-at 1650792815632}
+ {:block/name "icp",
+  :block/created-at 1653042474026,
+  :block/updated-at 1653042474026}
  {:block/name "in-progress",
   :block/created-at 1650634250014,
   :block/updated-at 1650634250014}
@@ -139,6 +428,9 @@
  {:block/name "jvm",
   :block/created-at 1651223399272,
   :block/updated-at 1651223399272}
+ {:block/name "jwt",
+  :block/created-at 1653042475184,
+  :block/updated-at 1653042475184}
  {:block/name "k8s springcloud 优雅停机",
   :block/created-at 1650792418710,
   :block/updated-at 1650792480620}
@@ -160,6 +452,9 @@
  {:block/name "kubernetes service",
   :block/created-at 1651223221321,
   :block/updated-at 1651223221321}
+ {:block/name "kvm",
+  :block/created-at 1653042475316,
+  :block/updated-at 1653042475316}
  {:block/name "later",
   :block/created-at 1650634250013,
   :block/updated-at 1650634250013}
@@ -172,27 +467,42 @@
  {:block/name "logseq",
   :block/created-at 1651744483875,
   :block/updated-at 1651748364828}
+ {:block/name "lvs",
+  :block/created-at 1653042475628,
+  :block/updated-at 1653042475628}
  {:block/name "maxwell",
   :block/created-at 1650792600792,
   :block/updated-at 1650792603085}
- {:block/name "may 1st, 2022",
-  :block/created-at 1651334423067,
-  :block/updated-at 1651334423067}
+ {:block/name "may 20th, 2022",
+  :block/created-at 1653042473196,
+  :block/updated-at 1653042473196}
+ {:block/name "may 21st, 2022",
+  :block/created-at 1653065507367,
+  :block/updated-at 1653065507367}
+ {:block/name "may 22nd, 2022",
+  :block/created-at 1653153520882,
+  :block/updated-at 1653153520882}
+ {:block/name "may 23rd, 2022",
+  :block/created-at 1653236099882,
+  :block/updated-at 1653278928865}
+ {:block/name "may 24th, 2022",
+  :block/created-at 1653322099525,
+  :block/updated-at 1653322099525}
+ {:block/name "may 25th, 2022",
+  :block/created-at 1653412140233,
+  :block/updated-at 1653412140233}
  {:block/name "may 2nd, 2022",
   :block/created-at 1651421806022,
   :block/updated-at 1651462115608}
- {:block/name "may 3rd, 2022",
-  :block/created-at 1651507216501,
-  :block/updated-at 1651507216501}
- {:block/name "may 4th, 2022",
-  :block/created-at 1651593617127,
-  :block/updated-at 1651593617127}
  {:block/name "may 5th, 2022",
   :block/created-at 1651680018476,
   :block/updated-at 1651680018476}
  {:block/name "mysql",
   :block/created-at 1651222949066,
   :block/updated-at 1651222949066}
+ {:block/name "mysql军规",
+  :block/created-at 1653042475810,
+  :block/updated-at 1653042475810}
  {:block/name "nacos",
   :block/created-at 1651223210485,
   :block/updated-at 1651223210485}
@@ -208,6 +518,9 @@
  {:block/name "openfeign",
   :block/created-at 1651223354110,
   :block/updated-at 1651223354110}
+ {:block/name "openssl",
+  :block/created-at 1653042475183,
+  :block/updated-at 1653042475183}
  {:block/name "paxos",
   :block/created-at 1651066785322,
   :block/updated-at 1651068409015}
@@ -217,6 +530,9 @@
  {:block/name "pua",
   :block/created-at 1651039415865,
   :block/updated-at 1651039415865}
+ {:block/name "r-tree",
+  :block/created-at 1653278928864,
+  :block/updated-at 1653278943913}
  {:block/name "rancher+k8s+istio实施灰度",
   :block/created-at 1650792724760,
   :block/updated-at 1650792737885}
@@ -235,6 +551,9 @@
  {:block/name "sgd",
   :block/created-at 1651039415987,
   :block/updated-at 1651039415987}
+ {:block/name "snat",
+  :block/created-at 1653042477901,
+  :block/updated-at 1653042477901}
  {:block/name "springcloud",
   :block/created-at 1651223392466,
   :block/updated-at 1651223392466}
@@ -262,6 +581,18 @@
  {:block/name "为何在容器中 kill -9 1无效？",
   :block/created-at 1651726744852,
   :block/updated-at 1651726800417}
+ {:block/name "什么是rfc",
+  :block/created-at 1653042477896,
+  :block/updated-at 1653042477896}
+ {:block/name "什么是专有网络",
+  :block/created-at 1653042477023,
+  :block/updated-at 1653042477023}
+ {:block/name "什么是网段",
+  :block/created-at 1653042477041,
+  :block/updated-at 1653042477041}
+ {:block/name "什么是配置",
+  :block/created-at 1653042477076,
+  :block/updated-at 1653042477076}
  {:block/name "从google maglev说起，如何造一个牛逼的负载均衡？",
   :block/created-at 1650790726950,
   :block/updated-at 1650790726950}
@@ -277,12 +608,21 @@
  {:block/name "冒泡排序",
   :block/created-at 1651039416644,
   :block/updated-at 1651039416644}
+ {:block/name "分布式 session",
+  :block/created-at 1653042477292,
+  :block/updated-at 1653042477292}
+ {:block/name "分布式事务",
+  :block/created-at 1653042477314,
+  :block/updated-at 1653042477314}
  {:block/name "分布式理论",
   :block/created-at 1651039416376,
   :block/updated-at 1651241161850}
  {:block/name "分布式系统",
   :block/created-at 1651039414549,
   :block/updated-at 1651544202329}
+ {:block/name "分布式锁",
+  :block/created-at 1653042477433,
+  :block/updated-at 1653042477433}
  {:block/name "取消推文转发",
   :block/created-at 1650791969973,
   :block/updated-at 1650792162057}
@@ -298,9 +638,18 @@
  {:block/name "固定时间窗口",
   :block/created-at 1651373329860,
   :block/updated-at 1651373329860}
+ {:block/name "在阿里云 k8s 集群部署 bookfinfo 并公网 https 访问",
+  :block/created-at 1653042476913,
+  :block/updated-at 1653042476913}
+ {:block/name "基于 istio 的多版本服务接口治理",
+  :block/created-at 1653042476910,
+  :block/updated-at 1653042476910}
  {:block/name "基于docker搭建jenkins",
   :block/created-at 1650790763084,
   :block/updated-at 1650790795240}
+ {:block/name "基于阿里云的 kubernetes 容器服务搭建集群",
+  :block/created-at 1653042476911,
+  :block/updated-at 1653042476911}
  {:block/name "基础概念",
   :block/created-at 1651324826817,
   :block/updated-at 1651325727592}
@@ -310,6 +659,27 @@
  {:block/name "多租户的不同流量策略",
   :block/created-at 1651630774617,
   :block/updated-at 1651660700605}
+ {:block/name "好问题激发好灵感",
+  :block/created-at 1653042475653,
+  :block/updated-at 1653042475653}
+ {:block/name "如何选择 k8s  worker 节点配置",
+  :block/created-at 1653042477904,
+  :block/updated-at 1653042477904}
+ {:block/name "如何选择 k8s master 节点的规格",
+  :block/created-at 1653042477902,
+  :block/updated-at 1653042477902}
+ {:block/name "如何选择 k8s 集权的存储插件",
+  :block/created-at 1653042477907,
+  :block/updated-at 1653042477907}
+ {:block/name "如何选择 kubernetes 版本",
+  :block/created-at 1653042477894,
+  :block/updated-at 1653042477894}
+ {:block/name "如何选择 容器运行时",
+  :block/created-at 1653042477895,
+  :block/updated-at 1653042477895}
+ {:block/name "如何选择阿里云负载均衡规格",
+  :block/created-at 1653042477906,
+  :block/updated-at 1653042477906}
  {:block/name "安装centos7",
   :block/created-at 1651039416113,
   :block/updated-at 1651039416113}
@@ -361,6 +731,9 @@
  {:block/name "系统之美",
   :block/created-at 1651039416686,
   :block/updated-at 1651039416686}
+ {:block/name "系统表空间",
+  :block/created-at 1653042474537,
+  :block/updated-at 1653042474537}
  {:block/name "红黑树",
   :block/created-at 1650533837672,
   :block/updated-at 1650533873024}
@@ -403,6 +776,12 @@
  {:block/name "金丝雀及按百分比分发流量",
   :block/created-at 1651328153079,
   :block/updated-at 1651328614243}
+ {:block/name "阿里云 k8s 集群启用 istio 并验证流量策略",
+  :block/created-at 1653042476915,
+  :block/updated-at 1653042476915}
+ {:block/name "阿里云 rds mysql",
+  :block/created-at 1653042475811,
+  :block/updated-at 1653042475811}
  {:block/name "集群内无法访问service的解决方案",
   :block/created-at 1651039416124,
   :block/updated-at 1651039416124}

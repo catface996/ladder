@@ -291,4 +291,5 @@
   collapsed:: true
 	- [[MySQL军规]]
 	- [[阿里云 RDS MySQL]]
+- [[使用MySQL 源码搭建 Debug环境]]
 -
