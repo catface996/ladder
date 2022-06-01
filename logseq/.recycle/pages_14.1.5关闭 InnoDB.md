@@ -1,0 +1,1 @@
+- 无法禁用 InnoDB。-- skip-innodb 选项已被弃用，并且没有任何效果，其使用将导致警告。希望在将来的 MySQL 版本中删除它。这也适用于它的同义词(-- innodb = OFF，-- disable-innodb，等等)。
