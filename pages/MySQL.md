@@ -320,7 +320,8 @@
 		- 主节点
 			- 生成 binLog（server 级别的日志），innodb 存储引擎级别的日志是 undo log 和 redo log
 		- 从节点
-			-
+			- 监听主节点的 binLog
+				-
 - 查询场景
   collapsed:: true
 	- 等值查询 = ，in
