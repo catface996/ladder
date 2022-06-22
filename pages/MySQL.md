@@ -321,7 +321,8 @@
 			- 生成 binLog（server 级别的日志），innodb 存储引擎级别的日志是 undo log 和 redo log
 		- 从节点
 			- 监听主节点的 binLog
-				- IO 线程，接收主节点 binLog，并写入
+				- IO 线程，接收主节点 binLog，并写入到中继日志
+				- SQL 线程，将中继日志中的数据写入到数据库
 - 查询场景
   collapsed:: true
 	- 等值查询 = ，in
