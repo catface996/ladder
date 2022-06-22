@@ -317,7 +317,8 @@
 		- InnoDB目前处理死锁的方法是，将持有最少行级排他锁的事务进行回滚（这是相对比较简单的死锁回滚算法）
 		-
 	- 主从复制
-		-
+	  collapsed:: true
+		- ![MySQL 主从复制.png](../assets/MySQL_主从复制_1655863472524_0.png)
 		- 主节点
 			- 生成 binLog（server 级别的日志），innodb 存储引擎级别的日志是 undo log 和 redo log
 		- 从节点
@@ -417,7 +418,5 @@
 - [[MySQL 索引遍历]]
 - [[MySQL源码]]
 - [[SQL语法解析]]
--
 - 参考
 	- [数据结构可视化工具](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
-	-
