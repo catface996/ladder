@@ -178,9 +178,12 @@
 		- 5.7 Running Multiple MySQL Instances on One Machine
 		- 5.8 Debugging MySQL
 	- [[14 InnoDB 存储引擎]]
-- [数据结构可视化工具](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
 - 概念
   collapsed:: true
+	- 优化器
+	  collapsed:: true
+		- 基于规则的优化（RBO）
+		- 基于成本的优化（CBO）
 	- 搜索树 又称 排序树
 	  collapsed:: true
 		- 基于比较的排序和查找
@@ -260,6 +263,7 @@
 	  collapsed:: true
 		- 块设备
 	- Linux 的 Page Cache
+	  collapsed:: true
 		- 参考文档： https://zhuanlan.zhihu.com/p/68071761
 	- MySQL 的 InnoDB 的 page
 	- 获取数据地址的方式
@@ -269,11 +273,53 @@
 			- 基地址+偏移量
 		- 查询获得
 			- 链表节点中的指向下一个节点的指针，即要访问的数据的地址作为数据存储在某个位置
+	- Redolog
+		- 属于 InnoDB 引擎
+		- 顺序写效率高
+		- WAL （write ahead log  预写日志）
+	- Undolog
+	  collapsed:: true
+		- 属于 InnoDB 引擎
+		- 逻辑日志，非物理日志
+	- binlog
+	  collapsed:: true
+		- 属于 mysql servier，所有的存储引擎均可以产生 binlog
+	- 字符集
+	  collapsed:: true
+		- 字符集的选择可以精确到字段
+		- 建议默认的字符集为 utf8mb4
+	- Row Format
+	  collapsed:: true
+		- 6 byte row_id
+	- 常见技术名称
+	  collapsed:: true
+		- 回表
+			- 通过索引获取到 ID集合后，根据 ID 集合查询记录集合
+		- 索引覆盖
+			- 查询条件和返回结果均通过索引即可获取，即不需要回表
+		- 索引下推
+			- 通过索引过滤掉不符合条件的记录
+				- 即索引项部分匹配，在匹配的所有索引项中，再做部分过滤
+				- ```sql
+				  select * from test_table where colum1 like 'A%'；
+				  
+				  // 组合索引 colum2，colum3，colum4
+				  select * from test_table where colum2 = 2 and colum4 = 3;
+				  ```
+	- 隔离级别
+		- MySQL Server 层不管理事务，事务是由存储引擎实现的。
+		- InnoDB 的事务隔离级别
+		- ![image.png](../assets/image_1655194203414_0.png)
+	- 死锁
+		- InnoDB目前处理死锁的方法是，将持有最少行级排他锁的事务进行回滚（这是相对比较简单的死锁回滚算法）
+		-
 - 查询场景
   collapsed:: true
 	- 等值查询 = ，in
 	- 非等值 !=，not in
 	- 范文查询 between，>，>=，<，<=
+		- 根据主键做范围查询  找到起始主键，做顺序读
+		- 根据其他字段做范围查询 找到起始索引片，做顺序读主键集合，但是回表的时候不一定是顺序的
 	- 模糊匹配 like
 - 常见业务场景
   collapsed:: true
@@ -284,10 +330,72 @@
 	- 不带 where 条件的 SQL 查询。
 	- 订阅 binLog，触发查询，同步到 es。
 - 问题
+  collapsed:: true
+	- 脏读，不可重复读，幻读
+		- 幻读产生的根本原因，当前读和快照读混合使用导致。如果都是当前读，不会产生幻读
+		- 脏读
+			- READ-COMMITED，解决了脏读
+		- 不可重复读
+			- 多次执行相同的查询，获得的查询结果不一致
+			- REPEATABLE-READ，解决了不可重复读 （MVCC）
+		- 幻读
+			- 例如：
+				- ```sql
+				  // t1 时刻 事务 1
+				  update test_table set colum1 = 2 where colum1 =1;
+				  
+				  //  t2时刻 事务 2
+				  insert into test_table (colum1) value (1);
+				  commit；
+				  
+				  // t3 时刻 事务 1
+				  select * from test_table where colum1 = 1; // 仍旧有数据
+				  ```
+			- REPEATABLE-READ +（行级锁，间隙锁，临键锁）解决了幻读
 	- 读写分离的主从数据库，即使硬件配置相同，主从的MySQL 的系统配置是否一致？
 	- 如何判断一张表的某个字段是否适合建立索引？
+	  collapsed:: true
 		- 基数(Distinct Value) /  记录数(Count) > 80%
 		- 基数计算 [[Hyperloglog]]
+	- 主从同步效率问题
+	  collapsed:: true
+		- MTS
+		- 组提交
+	- 读写分离模式下写节点和读节点的隔离模式要保持一致吗？
+	  collapsed:: true
+		- 写节点 可重复读（Repeatable Read）
+		- 读节点 读已提交（Read Committed） ？？
+	- 读写混合的集中模式及结局方案
+	  collapsed:: true
+		- 读读
+		- 读写
+			- MVCC 解决
+				- 快照读
+					- select
+				- 当前读
+					- select lock in share mode
+					- select for update
+					- insert
+					- update
+					- delete
+				- 实现方式
+					- 隐藏字段
+					  collapsed:: true
+						- DB_TRX_ID  最近的修改事务 ID
+						- DB_ROLL_PTR  指向当前记录的上一个版本
+							- 每条被更改的记录都有一个undolog 链表，链表的头是所有旧数据中最新的一条，链尾是被更改记录的所有版本中最旧的数据。undolog 不会无限膨胀，会有 purge 线程来清理。
+						- DB_ROW_ID  隐藏主键（如果有自定义主键，则为自定义主键）
+						-
+					- ReadView 判断事务对数据的可见性
+						- 数据结构
+							- trx_list   当前活跃的事务 ID
+							- up_limit_id 活跃事务中最小的事务 ID
+							- low_limit_id 当前系统尚未分配的事务 ID
+						- 可见性算法
+							- 可重复读，是指在之前读取的基础上，再次读取的数据不会发生变化，如果之前未发生读取，只是开启了事务，在首次读取之前，其他事务提交的数据对当前事务是可见的。
+		- 写写
+		  collapsed:: true
+			- 解决写入丢失
 - 扩展
   collapsed:: true
 	- [[MySQL军规]]
@@ -296,4 +404,8 @@
 - [[计算聚集索引容纳记录数及缓存读取方案]]
 - [[MySQL 索引遍历]]
 - [[MySQL源码]]
+- [[SQL语法解析]]
 -
+- 参考
+	- [数据结构可视化工具](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
+	-

@@ -165,7 +165,7 @@
  :ref/default-open-blocks-level 2
 
  :ref/linked-references-collapsed-threshold 50
- :favorites ["learn and share" "待攻克的知识点"]
+ :favorites ["TODO" "learn and share" "待攻克的知识点"]
  :editor/logical-outdenting? true
  :zotero/settings-v2 {"catface996" {:extra-tags "", :overwrite-mode? false, :zotero-data-directory "", :include-attachments? true, :type-id "", :type :user, :notes-block-text "[[Notes]]", :page-insert-prefix "@", :prefer-citekey? false, :attachments-block-text "[[Attachments]]"}}
  :graph/settings {:orphan-pages? true, :journal? false, :builtin-pages? true}

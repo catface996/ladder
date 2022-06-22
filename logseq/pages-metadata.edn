@@ -1,4 +1,7 @@
-[{:block/name " 14.3 innodb multi-versioning",
+[{:block/name " 14.11 innodb row formats",
+  :block/created-at 1654071005780,
+  :block/updated-at 1654071005780}
+ {:block/name " 14.3 innodb multi-versioning",
   :block/created-at 1653042474749,
   :block/updated-at 1653042474749}
  {:block/name " 14.5 innodb 内存结构",
@@ -13,18 +16,12 @@
  {:block/name "13.1.18.5 外键约束",
   :block/created-at 1653042473636,
   :block/updated-at 1653042473636}
- {:block/name "13.7.5.36 show table status 语句",
-  :block/created-at 1653042474388,
-  :block/updated-at 1653042474388}
- {:block/name "14",
-  :block/created-at 1653042473710,
-  :block/updated-at 1653042473710}
  {:block/name "14 innodb 存储引擎",
   :block/created-at 1653042473668,
-  :block/updated-at 1653284899946}
+  :block/updated-at 1654072004899}
  {:block/name "14.1 innodb 简介",
   :block/created-at 1653042473662,
-  :block/updated-at 1653043116078}
+  :block/updated-at 1654071961943}
  {:block/name "14.1 introduction to innodb",
   :block/created-at 1653042474747,
   :block/updated-at 1653042474747}
@@ -43,15 +40,24 @@
  {:block/name "14.1.5关闭 innodb",
   :block/created-at 1653042473708,
   :block/updated-at 1653042473708}
+ {:block/name "14.10 innodb 文件格式管理",
+  :block/created-at 1654071005780,
+  :block/updated-at 1654071005780}
+ {:block/name "14.10 nnodb 文件格式管理",
+  :block/created-at 1654071006111,
+  :block/updated-at 1654071006111}
  {:block/name "14.10 查询 innodb _ buffer _ pool _ stats 表",
   :block/created-at 1653042474137,
   :block/updated-at 1653042474137}
+ {:block/name "14.10.1 启用文件格式",
+  :block/created-at 1654071006151,
+  :block/updated-at 1654071006151}
  {:block/name "14.11  innodb 行格式",
   :block/created-at 1653042473794,
   :block/updated-at 1653042473794}
- {:block/name "14.11 innodb 行格式",
-  :block/created-at 1653042474385,
-  :block/updated-at 1653042474385}
+ {:block/name "14.11 innodb row formats",
+  :block/created-at 1654071006224,
+  :block/updated-at 1654071006224}
  {:block/name "14.13.1 在线 ddl 操作",
   :block/created-at 1653042473792,
   :block/updated-at 1653042473792}
@@ -62,15 +68,15 @@
   "14.16.2 innodb information _ schema transaction and locking information",
   :block/created-at 1653042473979,
   :block/updated-at 1653042473979}
- {:block/name "14.16.3 nnodb information_schema 系统表",
-  :block/created-at 1653042474389,
-  :block/updated-at 1653042474389}
  {:block/name "14.17  innodb 与 mysql 性能模式的集成",
   :block/created-at 1653042473795,
   :block/updated-at 1653042473795}
  {:block/name "14.19.2  innodb 恢复",
   :block/created-at 1653042473786,
   :block/updated-at 1653042473786}
+ {:block/name "14.2 innodb and the acid model",
+  :block/created-at 1654071007062,
+  :block/updated-at 1654071007062}
  {:block/name "14.2 innodb 和 acid 模型",
   :block/created-at 1653042473981,
   :block/updated-at 1653042473981}
@@ -85,7 +91,7 @@
   :block/updated-at 1653042827110}
  {:block/name "14.5.1 缓冲池",
   :block/created-at 1653042473787,
-  :block/updated-at 1653042473787}
+  :block/updated-at 1654074134024}
  {:block/name "14.5.2 更改缓冲池",
   :block/created-at 1653042474201,
   :block/updated-at 1653042474201}
@@ -107,30 +113,6 @@
  {:block/name "14.6.1 表",
   :block/created-at 1653281164343,
   :block/updated-at 1653281164343}
- {:block/name "14.6.1.1 创建 innodb 表",
-  :block/created-at 1653042474332,
-  :block/updated-at 1653042474332}
- {:block/name "14.6.1.2 外部创建表",
-  :block/created-at 1653042474333,
-  :block/updated-at 1653042474333}
- {:block/name "14.6.1.3 导入 innodb 表",
-  :block/created-at 1653042474333,
-  :block/updated-at 1653042474333}
- {:block/name "14.6.1.4  移动或复制 innodb 表",
-  :block/created-at 1653042474384,
-  :block/updated-at 1653042474384}
- {:block/name "14.6.1.4 移动或复制 innodb 表",
-  :block/created-at 1653042474335,
-  :block/updated-at 1653042474335}
- {:block/name "14.6.1.5 将表从 myisam转为 innodb",
-  :block/created-at 1653042474336,
-  :block/updated-at 1653042474336}
- {:block/name "14.6.1.6  innodb 中的 auto_increment 处理",
-  :block/created-at 1653042474387,
-  :block/updated-at 1653042474387}
- {:block/name "14.6.1.6 innodb 的 auto_increment 处理",
-  :block/created-at 1653042474337,
-  :block/updated-at 1653042474337}
  {:block/name "14.6.2 索引",
   :block/created-at 1653042474300,
   :block/updated-at 1653042474300}
@@ -146,12 +128,12 @@
  {:block/name "14.6.3 表空间",
   :block/created-at 1653042474538,
   :block/updated-at 1653281178294}
- {:block/name "14.6.3.2  file-per-table 表空间",
-  :block/created-at 1653042474444,
-  :block/updated-at 1653042474444}
  {:block/name "14.6.3.2 每表文件表空间",
   :block/created-at 1653042473793,
   :block/updated-at 1653042473793}
+ {:block/name "14.6.3.3 通用表空间",
+  :block/created-at 1654071006222,
+  :block/updated-at 1654071006222}
  {:block/name "14.6.4 innodb数据字典",
   :block/created-at 1653042474301,
   :block/updated-at 1653042474301}
@@ -166,7 +148,7 @@
   :block/updated-at 1653042474303}
  {:block/name "14.7 innodb 锁和事务模型",
   :block/created-at 1653284899946,
-  :block/updated-at 1653284931637}
+  :block/updated-at 1654071991639}
  {:block/name "14.7.2 事务处理模型",
   :block/created-at 1653284931636,
   :block/updated-at 1653306533758}
@@ -179,96 +161,12 @@
  {:block/name "14.8.12 为索引页配置合并阈值",
   :block/created-at 1653279432184,
   :block/updated-at 1653279432184}
- {:block/name "14.8.3.1 配置 innodb 缓冲池大小",
-  :block/created-at 1653042474566,
-  :block/updated-at 1653042474566}
- {:block/name "14.8.3.2 配置多个缓冲池实例",
-  :block/created-at 1653042474131,
-  :block/updated-at 1653042474131}
- {:block/name "14.8.3.3 使缓冲池具有抗扫描性",
-  :block/created-at 1653042474136,
-  :block/updated-at 1653042474136}
- {:block/name "14.8.3.4 配置 innodb 缓冲池预取(read-ahead)",
-  :block/created-at 1653042474133,
-  :block/updated-at 1653042474133}
- {:block/name "14.8.3.5 配置缓冲池冲洗",
-  :block/created-at 1653042474134,
-  :block/updated-at 1653042474134}
- {:block/name "14.8.3.6 保存和还原缓冲池状态",
-  :block/created-at 1653042474134,
-  :block/updated-at 1653042474134}
  {:block/name "14.9 innodb 表和页面压缩",
   :block/created-at 1653042473791,
   :block/updated-at 1653042473791}
- {:block/name "14/1",
-  :block/created-at 1653042473800,
-  :block/updated-at 1653042473800}
- {:block/name "14/1 innodb 简介",
-  :block/created-at 1653042473710,
-  :block/updated-at 1653042473710}
- {:block/name "14/1 introduction to innodb",
-  :block/created-at 1653042473743,
-  :block/updated-at 1653042473743}
- {:block/name "14/1/3验证 innodb 是默认存储引擎",
-  :block/created-at 1653042473878,
-  :block/updated-at 1653042473878}
- {:block/name "14/1/4与 innodb 进行测试和基准测试",
-  :block/created-at 1653042473911,
-  :block/updated-at 1653042473911}
- {:block/name "14/1/5关闭 innodb",
-  :block/created-at 1653042473936,
-  :block/updated-at 1653042473936}
- {:block/name "14/5",
-  :block/created-at 1653042474139,
-  :block/updated-at 1653042474139}
- {:block/name "14/5 innodb 内存结构",
-  :block/created-at 1653042474072,
-  :block/updated-at 1653042474072}
- {:block/name "14/5/1 缓冲池",
-  :block/created-at 1653042474138,
-  :block/updated-at 1653042474138}
- {:block/name "14/6",
-  :block/created-at 1653042474339,
-  :block/updated-at 1653042474339}
- {:block/name "14/6 innodb 磁盘结构",
-  :block/created-at 1653042474304,
-  :block/updated-at 1653042474304}
- {:block/name "14/6/1",
-  :block/created-at 1653042474393,
-  :block/updated-at 1653042474393}
- {:block/name "14/6/1 table",
-  :block/created-at 1653042474337,
-  :block/updated-at 1653042474337}
- {:block/name "14/6/1/1 创建 innodb 表",
-  :block/created-at 1653042474392,
-  :block/updated-at 1653042474392}
- {:block/name "14/6/1/2 外部创建表",
-  :block/created-at 1653042474446,
-  :block/updated-at 1653042474446}
- {:block/name "14/6/1/3 导入 innodb 表",
-  :block/created-at 1653042474484,
-  :block/updated-at 1653042474484}
- {:block/name "14/6/2",
-  :block/created-at 1653042474515,
-  :block/updated-at 1653042474515}
- {:block/name "14/8",
-  :block/created-at 1653042474568,
-  :block/updated-at 1653042474568}
- {:block/name "14/8/3",
-  :block/created-at 1653042474569,
-  :block/updated-at 1653042474569}
- {:block/name "14/8/3/2 配置多个缓冲池实例",
-  :block/created-at 1653042474566,
-  :block/updated-at 1653042474566}
- {:block/name "2",
-  :block/created-at 1653042474593,
-  :block/updated-at 1653042474593}
  {:block/name "2 安装和升级 mysql",
   :block/created-at 1653042475800,
   :block/updated-at 1653042475800}
- {:block/name "2/5 installing mysql on linux",
-  :block/created-at 1653042474592,
-  :block/updated-at 1653042474592}
  {:block/name "5 服务器管理",
   :block/created-at 1653042475803,
   :block/updated-at 1653042475803}
@@ -395,6 +293,9 @@
  {:block/name "git分支管理规范",
   :block/created-at 1650792798067,
   :block/updated-at 1650792815632}
+ {:block/name "hyperloglog",
+  :block/created-at 1654071007237,
+  :block/updated-at 1654074457252}
  {:block/name "icp",
   :block/created-at 1653042474026,
   :block/updated-at 1653042474026}
@@ -425,6 +326,27 @@
  {:block/name "jmm",
   :block/created-at 1651223406365,
   :block/updated-at 1651223406365}
+ {:block/name "jun 1st, 2022",
+  :block/created-at 1654071523786,
+  :block/updated-at 1654071523786}
+ {:block/name "jun 2nd, 2022",
+  :block/created-at 1654103220852,
+  :block/updated-at 1654103220852}
+ {:block/name "jun 3rd, 2022",
+  :block/created-at 1654187867784,
+  :block/updated-at 1654187867784}
+ {:block/name "jun 4th, 2022",
+  :block/created-at 1654273820547,
+  :block/updated-at 1654273820547}
+ {:block/name "jun 5th, 2022",
+  :block/created-at 1654358686873,
+  :block/updated-at 1654358686873}
+ {:block/name "jun 6th, 2022",
+  :block/created-at 1654446925077,
+  :block/updated-at 1654446925077}
+ {:block/name "jun 7th, 2022",
+  :block/created-at 1654532692600,
+  :block/updated-at 1654532692600}
  {:block/name "jvm",
   :block/created-at 1651223399272,
   :block/updated-at 1651223399272}
@@ -460,7 +382,10 @@
   :block/updated-at 1650634250013}
  {:block/name "learn and share",
   :block/created-at 1651039415822,
-  :block/updated-at 1651744471433}
+  :block/updated-at 1654427167917}
+ {:block/name "linux",
+  :block/created-at 1654427167916,
+  :block/updated-at 1654427222073}
  {:block/name "linux札记",
   :block/created-at 1650792520745,
   :block/updated-at 1650792525646}
@@ -473,30 +398,9 @@
  {:block/name "maxwell",
   :block/created-at 1650792600792,
   :block/updated-at 1650792603085}
- {:block/name "may 20th, 2022",
-  :block/created-at 1653042473196,
-  :block/updated-at 1653042473196}
- {:block/name "may 21st, 2022",
-  :block/created-at 1653065507367,
-  :block/updated-at 1653065507367}
- {:block/name "may 22nd, 2022",
-  :block/created-at 1653153520882,
-  :block/updated-at 1653153520882}
  {:block/name "may 23rd, 2022",
   :block/created-at 1653236099882,
   :block/updated-at 1653278928865}
- {:block/name "may 24th, 2022",
-  :block/created-at 1653322099525,
-  :block/updated-at 1653322099525}
- {:block/name "may 25th, 2022",
-  :block/created-at 1653412140233,
-  :block/updated-at 1653412140233}
- {:block/name "may 26th, 2022",
-  :block/created-at 1653494520785,
-  :block/updated-at 1653494520785}
- {:block/name "may 27th, 2022",
-  :block/created-at 1653580845379,
-  :block/updated-at 1653580845379}
  {:block/name "may 2nd, 2022",
   :block/created-at 1651421806022,
   :block/updated-at 1651462115608}
@@ -505,10 +409,16 @@
   :block/updated-at 1651680018476}
  {:block/name "mysql",
   :block/created-at 1651222949066,
-  :block/updated-at 1653468866457}
+  :block/updated-at 1654604582014}
+ {:block/name "mysql 索引遍历",
+  :block/created-at 1654071008109,
+  :block/updated-at 1654071008109}
  {:block/name "mysql军规",
   :block/created-at 1653042475810,
   :block/updated-at 1653042475810}
+ {:block/name "mysql源码",
+  :block/created-at 1654071008207,
+  :block/updated-at 1654071008207}
  {:block/name "nacos",
   :block/created-at 1651223210485,
   :block/updated-at 1651223210485}
@@ -755,6 +665,9 @@
  {:block/name "计算机理论",
   :block/created-at 1651039415817,
   :block/updated-at 1651324826818}
+ {:block/name "计算聚集索引容纳记录数及缓存读取方案",
+  :block/created-at 1654071008206,
+  :block/updated-at 1654074239808}
  {:block/name "读书笔记",
   :block/created-at 1651039415820,
   :block/updated-at 1651039415820}
