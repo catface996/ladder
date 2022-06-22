@@ -274,6 +274,7 @@
 		- 查询获得
 			- 链表节点中的指向下一个节点的指针，即要访问的数据的地址作为数据存储在某个位置
 	- Redolog
+	  collapsed:: true
 		- 属于 InnoDB 引擎
 		- 顺序写效率高
 		- WAL （write ahead log  预写日志）
@@ -307,11 +308,15 @@
 				  select * from test_table where colum2 = 2 and colum4 = 3;
 				  ```
 	- 隔离级别
+	  collapsed:: true
 		- MySQL Server 层不管理事务，事务是由存储引擎实现的。
 		- InnoDB 的事务隔离级别
 		- ![image.png](../assets/image_1655194203414_0.png)
 	- 死锁
+	  collapsed:: true
 		- InnoDB目前处理死锁的方法是，将持有最少行级排他锁的事务进行回滚（这是相对比较简单的死锁回滚算法）
+		-
+	- 主从复制
 		-
 - 查询场景
   collapsed:: true
@@ -332,6 +337,7 @@
 - 问题
   collapsed:: true
 	- 脏读，不可重复读，幻读
+	  collapsed:: true
 		- 幻读产生的根本原因，当前读和快照读混合使用导致。如果都是当前读，不会产生幻读
 		- 脏读
 			- READ-COMMITED，解决了脏读
