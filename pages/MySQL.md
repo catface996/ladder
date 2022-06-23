@@ -328,7 +328,7 @@
 	- 慢查询
 		- 慢查询日志
 		- long_query_time 配置
-		-
+		- 响应时间可以
 - 查询场景
   collapsed:: true
 	- 等值查询 = ，in
