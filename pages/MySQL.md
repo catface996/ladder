@@ -326,6 +326,7 @@
 				- IO 线程，接收主节点 binLog，并写入到中继日志
 				- SQL 线程，读取中继日志，并重放到从库
 	- 慢查询
+	  collapsed:: true
 		- 慢查询日志
 		- long_query_time 配置
 		- 响应时间可以精确到微妙
