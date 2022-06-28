@@ -17,3 +17,4 @@
 	- MEDIUMINT 24位
 	- INT 32位
 	- BIGINT 64位
+	-
