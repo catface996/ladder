@@ -12,5 +12,8 @@
 	- 尽量避免NULL
 		- 因为可NULL的列是的索引、索引统计和值比较都更复杂。
 - 整数类型
-	- TINYINT
-	-
+	- TINYINT 8位
+	- SMALLINT
+	- MEDIUMINT
+	- INT
+	- BIGINT
