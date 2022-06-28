@@ -53,4 +53,5 @@
 		- 写的很烂的迁移程序
 		- ORM框架生成的schema
 - 特殊类型数据
-	- ip地址，事实上是32位无符号整数，使用INET_ATON
+	- ip地址，事实上是32位无符号整数，使用INET_ATON 和 INET_NTOA
+-
