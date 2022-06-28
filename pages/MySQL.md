@@ -445,5 +445,6 @@
 		- A4：在某一时刻出现了大量脏块的刷新。
 - 分析工具
 	- https://poormansprofiler.org/
+	- [[strace]]
 	-
 	-
