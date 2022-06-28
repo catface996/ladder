@@ -17,4 +17,4 @@
 	- MEDIUMINT 24位
 	- INT 32位
 	- BIGINT 64位
-	-
+	- PS：对于存储和计算来说，INT(1) 和 INT(20)
