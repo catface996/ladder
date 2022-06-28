@@ -19,4 +19,6 @@
 	- BIGINT 64位
 	- PS：对于存储和计算来说，INT(1) 和 INT(20) 是相同的。
 - 实数类型
-	-
+	- FLOAT
+	- DOUBLE
+	- DECIMAL
