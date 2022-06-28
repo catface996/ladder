@@ -430,6 +430,9 @@
 	- https://dev.mysql.com/doc/index-other.html
 	- ![image.png](../assets/image_1656391025738_0.png)
 	-
+- 调优
+	- 索引
+		-
 - 排查故障
 	- 建议先使用 SHOW_STATUS 和 SHOW PROCESSLIST
 	- 监控阈值不要设置的太高，纪要足够高，以确保正常工作时不会被触发，又不能太高，要确保问题发生时不会错过。在问题还是涓涓细流时就开始收集数据，而不要等到波涛汹涌才开始。
@@ -439,7 +442,6 @@
 		- A2：可能是在某一时刻，MySQL在做备份。
 		- A3：可能某次查询出现了锁等待。
 		- A4：在某一时刻出现了大量脏块的刷新。
-		-
 - 分析工具
 	- https://poormansprofiler.org/
 	-
