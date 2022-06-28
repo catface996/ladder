@@ -86,3 +86,4 @@
 	- **更快地读，更慢地写**
 - 加快ALTER TABLE操作的速度
 	- 大部分ALTER TABLE会导致表重建，不是所有的ALTER TABLE都会引起表重建。
+	-
