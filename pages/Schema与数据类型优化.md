@@ -87,3 +87,4 @@
 - 加快ALTER TABLE操作的速度
 	- 大部分ALTER TABLE会导致表重建，不是所有的ALTER TABLE都会引起表重建。
 	- 只修改.frm文件，不涉及数据表的，会很快。
+-
