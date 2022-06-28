@@ -65,4 +65,4 @@
 		- ip地址，事实上是32位无符号整数，使用INET_ATON 和 INET_NTOA
 - MySQL schema设计中的陷阱
 	- 太多的列
-		- InnoDB需要
+		- InnoDB需要将行缓冲中编码过的列转换成
