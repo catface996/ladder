@@ -22,3 +22,4 @@
 	- FLOAT
 	- DOUBLE
 	- DECIMAL
+	- CPU 不支持
