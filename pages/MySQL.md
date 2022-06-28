@@ -426,6 +426,9 @@
 - 参考
 	- [数据结构可视化工具](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
 - 样例数据库
+  collapsed:: true
 	- https://dev.mysql.com/doc/index-other.html
 	- ![image.png](../assets/image_1656391025738_0.png)
+	-
+- 排查故障
 	-
