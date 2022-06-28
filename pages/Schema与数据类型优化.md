@@ -38,5 +38,5 @@
 	- 略
 - 日期和时间类型
 	- DATETIME 从1001年到9999年，精度为秒
-	- TIMESTAMP
+	- TIMESTAMP  与UNIX
 	-
