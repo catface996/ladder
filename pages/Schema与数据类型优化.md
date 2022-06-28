@@ -22,4 +22,4 @@
 	- FLOAT
 	- DOUBLE
 	- DECIMAL
-	- CPU 不支持
+	- CPU 不支持对DECIMAL的直接计算
