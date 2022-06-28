@@ -27,4 +27,6 @@
 	- DECIMAL只是一种存储格式，在实际计算时，会转成double类型。
 - 字符串类型
 	- VARCHAR 类型 和 CHAR 类型，存储格式跟存储引擎的类型有关，一般考虑InnoDB引擎下的格式。
+	- VARCHAR
+		-
 	-
