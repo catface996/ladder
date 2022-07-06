@@ -1,0 +1,14 @@
+- Convolutional Neural Network
+- Receptive field
+- kernel size
+	- 3*3 一般就不错了，7*7，9*9已经算大的
+- stride
+- overlap
+- padding
+- parameter sharing
+	- 鸟嘴可以出现在图片的任何位置
+- feature map
+- pooling
+	- 为了减少计算量
+-
+-
