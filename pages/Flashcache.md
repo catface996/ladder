@@ -1,0 +1,1 @@
+- Flashcache是一个Linux内核模块，使用Linux的设备映射器（Device Mapper）。它在内存和磁盘之间创建了一个中间层。这是Facebook开源和使用的技术之一，可以帮助其优化数据库负载

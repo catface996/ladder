@@ -1,0 +1,11 @@
+- Redundant Array of Independent Disks
+	- 即独立磁盘冗余阵列
+- 分类
+	- **RAID0**
+	- **RAID1**
+	- **RAID5**
+	- **RAID6**
+	- **RAID10**
+- 参考：
+	- https://zhuanlan.zhihu.com/p/51170719
+	-

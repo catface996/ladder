@@ -453,5 +453,7 @@
 - 分析工具
 	- https://poormansprofiler.org/
 	- [[strace]]
-	-
-	-
+- 架构图
+	- innoDB
+		- ![image.png](../assets/image_1657273679070_0.png)
+		-
