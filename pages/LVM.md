@@ -1,0 +1,5 @@
+- LVM(Logical Volume Manager)逻辑卷管理是在Linux2.4内核以上实现的磁盘管理技术。它是**Linux环境下对磁盘分区进行管理的一种机制**。现在不仅仅是Linux系统上可以使用LVM这种磁盘管理机制，对于其它的类UNIX操作系统，以及windows操作系统都有类似与LVM这种磁盘管理软件。
+- 参考：
+	- https://zhuanlan.zhihu.com/p/67166867
+- TODO 待攻克
+-
