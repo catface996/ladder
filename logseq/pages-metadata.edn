@@ -230,6 +230,9 @@
  {:block/name "ab测试和多租户",
   :block/created-at 1651328136310,
   :block/updated-at 1651328386974}
+ {:block/name "anomaly detection",
+  :block/created-at 1658375907806,
+  :block/updated-at 1658375907806}
  {:block/name "apr 21st, 2022",
   :block/created-at 1650533993097,
   :block/updated-at 1650535257667}
@@ -326,9 +329,15 @@
  {:block/name "doing",
   :block/created-at 1650634250013,
   :block/updated-at 1650634250013}
+ {:block/name "domain adaptation",
+  :block/created-at 1658376199444,
+  :block/updated-at 1658376199444}
  {:block/name "done",
   :block/created-at 1650634250014,
   :block/updated-at 1650634250014}
+ {:block/name "drbd",
+  :block/created-at 1657850296089,
+  :block/updated-at 1657850296089}
  {:block/name "dubbo",
   :block/created-at 1651223328138,
   :block/updated-at 1651223328138}
@@ -344,6 +353,9 @@
  {:block/name "eureka",
   :block/created-at 1651223202754,
   :block/updated-at 1651223202754}
+ {:block/name "explainable ai",
+  :block/created-at 1658375948544,
+  :block/updated-at 1658375948544}
  {:block/name "f5",
   :block/created-at 1653042477425,
   :block/updated-at 1653042477425}
@@ -356,6 +368,9 @@
  {:block/name "flashcache",
   :block/created-at 1657521649056,
   :block/updated-at 1657521649056}
+ {:block/name "generative adversarial network",
+  :block/created-at 1658375801566,
+  :block/updated-at 1658375801566}
  {:block/name "git分支管理规范",
   :block/created-at 1650792798067,
   :block/updated-at 1650792815632}
@@ -401,9 +416,15 @@
  {:block/name "jul 13th, 2022",
   :block/created-at 1657668606400,
   :block/updated-at 1657668606400}
+ {:block/name "jul 15th, 2022",
+  :block/created-at 1657850296200,
+  :block/updated-at 1657854069863}
  {:block/name "jul 1st, 2022",
   :block/created-at 1656607128512,
   :block/updated-at 1656607128512}
+ {:block/name "jul 21st, 2022",
+  :block/created-at 1658373967102,
+  :block/updated-at 1658373998714}
  {:block/name "jul 2nd, 2022",
   :block/created-at 1656691402232,
   :block/updated-at 1656691402232}
@@ -467,6 +488,12 @@
  {:block/name "learn and share",
   :block/created-at 1651039415822,
   :block/updated-at 1654427167917}
+ {:block/name "life-long learning",
+  :block/created-at 1658376306009,
+  :block/updated-at 1658376306009}
+ {:block/name "linear model",
+  :block/created-at 1658391839495,
+  :block/updated-at 1658391839495}
  {:block/name "linux",
   :block/created-at 1654427167916,
   :block/updated-at 1654427222073}
@@ -476,9 +503,15 @@
  {:block/name "logseq",
   :block/created-at 1651744483875,
   :block/updated-at 1651748364828}
+ {:block/name "lvm",
+  :block/created-at 1657850296138,
+  :block/updated-at 1657850296138}
  {:block/name "lvs",
   :block/created-at 1653042475628,
   :block/updated-at 1653042475628}
+ {:block/name "mae",
+  :block/created-at 1658380659281,
+  :block/updated-at 1658380742917}
  {:block/name "maxwell",
   :block/created-at 1650792600792,
   :block/updated-at 1650792603085}
@@ -491,21 +524,42 @@
  {:block/name "may 5th, 2022",
   :block/created-at 1651680018476,
   :block/updated-at 1651680018476}
+ {:block/name "meta learning",
+  :block/created-at 1658376342567,
+  :block/updated-at 1658376342567}
+ {:block/name "model attack",
+  :block/created-at 1658376112742,
+  :block/updated-at 1658376112742}
+ {:block/name "mse",
+  :block/created-at 1658380666697,
+  :block/updated-at 1658380955998}
  {:block/name "mysql",
   :block/created-at 1651222949066,
   :block/updated-at 1656397511395}
+ {:block/name "mysql explain",
+  :block/created-at 1657851872635,
+  :block/updated-at 1657853463941}
+ {:block/name "mysql internals manual",
+  :block/created-at 1657854069863,
+  :block/updated-at 1657863092539}
  {:block/name "mysql 索引遍历",
   :block/created-at 1654071008109,
   :block/updated-at 1654071008109}
  {:block/name "mysql军规",
   :block/created-at 1653042475810,
   :block/updated-at 1653042475810}
+ {:block/name "mysql分支与变种",
+  :block/created-at 1657850441570,
+  :block/updated-at 1657850441570}
  {:block/name "mysql复制",
   :block/created-at 1657521649389,
   :block/updated-at 1657528268861}
  {:block/name "mysql源码",
   :block/created-at 1654071008207,
   :block/updated-at 1654071008207}
+ {:block/name "mysql用户工具",
+  :block/created-at 1657850350731,
+  :block/updated-at 1657850350731}
  {:block/name "mysql的高级特性",
   :block/created-at 1657163960143,
   :block/updated-at 1657164594658}
@@ -515,6 +569,9 @@
  {:block/name "netty",
   :block/created-at 1651223441937,
   :block/updated-at 1651223441937}
+ {:block/name "network compression",
+  :block/created-at 1658376274369,
+  :block/updated-at 1658376274369}
  {:block/name "nginx",
   :block/created-at 1650792639130,
   :block/updated-at 1650792646937}
@@ -554,9 +611,15 @@
  {:block/name "redis",
   :block/created-at 1651222938019,
   :block/updated-at 1651222938019}
+ {:block/name "reinforcement learning",
+  :block/created-at 1658375837748,
+  :block/updated-at 1658375837748}
  {:block/name "relational database index design and the optimizers",
   :block/created-at 1657163409419,
   :block/updated-at 1657163409419}
+ {:block/name "rmse",
+  :block/created-at 1658402305349,
+  :block/updated-at 1658402329266}
  {:block/name "rocketmq",
   :block/created-at 1651223049355,
   :block/updated-at 1651223049355}
@@ -572,12 +635,18 @@
  {:block/name "self-attention",
   :block/created-at 1657163410646,
   :block/updated-at 1657163410646}
+ {:block/name "self-supervised learning",
+  :block/created-at 1658375452554,
+  :block/updated-at 1658375452554}
  {:block/name "sgd",
   :block/created-at 1651039415987,
   :block/updated-at 1651039415987}
  {:block/name "single-pass算法",
   :block/created-at 1657521649744,
   :block/updated-at 1657521649744}
+ {:block/name "sna",
+  :block/created-at 1657850296823,
+  :block/updated-at 1657850296823}
  {:block/name "snat",
   :block/created-at 1653042477901,
   :block/updated-at 1653042477901}
@@ -590,6 +659,9 @@
  {:block/name "strace",
   :block/created-at 1656396857102,
   :block/updated-at 1656396870394}
+ {:block/name "supervised learning",
+  :block/created-at 1658375422272,
+  :block/updated-at 1658375422272}
  {:block/name "tls",
   :block/created-at 1651161643844,
   :block/updated-at 1651161671250}
@@ -776,6 +848,9 @@
  {:block/name "新书",
   :block/created-at 1657163409417,
   :block/updated-at 1657163409417}
+ {:block/name "李宏毅2022深度学习",
+  :block/created-at 1658373998713,
+  :block/updated-at 1658402305349}
  {:block/name "查询性能优化",
   :block/created-at 1657163409232,
   :block/updated-at 1657163654323}
@@ -800,6 +875,42 @@
  {:block/name "生日悖论",
   :block/created-at 1656497741235,
   :block/updated-at 1656680681138}
+ {:block/name "第10章 mysql复制",
+  :block/created-at 1657850296414,
+  :block/updated-at 1657850296414}
+ {:block/name "第11章 可扩展的mysql",
+  :block/created-at 1657850296690,
+  :block/updated-at 1657850296690}
+ {:block/name "第12章 mysql高可用性",
+  :block/created-at 1657850296826,
+  :block/updated-at 1657850296826}
+ {:block/name "第13章 云端的mysql",
+  :block/created-at 1657850296856,
+  :block/updated-at 1657850296856}
+ {:block/name "第14章 应用层优化",
+  :block/created-at 1657850296881,
+  :block/updated-at 1657850296881}
+ {:block/name "第15章 备份与恢复",
+  :block/created-at 1657850295950,
+  :block/updated-at 1657850295950}
+ {:block/name "第4章 schema与数据类型优化",
+  :block/created-at 1657850297411,
+  :block/updated-at 1657850297411}
+ {:block/name "第5章 创建高性能索引",
+  :block/created-at 1657850297543,
+  :block/updated-at 1657850297543}
+ {:block/name "第6章 查询性能优化",
+  :block/created-at 1657850297755,
+  :block/updated-at 1657850297755}
+ {:block/name "第7章 mysql的高级特性",
+  :block/created-at 1657850297877,
+  :block/updated-at 1657850297877}
+ {:block/name "第8章 优化服务器设置",
+  :block/created-at 1657850297927,
+  :block/updated-at 1657850297927}
+ {:block/name "第9章 操作系统和硬件优化",
+  :block/created-at 1657850298074,
+  :block/updated-at 1657850298074}
  {:block/name "算法集锦",
   :block/created-at 1650792208578,
   :block/updated-at 1651373399293}
@@ -868,4 +979,4 @@
   :block/updated-at 1651200156663}
  {:block/name "高性能mysql",
   :block/created-at 1656397415296, 
-  :block/updated-at 1657528836786}]
+  :block/updated-at 1657851872635}]
