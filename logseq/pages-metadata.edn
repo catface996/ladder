@@ -692,6 +692,12 @@
  {:block/name "self-supervised learning",
   :block/created-at 1658375452554,
   :block/updated-at 1658375452554}
+ {:block/name "sep 8th, 2022",
+  :block/created-at 1662712560392,
+  :block/updated-at 1662712560392}
+ {:block/name "sep 9th, 2022",
+  :block/created-at 1662712560224,
+  :block/updated-at 1662712560224}
  {:block/name "sgd",
   :block/created-at 1651039415987,
   :block/updated-at 1651039415987}
