@@ -710,6 +710,12 @@
  {:block/name "sep 17th, 2022",
   :block/created-at 1663345879276,
   :block/updated-at 1663345879276}
+ {:block/name "sep 19th, 2022",
+  :block/created-at 1663550320863,
+  :block/updated-at 1663550363516}
+ {:block/name "sep 20th, 2022",
+  :block/created-at 1663603749445,
+  :block/updated-at 1663603749445}
  {:block/name "sep 8th, 2022",
   :block/created-at 1662712560392,
   :block/updated-at 1662712560392}
@@ -728,6 +734,9 @@
  {:block/name "snat",
   :block/created-at 1653042477901,
   :block/updated-at 1653042477901}
+ {:block/name "spi",
+  :block/created-at 1663589360706,
+  :block/updated-at 1663589660078}
  {:block/name "springcloud",
   :block/created-at 1651223392466,
   :block/updated-at 1651223392466}
@@ -773,6 +782,9 @@
  {:block/name "交易快照",
   :block/created-at 1663254470020,
   :block/updated-at 1663254470020}
+ {:block/name "交易系统竟然这样领域驱动",
+  :block/created-at 1663550363516,
+  :block/updated-at 1663589845862}
  {:block/name "什么是rfc",
   :block/created-at 1653042477896,
   :block/updated-at 1653042477896}
@@ -914,6 +926,12 @@
  {:block/name "常用工具",
   :block/created-at 1651744471433,
   :block/updated-at 1651744483876}
+ {:block/name "幂等",
+  :block/created-at 1663589967319,
+  :block/updated-at 1663591333156}
+ {:block/name "康威定律",
+  :block/created-at 1663550320752,
+  :block/updated-at 1663550320752}
  {:block/name "归并排序",
   :block/created-at 1651039416648,
   :block/updated-at 1651039416648}
@@ -941,12 +959,15 @@
  {:block/name "新书",
   :block/created-at 1657163409417,
   :block/updated-at 1657163409417}
+ {:block/name "最终一致性",
+  :block/created-at 1663589982197,
+  :block/updated-at 1663589982197}
  {:block/name "李宏毅2022深度学习",
   :block/created-at 1658373998713,
   :block/updated-at 1658481379340}
  {:block/name "架构理论",
   :block/created-at 1663293911687,
-  :block/updated-at 1663293954031}
+  :block/updated-at 1663589982198}
  {:block/name "查询性能优化",
   :block/created-at 1657163409232,
   :block/updated-at 1657163654323}
@@ -1078,7 +1099,7 @@
   :block/updated-at 1651200156663}
  {:block/name "领域驱动",
   :block/created-at 1663254470077,
-  :block/updated-at 1663335091991}
+  :block/updated-at 1663588799499}
  {:block/name "高性能mysql",
   :block/created-at 1656397415296, 
   :block/updated-at 1657851872635}]
