@@ -1,0 +1,6 @@
+- TODO GCC “O0”
+	- 参考资料
+		- [GCC优化级别](https://zhuanlan.zhihu.com/p/196785332)
+		- [官方文档](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#Optimize-Options)
+		-
+-
