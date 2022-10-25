@@ -169,6 +169,7 @@
  :editor/logical-outdenting? true
  :zotero/settings-v2 {"catface996" {:extra-tags "", :overwrite-mode? false, :zotero-data-directory "", :include-attachments? true, :type-id "", :type :user, :notes-block-text "[[Notes]]", :page-insert-prefix "@", :prefer-citekey? false, :attachments-block-text "[[Attachments]]"}}
  :graph/settings {:orphan-pages? true, :journal? false, :builtin-pages? true}
+ :journal/page-title-format "yyyy-MM-dd"
 
  ;; any number between 0 and 1 (the greater it is the faster the changes of the next-interval of card reviews) (default 0.5)
  ;; :srs/learning-fraction 0.5

@@ -14,6 +14,16 @@
 	- 现代计算机主要是按字节编址的，32位寻址空间的的内存大小就是4G
 	- Rank
 		- CPU与内存之间的接口位宽是64bit，也就意味着CPU在一个时钟周期内会向内存发送或从内存读取64bit的数据。可是，单个内存颗粒的位宽仅有4bit、8bit或16bit，个别也有32bit的。因此，必须把多个颗粒并联起来，组成一个位宽为64bit的数据集合，才可以和CPU互连。生产商把64bit集合称为一个物理BANK（Physical BANK），简写为P-BANK。为了和逻辑BANK相区分，也经常把P-BANK称为RANK或Physical RANK,把L-BANK则简称为BANK。如果每个内存颗粒的位宽是8bit，应该由8个颗粒并联起来，组成一个RANK（64bit）；同理，如果颗粒的位宽是16bit，应该由4个颗粒组成一个RANK。由此可知：**Rank其实就是一组内存颗粒位宽的集合，也可以叫Chips，在PCB上，往往把一面上的内存颗粒组成一个Rank,另一面是另外一个Rank(假若有的话)，这样也可以将Rank理解内存条的Side(面)**。具体说，当颗粒位宽×颗粒 数=64bits时，这个模组就是有一个RANK。为了保证和CPU的沟通，一个模组至少要有一个RANK。但是，为了保证有一定的内存容量，目前，DDR2内存，经常是采用一个模组两个RANK的架构。“模组构成”中的“R”“RANK”的意思。“2R”是说组成模组的RANK数（Number of ranks of memory installed）是2个。有“1R”和“2R”两种；“模组构成”中的“×8”是颗粒的位宽(bit width)，有×4、×8和×16三种.
+	- MESI
+		- 目前，ARM或x86等处理器广泛使用MESI协议来维护高速缓存一致性。MESI协议的名字源于该协议使用的修改（Modified，M）、独占（Exclusive，E）、共享（Shared，S）和失效（Invalid，I）这4个状态。高速缓存行中的状态必须是上述4个状态中的1个。MESI协议还有一些变种，如MOESI协议等，部分ARMv7-A和ARMv8-A处理器使用该变种协议。
+		- ![image.png](../assets/image_1666576050394_0.png)
+		- ![image.png](../assets/image_1666576033384_0.png){:height 398, :width 716}
+		- 通常一个高速缓存行的大小为64字节，一般一个长整型为8字节，所以需要8个长整形才能占满64字节的一个缓存行。
+		- 高速缓存伪共享
+			- ![image.png](../assets/image_1666577025080_0.png)
+			- 高速缓存伪共享的解决办法就是让多线程操作的数据处在不同的高速缓存行，通常可以采用高速缓存行填充（padding）技术或者高速缓存行对齐（align）技术，即让数据结构按照高速缓存行对齐，并且尽可能填充满一个高速缓存行大小。
+			- 另外，在多CPU系统中，自旋锁的激烈争用过程导致严重的高速缓存行颠簸现象。
+			-
 - # 参考资料
 	- [GCC优化级别](https://zhuanlan.zhihu.com/p/196785332)
 	- [官方文档](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#Optimize-Options)
