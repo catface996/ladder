@@ -23,7 +23,18 @@
 			- ![image.png](../assets/image_1666577025080_0.png)
 			- 高速缓存伪共享的解决办法就是让多线程操作的数据处在不同的高速缓存行，通常可以采用高速缓存行填充（padding）技术或者高速缓存行对齐（align）技术，即让数据结构按照高速缓存行对齐，并且尽可能填充满一个高速缓存行大小。
 			- 另外，在多CPU系统中，自旋锁的激烈争用过程导致严重的高速缓存行颠簸现象。
-			-
+		- UMA
+			- 现在绝大多数ARM系统会采用统一内存访问（UniformMemory Access，UMA）的内存架构，即内存是统一结构和统一寻址的。
+			- 对称多处理器（Symmetric MultipleProcessing，SMP）系统大部分采用UMA内存架构。。因此在采用UMA架构的系统中有如下特点。
+				- 所有硬件资源都是共享的，每个处理器都能访问系统中的内存和外设资源。
+				- 所有处理器都是平等关系。
+				- 统一寻址访问内存。
+				- 处理器和内存通过内部的一条总线连接在一起
+		- NUMA
+			- 非统一内存访问（Non-Unirform Memory Access，NUMA）系统是从SMP系统演化过来的。
+		- TLB
+			- 参考资料
+				- [TLB原理](https://zhuanlan.zhihu.com/p/108425561)
 - # 参考资料
 	- [GCC优化级别](https://zhuanlan.zhihu.com/p/196785332)
 	- [官方文档](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#Optimize-Options)
