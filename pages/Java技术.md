@@ -3,5 +3,6 @@
 	- [[InheritableThreadLocal]]
 	- [[TLAB]]
 	- [[计算Java对象内存空间]]
+	- [[Java线程状态]]
 	-
 -
